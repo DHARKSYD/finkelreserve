@@ -1,0 +1,4 @@
+# Used by the Supabase CLI to know which remote project this local config
+# maps to. Replace with your own project's ref (Project Settings → General
+# → Reference ID), or just run `npx supabase link` and it's set for you.
+project_id = "your-project-ref"

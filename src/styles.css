@@ -1,0 +1,211 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Playfair Display", "Georgia", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  /* Small tracked-out "eyebrow" labels (◢ CURATED, etc.) used Space Mono
+     before; on a warm editorial palette a mono face read more "dev tool"
+     than "wine list", so this now reuses --font-sans — the label look
+     comes from uppercase + letter-spacing + size, not the typeface. */
+  --font-mono: "Inter", system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-2xl: 18px;
+  --radius-3xl: 24px;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-wine: var(--wine);
+  --color-hero-ink: var(--hero-ink);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/*
+ * Palette: deep wine/burgundy + warm cream/ivory + charcoal + restrained
+ * gold, per the brand brief. Light theme throughout — this app never had
+ * a light/dark toggle (grep confirms .dark is never applied at runtime),
+ * so :root is the only theme in effect; the .dark scaffolding below is
+ * kept only because shadcn-derived components under src/components/ui
+ * may reference the `dark:` variant internally.
+ */
+:root {
+  --background: oklch(0.97 0.014 75); /* warm ivory */
+  --foreground: oklch(0.23 0.02 40); /* charcoal, warm undertone */
+  --surface: oklch(0.99 0.008 75); /* near-white cream, for cards */
+  --surface-2: oklch(0.94 0.016 70); /* deeper cream, for inputs/secondary */
+  --card: oklch(0.99 0.008 75);
+  --card-foreground: oklch(0.23 0.02 40);
+  --popover: oklch(0.99 0.008 75);
+  --popover-foreground: oklch(0.23 0.02 40);
+  --primary: oklch(0.33 0.14 18); /* deep burgundy */
+  --primary-foreground: oklch(0.98 0.01 75);
+  --secondary: oklch(0.93 0.02 70);
+  --secondary-foreground: oklch(0.23 0.02 40);
+  --muted: oklch(0.93 0.015 70);
+  --muted-foreground: oklch(0.48 0.02 50);
+  --accent: oklch(0.72 0.11 80); /* restrained gold/brass */
+  --accent-foreground: oklch(0.23 0.02 40);
+  --wine: oklch(0.33 0.14 18); /* same as primary — separate token for
+    decorative gradient/text-fill use, kept distinct semantically the way
+    the codebase already separated brand-identity color from UI-role
+    color before this palette */
+  --hero-ink: oklch(0.162 0.035 42); /* the near-black burgundy at the edges of the
+    homepage hero footage — sampled from it, so the hero's background, the
+    phone text panel and the scrims all melt into the picture seamlessly */
+  --destructive: oklch(0.58 0.21 25); /* brighter, more orange than
+    --primary's muted burgundy — errors need to read as distinct from the
+    brand color, not as "another shade of the theme" */
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.5 0.03 50 / 18%);
+  --input: oklch(0.95 0.015 70);
+  --ring: var(--primary);
+
+  --gradient-hero: radial-gradient(
+      ellipse at top,
+      oklch(0.72 0.11 80 / 0.22),
+      transparent 60%
+    ),
+    radial-gradient(ellipse at bottom right, oklch(0.33 0.14 18 / 0.12), transparent 60%),
+    linear-gradient(180deg, oklch(0.98 0.012 75), oklch(0.95 0.014 72));
+  --gradient-wine: linear-gradient(135deg, oklch(0.33 0.14 18), oklch(0.45 0.15 15));
+  --gradient-glass: linear-gradient(135deg, oklch(1 0 0 / 0.65), oklch(1 0 0 / 0.35));
+
+  --shadow-glow: 0 0 34px oklch(0.33 0.14 18 / 0.28), 0 0 64px oklch(0.72 0.11 80 / 0.16);
+  --shadow-card: 0 24px 60px -20px oklch(0.3 0.06 30 / 0.18);
+
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(0.33 0.14 18 / 0.1);
+  --sidebar-accent-foreground: var(--primary);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid oklch(0.3 0.05 30 / 0.08);
+    box-shadow: var(--shadow-card);
+  }
+  /* Navbar while a dark hero (see data-dark-hero) is still behind it. Re-points the tokens the
+     navbar's own utilities read (text-muted-foreground, hover:bg-surface-2, border-border…) so
+     every label, icon and hover state inside flips to light together, without touching each
+     element. Anything .glass inside (the Shop dropdown) is a light surface, so it gets the
+     normal tokens back. */
+  .nav-on-dark {
+    --foreground: oklch(0.97 0.014 75);
+    --muted-foreground: oklch(0.86 0.02 75);
+    --surface-2: oklch(1 0 0 / 0.14);
+    --border: oklch(1 0 0 / 0.22);
+    color: var(--foreground);
+  }
+  .nav-on-dark .glass {
+    --foreground: oklch(0.23 0.02 40);
+    --muted-foreground: oklch(0.48 0.02 50);
+    --surface-2: oklch(0.94 0.016 70);
+    --border: oklch(0.5 0.03 50 / 18%);
+    color: var(--foreground);
+  }
+  .text-gradient-wine {
+    background: var(--gradient-wine);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-hero {
+    background: var(--gradient-hero);
+  }
+  .bg-wine {
+    background: var(--gradient-wine);
+  }
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+  }
+  .pulse-glow {
+    animation: pulseGlow 2.5s ease-in-out infinite;
+  }
+  @keyframes pulseGlow {
+    0%,
+    100% {
+      box-shadow: 0 0 16px oklch(0.33 0.14 18 / 0.25);
+    }
+    50% {
+      box-shadow: 0 0 38px oklch(0.33 0.14 18 / 0.55);
+    }
+  }
+}
