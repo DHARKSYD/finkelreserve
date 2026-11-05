@@ -70,7 +70,7 @@ function OverviewPage() {
         />
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="glass rounded-2xl p-5">
           <h3 className="font-display font-bold text-lg mb-4">Recent orders</h3>
           {recentOrders.length === 0 ? (

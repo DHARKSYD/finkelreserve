@@ -37,7 +37,7 @@ function ContactPage() {
   return (
     <Layout>
       <div className="pt-32" />
-      <section className="mx-auto max-w-[1400px] px-6 md:px-10 grid md:grid-cols-2 gap-12">
+      <section className="mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— Talk to us</p>
           <h1 className="mt-3 font-display font-black text-5xl md:text-7xl tracking-tighter leading-[0.9]">

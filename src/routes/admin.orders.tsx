@@ -163,7 +163,7 @@ function OrdersPage() {
                   {expanded === o.id && (
                     <tr className="border-b border-border/40 bg-surface-2/20">
                       <td colSpan={6} className="px-4 py-4">
-                        <div className="grid sm:grid-cols-2 gap-4 text-xs">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                           <div>
                             <p className="text-muted-foreground uppercase tracking-[0.15em] mb-1">
                               Deliver to

@@ -127,7 +127,7 @@ function ShopPage() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-[260px_1fr] gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
           <aside className="space-y-7 lg:sticky lg:top-28 lg:self-start">
             <FilterGroup label="Type">
               <div className="space-y-4">

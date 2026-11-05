@@ -159,7 +159,7 @@ function HomePage() {
 
       {/* KNOW WHAT YOU'RE DRINKING */}
       <section className="mx-auto max-w-[1400px] px-6 md:px-10 mt-24">
-        <div className="relative overflow-hidden rounded-3xl glass p-8 md:p-16 grid md:grid-cols-2 gap-10 items-center">
+        <div className="relative overflow-hidden rounded-3xl glass p-8 md:p-16 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-primary/30 blur-[120px] pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-accent/20 blur-[120px] pointer-events-none" />
           <div className="relative">

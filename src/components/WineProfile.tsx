@@ -63,7 +63,7 @@ export function WineProfile({ product }: Props) {
         About this bottle
       </h2>
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-12">
+      <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-12">
         {hasLeft && (
           <div className={`space-y-5 ${hasRight ? "lg:col-span-7" : "lg:col-span-12"}`}>
             {tasting.length > 0 && (
@@ -73,7 +73,7 @@ export function WineProfile({ product }: Props) {
                   {tasting.map((r) => (
                     <div
                       key={r.label}
-                      className="grid sm:grid-cols-[8rem_1fr] gap-1 sm:gap-4 py-3 first:pt-0 last:pb-0"
+                      className="grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-1 sm:gap-4 py-3 first:pt-0 last:pb-0"
                     >
                       <dt className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground pt-0.5">
                         {r.label}
@@ -85,7 +85,7 @@ export function WineProfile({ product }: Props) {
               </div>
             )}
             {(product.servingNotes || product.cellaringNotes) && (
-              <div className="grid sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {product.servingNotes && (
                   <div className="glass rounded-2xl p-6">
                     <p className={EYEBROW}>— Serving</p>

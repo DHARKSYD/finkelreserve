@@ -258,7 +258,7 @@ function CartPage() {
             </Link>
           </div>
         ) : (
-          <div className="mt-10 grid lg:grid-cols-[1fr_420px] gap-10">
+          <div className="mt-10 grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10">
             <div className="space-y-3">
               {items.map((i) => {
                 const k = cartKey(i);
@@ -337,7 +337,7 @@ function CartPage() {
                         }}
                         onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
                         placeholder="Promo code"
-                        className="flex-1 bg-transparent py-3 text-sm outline-none"
+                        className="min-w-0 flex-1 bg-transparent py-3 text-sm outline-none"
                       />
                     </div>
                     <button

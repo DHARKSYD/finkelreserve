@@ -89,7 +89,7 @@ function AuthPage() {
   return (
     <Layout>
       <div className="pt-32" />
-      <div className="mx-auto max-w-[1100px] px-6 md:px-10 grid md:grid-cols-2 gap-10 items-center">
+      <div className="mx-auto max-w-[1100px] px-6 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
         <div className="hidden md:block relative aspect-[4/5] rounded-3xl overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1200&q=80"

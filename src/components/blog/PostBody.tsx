@@ -109,7 +109,7 @@ export function PostBody({ blocks }: { blocks: Block[] }) {
                     — {b.title}
                   </p>
                 )}
-                <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                <dl className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
                   {b.items.map((f, j) => (
                     <div key={j}>
                       <dt className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">

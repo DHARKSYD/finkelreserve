@@ -74,7 +74,7 @@ function SecurityPage() {
 
       <div className="glass rounded-2xl p-6">
         <p className="font-semibold text-sm mb-4">Change password</p>
-        <div className="grid sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="space-y-1.5">
             <label className="text-xs font-semibold text-muted-foreground">New password</label>
             <input

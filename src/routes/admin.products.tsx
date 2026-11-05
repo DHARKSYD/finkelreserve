@@ -308,7 +308,7 @@ function ProductsPage() {
             — {editingId ? "Edit product" : "New product"}
           </p>
 
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <LabeledInput
               label="Name"
               required
@@ -414,7 +414,7 @@ function ProductsPage() {
             value={form.description}
             onChange={(v) => setForm({ ...form, description: v })}
           />
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <TextArea
               label="Tasting notes (optional)"
               rows={2}
@@ -437,7 +437,7 @@ function ProductsPage() {
               information or your own tasting; don't paste another retailer's copy.
             </p>
             <div className="space-y-3">
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <TextArea
                   label="Appearance (colour, clarity)"
                   rows={2}
@@ -511,7 +511,7 @@ function ProductsPage() {
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-mono mb-3 mt-4">
               — Inventory & merchandising
             </p>
-            <div className="grid sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <LabeledInput
                 label="SKU (optional)"
                 value={form.sku}
@@ -752,7 +752,7 @@ function BoxPackagingSection({
 
       {form.sellByBox && (
         <div className="mt-4 space-y-3">
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <LabeledInput
               label={`Bottles per box (${MIN_BOTTLES_PER_BOX}–${MAX_BOTTLES_PER_BOX}, usually ${DEFAULT_BOTTLES_PER_BOX})`}
               type="number"

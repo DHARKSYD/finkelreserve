@@ -53,7 +53,7 @@ function AccountLayout() {
             </h1>
           </div>
 
-          <div className="grid md:grid-cols-[240px_1fr] gap-6 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6 items-start">
             {/* Desktop sidebar */}
             <div className="hidden md:block glass rounded-2xl p-5 space-y-1 sticky top-24">
               <div className="flex items-center gap-3 px-2 pb-4 mb-2 border-b border-border/60">
