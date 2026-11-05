@@ -54,7 +54,7 @@ export const Route = createFileRoute("/product/$slug")({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- documented types.ts gap above
       from: (table: "store_settings") => any;
     };
-    const [{ data }, { data: settingsRow }] = await Promise.all([
+    const [{ data, error }, { data: settingsRow }] = await Promise.all([
       supabase
         .from("products")
         .select(
@@ -66,6 +66,16 @@ export const Route = createFileRoute("/product/$slug")({
       settingsDb.from("store_settings").select("store_name").eq("id", true).maybeSingle(),
     ]);
 
+    // A FAILED lookup is not "no such product". Only a lookup that succeeded and found nothing
+    // is a 404. If the query errors (a database/permission/network problem) we log it for the
+    // server logs and render the page anyway: the component fetches the product itself in the
+    // browser, so the customer still gets the page instead of a hard 404 that search engines
+    // would also cache. (This is what hid the anonymous-read permission bug — see
+    // 20261030100000_fix_anon_catalog_reads.sql.)
+    if (error) {
+      console.error(`[product loader] lookup for "${params.slug}" failed:`, error.message);
+      return null;
+    }
     if (!data) throw notFound();
 
     return {
