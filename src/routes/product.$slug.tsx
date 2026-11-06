@@ -331,7 +331,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
     : null;
 
   return (
-    <Layout hideFabOnMobile>
+    <Layout>
       <div className="pt-32" />
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         <nav className="text-xs text-muted-foreground flex items-center gap-1 mb-6">
