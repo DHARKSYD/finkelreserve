@@ -596,6 +596,9 @@ export type Database = {
       };
       profiles: {
         Row: {
+          age_confirmed_at: string | null;
+          first_name: string | null;
+          last_name: string | null;
           avatar_url: string | null;
           created_at: string;
           display_name: string | null;
@@ -603,6 +606,9 @@ export type Database = {
           updated_at: string;
         };
         Insert: {
+          age_confirmed_at?: string | null;
+          first_name?: string | null;
+          last_name?: string | null;
           avatar_url?: string | null;
           created_at?: string;
           display_name?: string | null;
@@ -610,6 +616,9 @@ export type Database = {
           updated_at?: string;
         };
         Update: {
+          age_confirmed_at?: string | null;
+          first_name?: string | null;
+          last_name?: string | null;
           avatar_url?: string | null;
           created_at?: string;
           display_name?: string | null;

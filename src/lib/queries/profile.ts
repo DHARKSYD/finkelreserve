@@ -12,6 +12,8 @@ const db = supabase as unknown as {
 
 export type Profile = {
   displayName: string | null;
+  firstName: string | null;
+  lastName: string | null;
   phone: string | null;
   avatarUrl: string | null;
 };
@@ -22,12 +24,14 @@ export const useMyProfile = (userId: string | undefined) =>
     queryFn: async (): Promise<Profile> => {
       const { data, error } = await db
         .from("profiles")
-        .select("display_name, phone, avatar_url")
+        .select("display_name, first_name, last_name, phone, avatar_url")
         .eq("id", userId)
         .maybeSingle();
       if (error) throwSafe(error, "Could not load your profile.");
       return {
         displayName: data?.display_name ?? null,
+        firstName: data?.first_name ?? null,
+        lastName: data?.last_name ?? null,
         phone: data?.phone ?? null,
         avatarUrl: data?.avatar_url ?? null,
       };
@@ -41,16 +45,24 @@ export const useUpdateProfile = () => {
   return useMutation({
     mutationFn: async ({
       userId,
-      displayName,
+      firstName,
+      lastName,
       phone,
     }: {
       userId: string;
-      displayName: string;
+      firstName: string;
+      lastName: string;
       phone: string;
     }) => {
       const { error } = await db
         .from("profiles")
-        .update({ display_name: displayName, phone: phone || null })
+        .update({
+          first_name: firstName,
+          last_name: lastName,
+          // display_name is what reviews show; it is always "First Last".
+          display_name: `${firstName} ${lastName}`.trim(),
+          phone: phone || null,
+        })
         .eq("id", userId);
       if (error) throwSafe(error, "Could not update your profile.");
     },
