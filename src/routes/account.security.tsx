@@ -89,7 +89,10 @@ function SecurityPage() {
             />
           </div>
           <div className="min-w-0 space-y-1.5">
-            <label htmlFor="confirm-password" className="text-xs font-semibold text-muted-foreground">
+            <label
+              htmlFor="confirm-password"
+              className="text-xs font-semibold text-muted-foreground"
+            >
               Confirm new password
             </label>
             <PasswordField

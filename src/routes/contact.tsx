@@ -68,7 +68,9 @@ function ContactPage() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold">Chat on WhatsApp</p>
-                  <p className="text-xs text-muted-foreground">Fastest reply — order help and questions</p>
+                  <p className="text-xs text-muted-foreground">
+                    Fastest reply — order help and questions
+                  </p>
                 </div>
                 <ArrowUpRight className="h-4 w-4 shrink-0 text-primary" />
               </a>
@@ -102,7 +104,10 @@ function ContactPage() {
           </div>
         </div>
 
-        <form onSubmit={submit} className="glass min-w-0 rounded-3xl p-5 sm:p-8 space-y-4 self-start">
+        <form
+          onSubmit={submit}
+          className="glass min-w-0 rounded-3xl p-5 sm:p-8 space-y-4 self-start"
+        >
           <h2 className="font-display font-black text-2xl">Send a message</h2>
           <div className="grid grid-cols-2 gap-3">
             <input

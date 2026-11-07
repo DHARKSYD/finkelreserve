@@ -9,6 +9,11 @@ import {
   type RequestReturnInput,
   type UpdateReturnStatusInput,
 } from "@/lib/actions/returns";
+import {
+  listPaystackBanks,
+  retryRefundWithBankDetails,
+  type PaystackBank,
+} from "@/lib/actions/refunds";
 
 export { RETURN_STATUSES, type ReturnStatus };
 
@@ -22,7 +27,7 @@ export const formatReturnWindow = (days: number) => (days === 1 ? "24 hours" : `
 // (ReturnRequestRow, ReturnItemRow, mapReturn) is normally typed.
 const db = supabase as unknown as {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- documented types.ts gap above
-  from: (table: "return_requests" | "return_items") => any;
+  from: (table: "return_requests" | "return_items" | "refunds") => any;
 };
 
 interface ReturnRequestRow {
@@ -173,5 +178,98 @@ export const useUpdateReturnStatus = () => {
       qc.invalidateQueries({ queryKey: ["returns"] });
       qc.invalidateQueries({ queryKey: ["orders"] });
     },
+  });
+};
+
+// ─── Refunds raised for a return ────────────────────────────────────────────
+
+/** One refund against a return. `status` is the money's state; `gatewayStatus` is Paystack's
+ * finer detail ("processing", "needs-attention"…), set by its webhook. */
+export type ReturnRefund = {
+  id?: string; // only present for admins (the customer view deliberately omits internal ids)
+  returnRequestId: string;
+  amount: number;
+  method: "paystack" | "manual";
+  status: "pending" | "processed" | "failed";
+  gatewayStatus: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+interface RefundRow {
+  id?: string;
+  return_request_id: string;
+  amount: number | string;
+  method: string;
+  status: string;
+  gateway_status: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+const mapRefund = (r: RefundRow): ReturnRefund => ({
+  id: r.id,
+  returnRequestId: r.return_request_id,
+  amount: Number(r.amount),
+  method: r.method === "manual" ? "manual" : "paystack",
+  status: r.status === "processed" ? "processed" : r.status === "failed" ? "failed" : "pending",
+  gatewayStatus: r.gateway_status,
+  createdAt: r.created_at,
+  updatedAt: r.updated_at,
+});
+
+/** The signed-in customer's refund status for their own returns (my_return_refunds() only ever
+ * returns their rows). */
+export const useMyReturnRefunds = () =>
+  useQuery({
+    queryKey: ["returns", "refunds", "my"],
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc("my_return_refunds");
+      if (error) throwSafe(error, "Could not load refund status.");
+      return (data ?? []).map((r) => mapRefund(r as RefundRow));
+    },
+    staleTime: 30_000,
+  });
+
+/** Admin: the refunds raised for one return (RLS: "admins read refunds"). */
+export const useReturnRefunds = (returnId: string | undefined) =>
+  useQuery({
+    queryKey: ["returns", "refunds", "admin", returnId],
+    enabled: !!returnId,
+    queryFn: async () => {
+      const { data, error } = (await db
+        .from("refunds")
+        .select(
+          "id, return_request_id, amount, method, status, gateway_status, created_at, updated_at",
+        )
+        .eq("return_request_id", returnId)
+        .order("created_at", { ascending: true })) as { data: RefundRow[] | null; error: unknown };
+      if (error) throwSafe(error, "Could not load refunds for this return.");
+      return (data ?? []).map(mapRefund);
+    },
+    staleTime: 10_000,
+  });
+
+/** Paystack's Nigerian bank list, for supplying a customer's account on a needs-attention refund. */
+export const usePaystackBanks = (enabled: boolean) =>
+  useQuery({
+    queryKey: ["paystack-banks"],
+    enabled,
+    staleTime: 6 * 60 * 60 * 1000,
+    queryFn: async (): Promise<PaystackBank[]> => {
+      const result = await listPaystackBanks({ data: {} });
+      if (!result.ok) throw new Error(result.error);
+      return result.banks;
+    },
+  });
+
+export const useRetryRefundWithBankDetails = () => {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (input: { refundId: string; bankId: number; accountNumber: string }) => {
+      const result = await retryRefundWithBankDetails({ data: input });
+      if (!result.ok) throw new Error(result.error);
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["returns"] }),
   });
 };

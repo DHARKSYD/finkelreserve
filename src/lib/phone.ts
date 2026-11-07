@@ -19,7 +19,8 @@ export function normalizeNgMobile(input: string | null | undefined): string | nu
  * + - ( ) only, 7–20 characters). Used on forms where the number is optional or may be
  * foreign — the strict Nigerian check above is only for deciding whether we can SMS.
  */
-export const isPlausiblePhone = (input: string): boolean => /^\+?[0-9\s\-().]{7,20}$/.test(input.trim());
+export const isPlausiblePhone = (input: string): boolean =>
+  /^\+?[0-9\s\-().]{7,20}$/.test(input.trim());
 
 /** What to store for a typed phone number: Nigerian mobiles as +234…, anything else as typed; blank → null. */
 export function storablePhone(input: string | null | undefined): string | null {

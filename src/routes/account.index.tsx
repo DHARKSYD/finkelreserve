@@ -55,7 +55,11 @@ function OverviewPage() {
       {/* Phone only: who you're signed in as (the desktop sidebar already shows this). */}
       <div className="glass flex items-center gap-3 rounded-2xl p-4 md:hidden">
         {profile?.avatarUrl ? (
-          <img src={profile.avatarUrl} alt="" className="h-12 w-12 shrink-0 rounded-full object-cover" />
+          <img
+            src={profile.avatarUrl}
+            alt=""
+            className="h-12 w-12 shrink-0 rounded-full object-cover"
+          />
         ) : (
           <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary/10 text-lg font-bold text-primary">
             {fullName.charAt(0).toUpperCase()}
@@ -191,7 +195,12 @@ function OverviewPage() {
 
       {/* Phone only: the sections that aren't among the four cards above, plus sign out. */}
       <div className="glass divide-y divide-border/60 overflow-hidden rounded-2xl md:hidden">
-        <MenuRow to="/account/profile" icon={User} label="Profile" hint="Name, phone, photo, email" />
+        <MenuRow
+          to="/account/profile"
+          icon={User}
+          label="Profile"
+          hint="Name, phone, photo, email"
+        />
         <MenuRow
           to="/account/security"
           icon={ShieldCheck}

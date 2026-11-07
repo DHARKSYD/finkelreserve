@@ -16,14 +16,22 @@ export function DiscoverStrip() {
         <Link to="/about" className={item}>
           <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
           Our Story
-          <span className="hidden text-muted-foreground/70 sm:inline">— the people behind the bottles</span>
-          <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" aria-hidden="true" />
+          <span className="hidden text-muted-foreground/70 sm:inline">
+            — the people behind the bottles
+          </span>
+          <ArrowUpRight
+            className="h-3 w-3 opacity-0 transition group-hover:opacity-100"
+            aria-hidden="true"
+          />
         </Link>
         <Link to="/blog" className={item}>
           <Wine className="h-3.5 w-3.5" aria-hidden="true" />
           Wine Guide
           <span className="hidden text-muted-foreground/70 sm:inline">— know before you pour</span>
-          <ArrowUpRight className="h-3 w-3 opacity-0 transition group-hover:opacity-100" aria-hidden="true" />
+          <ArrowUpRight
+            className="h-3 w-3 opacity-0 transition group-hover:opacity-100"
+            aria-hidden="true"
+          />
         </Link>
       </div>
     </aside>

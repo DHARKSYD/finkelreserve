@@ -794,6 +794,29 @@ export type Database = {
         };
         Returns: undefined;
       };
+      update_refund_status_by_transaction: {
+        Args: {
+          p_transaction_reference: string;
+          p_amount: number | null;
+          p_status: string;
+          p_gateway_status?: string | null;
+          p_gateway_reference?: string | null;
+        };
+        // updated | no_order | no_refund | ambiguous
+        Returns: string;
+      };
+      my_return_refunds: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          return_request_id: string;
+          amount: number;
+          status: string;
+          gateway_status: string | null;
+          method: string;
+          created_at: string;
+          updated_at: string;
+        }[];
+      };
     };
     Enums: {
       app_role: "admin" | "moderator" | "user";

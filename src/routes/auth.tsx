@@ -58,7 +58,9 @@ function AuthPage() {
   // If the customer cancelled at Google/Apple (or the provider refused), Supabase sends them
   // back with the reason in the URL. Show it instead of silently dropping them on the form.
   useEffect(() => {
-    const params = new URLSearchParams(window.location.hash.replace(/^#/, "") || window.location.search);
+    const params = new URLSearchParams(
+      window.location.hash.replace(/^#/, "") || window.location.search,
+    );
     const description = params.get("error_description") ?? params.get("error");
     if (description) {
       setError(friendlyAuthError(new Error(description.replace(/\+/g, " "))));
@@ -137,7 +139,9 @@ function AuthPage() {
         // identities. Tell the person plainly and send them to sign in.
         if (data.user && (data.user.identities?.length ?? 1) === 0) {
           setMode("signin");
-          setError("An account with this email already exists. Sign in instead, or reset your password.");
+          setError(
+            "An account with this email already exists. Sign in instead, or reset your password.",
+          );
           return;
         }
         // Confirmation disabled in Supabase → already signed in; the effect above redirects.
@@ -206,14 +210,19 @@ function AuthPage() {
             aria-hidden="true"
             className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/20 blur-3xl"
           />
-          <p className="relative text-xs uppercase tracking-[0.3em] text-accent">— Finkel Reserve</p>
+          <p className="relative text-xs uppercase tracking-[0.3em] text-accent">
+            — Finkel Reserve
+          </p>
           <div className="relative">
             <h2 className="font-display text-4xl font-black leading-tight">
               Fine wines, whiskeys &amp; beverages, delivered.
             </h2>
             <ul className="mt-8 space-y-4">
               {BENEFITS.map(({ icon: Icon, text }) => (
-                <li key={text} className="flex items-center gap-3 text-sm text-primary-foreground/90">
+                <li
+                  key={text}
+                  className="flex items-center gap-3 text-sm text-primary-foreground/90"
+                >
                   <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10">
                     <Icon className="h-4 w-4" />
                   </span>
@@ -255,11 +264,13 @@ function AuthPage() {
                   <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-primary/10 text-primary">
                     <MailCheck className="h-7 w-7" />
                   </span>
-                  <h1 className="font-display text-3xl font-black tracking-tighter">Check your email.</h1>
+                  <h1 className="font-display text-3xl font-black tracking-tighter">
+                    Check your email.
+                  </h1>
                   <p className="text-sm text-muted-foreground">
                     We sent a confirmation link to{" "}
-                    <strong className="break-all text-foreground">{pendingEmail}</strong>. Open it to
-                    activate your account, then sign in. It can take a minute — check your spam
+                    <strong className="break-all text-foreground">{pendingEmail}</strong>. Open it
+                    to activate your account, then sign in. It can take a minute — check your spam
                     folder too.
                   </p>
                   {error && <p className="text-xs text-destructive">{error}</p>}
@@ -392,7 +403,9 @@ function AuthPage() {
                     )}
 
                     <PasswordField
-                      placeholder={isSignup ? `Create a password (min ${MIN_PASSWORD_LENGTH})` : "Password"}
+                      placeholder={
+                        isSignup ? `Create a password (min ${MIN_PASSWORD_LENGTH})` : "Password"
+                      }
                       aria-label="Password"
                       autoComplete={isSignup ? "new-password" : "current-password"}
                       required
@@ -465,7 +478,9 @@ function AuthPage() {
                         disabled={cooldown > 0 || !email.trim()}
                         className="text-xs font-semibold text-primary hover:underline disabled:opacity-50"
                       >
-                        {cooldown > 0 ? `Resend confirmation in ${cooldown}s` : "Resend confirmation email"}
+                        {cooldown > 0
+                          ? `Resend confirmation in ${cooldown}s`
+                          : "Resend confirmation email"}
                       </button>
                     )}
                     {info && <p className="text-xs text-primary">{info}</p>}

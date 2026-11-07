@@ -10,7 +10,8 @@ export type PasswordStrength = {
   label: string;
 };
 
-const COMMON = /^(?:12345678|123456789|1234567890|password\d*|qwerty\d*|letmein\d*|iloveyou\d*|admin\d*|welcome\d*|abc12345)$/i;
+const COMMON =
+  /^(?:12345678|123456789|1234567890|password\d*|qwerty\d*|letmein\d*|iloveyou\d*|admin\d*|welcome\d*|abc12345)$/i;
 
 export function passwordStrength(pw: string): PasswordStrength {
   if (!pw) return { score: 0, label: "" };

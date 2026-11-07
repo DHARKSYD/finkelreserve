@@ -92,7 +92,10 @@ export function FilterDrawer(props: Props) {
           }`}
         >
           {isMobile && (
-            <div className="mx-auto mt-3 h-1.5 w-10 shrink-0 rounded-full bg-border" aria-hidden="true" />
+            <div
+              className="mx-auto mt-3 h-1.5 w-10 shrink-0 rounded-full bg-border"
+              aria-hidden="true"
+            />
           )}
           <SheetHeader className="shrink-0 border-b border-border px-5 pb-4 pt-4 text-left">
             <SheetTitle className="font-display text-xl font-black">Filters</SheetTitle>
@@ -114,7 +117,11 @@ export function FilterDrawer(props: Props) {
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {PRODUCT_TYPES.filter((t) => t.group === g.key).map((t) => (
-                        <Chip key={t.key} active={type === t.key} onClick={() => props.onType(t.key)}>
+                        <Chip
+                          key={t.key}
+                          active={type === t.key}
+                          onClick={() => props.onType(t.key)}
+                        >
                           {productTypeLabel(t.key)}
                         </Chip>
                       ))}
@@ -177,7 +184,9 @@ export function FilterDrawer(props: Props) {
             )}
 
             <div>
-              <h3 className="mb-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">Sort</h3>
+              <h3 className="mb-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                Sort
+              </h3>
               <select
                 aria-label="Sort by"
                 value={sort}
