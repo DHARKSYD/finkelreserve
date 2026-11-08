@@ -1,11 +1,15 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { RotateCcw, Search, X, Video } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Clock, Loader2, RotateCcw, Search, X } from "lucide-react";
 import {
   useAdminReturns,
   useUpdateReturnStatus,
+  useReturnRefunds,
+  usePaystackBanks,
+  useRetryRefundWithBankDetails,
   RETURN_STATUSES,
+  type ReturnRefund,
   type ReturnRequest,
   type ReturnStatus,
 } from "@/lib/queries/returns";
@@ -15,6 +19,7 @@ import { formatNGN } from "@/lib/currency";
 import { StatCard } from "@/components/admin/StatCard";
 import { ReturnStatusBadge } from "@/components/admin/StatusBadge";
 import { EmptyState } from "@/components/admin/EmptyState";
+import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export const Route = createFileRoute("/admin/returns")({
   head: () => ({ meta: [{ title: "Returns — Admin" }] }),
@@ -49,6 +54,9 @@ function ReturnsPage() {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState<ReturnRequest | null>(null);
   const [adminNote, setAdminNote] = useState("");
+  // "Initiate Refund" moves real money (a live Paystack call for card/transfer orders), so it
+  // asks first instead of firing on one tap.
+  const [confirmRefund, setConfirmRefund] = useState(false);
 
   const ordersById = useMemo(() => new Map(orders.map((o) => [o.id, o])), [orders]);
 
@@ -275,6 +283,8 @@ function ReturnsPage() {
                 <EvidenceGallery paths={selected.evidencePaths} />
               )}
 
+              <RefundsPanel returnId={selected.id} />
+
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-muted-foreground">Admin note</label>
                 <textarea
@@ -291,7 +301,11 @@ function ReturnsPage() {
                   return (
                     <button
                       key={action.status}
-                      onClick={() => handleTransition(action.status)}
+                      onClick={() =>
+                        action.status === "refund_initiated"
+                          ? setConfirmRefund(true)
+                          : handleTransition(action.status)
+                      }
                       disabled={updateStatus.isPending}
                       className={`rounded-full px-5 py-2.5 text-sm font-bold disabled:opacity-60 ${
                         action.destructive
@@ -313,12 +327,168 @@ function ReturnsPage() {
           </div>
         </div>
       )}
+
+      {selected && (
+        <ConfirmDialog
+          open={confirmRefund}
+          onOpenChange={setConfirmRefund}
+          destructive={false}
+          title="Send this refund now?"
+          confirmLabel="Send refund"
+          loading={updateStatus.isPending}
+          description={
+            ordersById.get(selected.orderId)?.paymentMethod === "paystack"
+              ? `${formatNGN(selected.refundTotal)} will be refunded to the customer through Paystack, back to the card or account they paid with. It can't be recalled from here.`
+              : `${formatNGN(selected.refundTotal)} will be recorded as refunded. This order was paid on delivery, so you pay the customer back yourself (cash or transfer).`
+          }
+          onConfirm={() => {
+            setConfirmRefund(false);
+            handleTransition("refund_initiated");
+          }}
+        />
+      )}
     </div>
+  );
+}
+
+// What happened to the money for this return, straight from Paystack's notifications. A refund that
+// "needs attention" can't go back to where the customer paid from (typically a transfer/USSD
+// payment), so the admin supplies any bank account of the customer's to finish it.
+function RefundsPanel({ returnId }: { returnId: string }) {
+  const { data: refunds = [] } = useReturnRefunds(returnId);
+  if (refunds.length === 0) return null;
+  return (
+    <div>
+      <p className="text-xs font-semibold text-muted-foreground mb-2">Refunds</p>
+      <div className="space-y-2">
+        {refunds.map((r) => (
+          <RefundRow key={r.id ?? r.createdAt} refund={r} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function RefundRow({ refund }: { refund: ReturnRefund }) {
+  const needsBank = refund.status === "pending" && refund.gatewayStatus === "needs-attention";
+  const state =
+    refund.status === "processed"
+      ? { Icon: CheckCircle2, text: "Refunded", cls: "text-emerald-600 dark:text-emerald-400" }
+      : refund.status === "failed"
+        ? { Icon: AlertTriangle, text: "Failed", cls: "text-destructive" }
+        : needsBank
+          ? {
+              Icon: AlertTriangle,
+              text: "Needs the customer's bank details",
+              cls: "text-amber-600 dark:text-amber-400",
+            }
+          : {
+              Icon: Clock,
+              text: refund.method === "paystack" ? "Processing at Paystack" : "Pending",
+              cls: "text-primary",
+            };
+
+  return (
+    <div className="rounded-lg bg-surface-2 px-3 py-2.5">
+      <div className="flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-sm font-semibold">{formatNGN(refund.amount)}</p>
+          <p className="text-[11px] text-muted-foreground">
+            {refund.method === "paystack" ? "Paystack" : "Manual"} ·{" "}
+            {new Date(refund.updatedAt).toLocaleString()}
+          </p>
+        </div>
+        <p className={`inline-flex items-center gap-1.5 text-xs font-semibold ${state.cls}`}>
+          <state.Icon className="h-3.5 w-3.5 shrink-0" />
+          {state.text}
+        </p>
+      </div>
+      {refund.status === "failed" && (
+        <p className="mt-1.5 text-[11px] text-muted-foreground">
+          The money did not move. You can start a new refund for this order from the Orders page.
+        </p>
+      )}
+      {needsBank && refund.id && <BankDetailsForm refundId={refund.id} />}
+    </div>
+  );
+}
+
+function BankDetailsForm({ refundId }: { refundId: string }) {
+  const { data: banks = [], isLoading, error } = usePaystackBanks(true);
+  const retry = useRetryRefundWithBankDetails();
+  const [bankId, setBankId] = useState("");
+  const [account, setAccount] = useState("");
+  const valid = bankId !== "" && /^\d{10}$/.test(account);
+
+  return (
+    <form
+      className="mt-3 space-y-2 border-t border-border/60 pt-3"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (!valid) return;
+        retry.mutate(
+          { refundId, bankId: Number(bankId), accountNumber: account },
+          {
+            onSuccess: () => {
+              toast.success("Sent to Paystack. It will confirm shortly.");
+              setAccount(""); // the number is never kept longer than needed
+            },
+            onError: (err) =>
+              toast.error(err instanceof Error ? err.message : "Could not retry this refund."),
+          },
+        );
+      }}
+    >
+      <p className="text-[11px] leading-relaxed text-muted-foreground">
+        Paystack couldn't send this back to where the customer paid from. Ask them for a bank
+        account in their name and enter it here — it goes straight to Paystack and is not stored.
+      </p>
+      <select
+        aria-label="Customer's bank"
+        value={bankId}
+        onChange={(e) => setBankId(e.target.value)}
+        disabled={isLoading || !!error}
+        className="w-full rounded-lg bg-input px-3 py-2 text-sm outline-none ring-primary focus:ring-2"
+      >
+        <option value="">
+          {isLoading
+            ? "Loading banks…"
+            : error
+              ? "Could not load banks"
+              : "Select the customer's bank"}
+        </option>
+        {banks.map((b) => (
+          <option key={b.id} value={b.id}>
+            {b.name}
+          </option>
+        ))}
+      </select>
+      <input
+        aria-label="Account number"
+        inputMode="numeric"
+        autoComplete="off"
+        maxLength={10}
+        placeholder="10-digit account number"
+        value={account}
+        onChange={(e) => setAccount(e.target.value.replace(/\D/g, ""))}
+        className="w-full rounded-lg bg-input px-3 py-2 text-sm outline-none ring-primary focus:ring-2"
+      />
+      <button
+        type="submit"
+        disabled={!valid || retry.isPending}
+        className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground disabled:opacity-50"
+      >
+        {retry.isPending && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+        Retry refund
+      </button>
+    </form>
   );
 }
 
 function EvidenceGallery({ paths }: { paths: string[] }) {
   const { data: urls = {}, isLoading } = useEvidenceUrls(paths);
+  const photos = paths.filter((p) => !isVideoPath(p) && urls[p]);
+  const videos = paths.filter((p) => isVideoPath(p) && urls[p]);
 
   return (
     <div>
@@ -326,32 +496,38 @@ function EvidenceGallery({ paths }: { paths: string[] }) {
       {isLoading ? (
         <p className="text-xs text-muted-foreground">Loading…</p>
       ) : (
-        <div className="grid grid-cols-4 gap-2">
-          {paths.map((path) => {
-            const url = urls[path];
-            if (!url) return null;
-            return isVideoPath(path) ? (
-              <a
-                key={path}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-square rounded-lg bg-surface-2 grid place-items-center hover:bg-surface-2/70"
-              >
-                <Video className="h-5 w-5 text-muted-foreground" />
-              </a>
-            ) : (
-              <a
-                key={path}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-square rounded-lg overflow-hidden bg-surface-2"
-              >
-                <img src={url} alt="Return evidence" className="h-full w-full object-cover" />
-              </a>
-            );
-          })}
+        <div className="space-y-3">
+          {photos.length > 0 && (
+            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+              {photos.map((path) => (
+                <a
+                  key={path}
+                  href={urls[path]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="aspect-square overflow-hidden rounded-lg bg-surface-2"
+                  aria-label="Open photo full size"
+                >
+                  <img
+                    src={urls[path]}
+                    alt="Return evidence"
+                    className="h-full w-full object-cover"
+                  />
+                </a>
+              ))}
+            </div>
+          )}
+          {/* Videos play right here — no need to download them to judge the damage. */}
+          {videos.map((path) => (
+            <video
+              key={path}
+              src={urls[path]}
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full max-h-72 rounded-lg bg-black"
+            />
+          ))}
         </div>
       )}
     </div>

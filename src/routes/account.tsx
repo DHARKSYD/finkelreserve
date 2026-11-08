@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useNavigate, useLocation } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { LogOut } from "lucide-react";
+import { ChevronLeft, LogOut } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { useAuth } from "@/hooks/use-auth";
 import { useMyProfile } from "@/lib/queries/profile";
@@ -39,21 +39,22 @@ function AccountLayout() {
 
   const displayName =
     profile?.displayName ?? user.user_metadata?.full_name ?? user.user_metadata?.name ?? "Customer";
+  const isOverview = location.pathname === "/account" || location.pathname === "/account/";
 
   return (
     <Layout>
       <div className="pt-28 pb-24">
-        <div className="mx-auto max-w-5xl px-6 md:px-10">
-          <div className="mb-8">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 md:px-10">
+          <div className="mb-6 md:mb-8">
             <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono mb-2">
               Account
             </p>
-            <h1 className="font-display font-black text-4xl md:text-5xl tracking-tighter">
+            <h1 className="font-display font-black text-3xl sm:text-4xl md:text-5xl tracking-tighter">
               My Account
             </h1>
           </div>
 
-          <div className="grid md:grid-cols-[240px_1fr] gap-6 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6 items-start">
             {/* Desktop sidebar */}
             <div className="hidden md:block glass rounded-2xl p-5 space-y-1 sticky top-24">
               <div className="flex items-center gap-3 px-2 pb-4 mb-2 border-b border-border/60">
@@ -104,28 +105,17 @@ function AccountLayout() {
               </button>
             </div>
 
-            {/* Mobile tab bar */}
-            <div className="md:hidden -mx-6 px-6 overflow-x-auto">
-              <div className="flex gap-2 pb-1 w-max min-w-full">
-                {ACCOUNT_NAV.map(({ to, label, icon: Icon }) => {
-                  const active = location.pathname === to;
-                  return (
-                    <Link
-                      key={to}
-                      to={to}
-                      className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition ${
-                        active
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-surface-2 text-muted-foreground"
-                      }`}
-                    >
-                      <Icon className="h-3.5 w-3.5" />
-                      {label}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
+            {/* Phone: the overview page has the section links; every other page gets a way back.
+                (The old row of scrolling tabs hid most sections off-screen.) */}
+            {!isOverview && (
+              <Link
+                to="/account"
+                className="md:hidden -mb-2 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-primary"
+              >
+                <ChevronLeft className="h-4 w-4" />
+                My Account
+              </Link>
+            )}
 
             <div className="min-w-0">
               <Outlet />

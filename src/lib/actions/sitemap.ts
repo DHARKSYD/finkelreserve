@@ -20,6 +20,7 @@ function urlEntry(path: string, priority: string, changefreq: string): string {
 
 // Static paths that are always part of the sitemap.
 // Do NOT include: /admin/*, /account, /cart, /wishlist, /auth, /order-confirmation/*
+// (and never name /admin in robots.txt — see handleRobots)
 const STATIC_ENTRIES = [
   urlEntry("/", "1.0", "daily"),
   urlEntry("/shop", "0.9", "daily"),
@@ -80,8 +81,9 @@ export function handleRobots(): Response {
     "Allow: /",
     "",
     "# Private / transactional pages",
-    "Disallow: /admin",
-    "Disallow: /admin/",
+    // NOTE: /admin is deliberately NOT listed. robots.txt is public, so a "Disallow: /admin"
+    // line tells anyone that an admin area exists. The admin pages keep themselves out of
+    // search results with a noindex meta tag instead (see src/routes/admin.tsx).
     "Disallow: /account",
     "Disallow: /cart",
     "Disallow: /wishlist",

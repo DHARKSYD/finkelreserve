@@ -2,48 +2,40 @@ import type { ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { CartDrawer } from "./CartDrawer";
+import { MobileTabBar } from "./MobileTabBar";
+import { DiscoverStrip } from "./DiscoverStrip";
 import { MessageCircle } from "lucide-react";
 import { useSettings } from "@/lib/queries/settings";
+import { whatsappHref } from "@/lib/contact";
 
-// Set VITE_WHATSAPP_NUMBER (full international format, digits only, e.g.
-// 2348012345678) to point this at the real support line. Without it, the
-// button falls back to email rather than linking to a fake number.
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER as string | undefined;
-
-export function Layout({
-  children,
-  hideFabOnMobile,
-}: {
-  children: ReactNode;
-  /** For pages with their own mobile-only fixed bottom bar (currently just
-   *  the product page's sticky Add to Cart) — without this, the FAB and
-   *  that bar visually collide and the FAB becomes unreachable under it.
-   *  Unaffected on desktop, where no such bar exists. */
-  hideFabOnMobile?: boolean;
-}) {
+export function Layout({ children }: { children: ReactNode }) {
   const { data: settings } = useSettings();
   const supportEmail = settings?.supportEmail ?? "hello@finkelreserve.com";
-  const contactHref = WHATSAPP_NUMBER
-    ? `https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, "")}`
-    : `mailto:${supportEmail}`;
+  const contactHref = whatsappHref() ?? `mailto:${supportEmail}`;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    // overflow-x-clip: slide-in reveal animations (e.g. initial x: 30) sit off to the side until they
+    // scroll into view, and that extends the page's scrollable width — on a phone the whole page
+    // could be dragged sideways. `clip` (unlike `hidden`) doesn't create a scroll container, so
+    // sticky elements and the pinned hero keep working.
+    <div className="flex min-h-screen flex-col overflow-x-clip">
       <Navbar />
       <main className="flex-1">{children}</main>
+      <DiscoverStrip />
       <Footer />
       <CartDrawer />
+      {/* Phones and tablets have the CONTACT tab in the bottom bar, so this floating button is
+          desktop-only (it would only duplicate the tab and crowd the screen). */}
       <a
         href={contactHref}
         target="_blank"
         rel="noopener"
         aria-label="Contact support"
-        className={`fixed bottom-5 right-5 z-40 h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow pulse-glow hover:scale-110 transition ${
-          hideFabOnMobile ? "hidden lg:grid" : "grid"
-        }`}
+        className="fixed bottom-5 right-5 z-40 hidden h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow pulse-glow transition hover:scale-110 lg:grid"
       >
         <MessageCircle className="h-6 w-6" />
       </a>
+      <MobileTabBar />
     </div>
   );
 }

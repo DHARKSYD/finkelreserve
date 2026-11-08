@@ -33,7 +33,7 @@ function AboutPage() {
       </section>
 
       <section className="mx-auto max-w-[1400px] px-6 md:px-10 mt-20">
-        <div className="grid md:grid-cols-2 gap-6 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -83,7 +83,7 @@ function AboutPage() {
         <h2 className="font-display font-black text-3xl md:text-5xl tracking-tighter mb-10">
           Our values
         </h2>
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {[
             {
               t: "Honest sourcing",

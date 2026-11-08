@@ -54,7 +54,7 @@ export const Route = createFileRoute("/product/$slug")({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- documented types.ts gap above
       from: (table: "store_settings") => any;
     };
-    const [{ data }, { data: settingsRow }] = await Promise.all([
+    const [{ data, error }, { data: settingsRow }] = await Promise.all([
       supabase
         .from("products")
         .select(
@@ -66,6 +66,16 @@ export const Route = createFileRoute("/product/$slug")({
       settingsDb.from("store_settings").select("store_name").eq("id", true).maybeSingle(),
     ]);
 
+    // A FAILED lookup is not "no such product". Only a lookup that succeeded and found nothing
+    // is a 404. If the query errors (a database/permission/network problem) we log it for the
+    // server logs and render the page anyway: the component fetches the product itself in the
+    // browser, so the customer still gets the page instead of a hard 404 that search engines
+    // would also cache. (This is what hid the anonymous-read permission bug — see
+    // 20261030100000_fix_anon_catalog_reads.sql.)
+    if (error) {
+      console.error(`[product loader] lookup for "${params.slug}" failed:`, error.message);
+      return null;
+    }
     if (!data) throw notFound();
 
     return {
@@ -321,7 +331,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
     : null;
 
   return (
-    <Layout hideFabOnMobile>
+    <Layout>
       <div className="pt-32" />
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         <nav className="text-xs text-muted-foreground flex items-center gap-1 mb-6">
@@ -336,7 +346,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
           <span className="text-foreground">{productTypeLabel(product.productType)}</span>
         </nav>
 
-        <div className="grid lg:grid-cols-[1fr_460px] gap-10 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-10 lg:gap-16">
           {/* GALLERY */}
           <div className="grid grid-cols-[80px_1fr] gap-4 lg:sticky lg:top-28 lg:self-start">
             <div className="flex flex-col gap-2">
@@ -467,7 +477,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
             )}
 
             {(product.tastingNotes || product.foodPairing) && (
-              <div className="mt-6 grid sm:grid-cols-2 gap-4">
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {product.tastingNotes && (
                   <div className="glass rounded-2xl p-5">
                     <p className="text-xs uppercase tracking-[0.2em] text-primary mb-2 font-mono">

@@ -20,7 +20,7 @@ export function Footer() {
         Grid: brand(2fr) | shop(1fr) | brand-links(1fr) | help(1fr) | newsletter(2fr)
         5 explicit columns avoids col-span arithmetic entirely.
       */}
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10 py-16 grid gap-x-8 gap-y-12 md:grid-cols-[2fr_1fr_1fr_1fr_2fr]">
+      <div className="mx-auto max-w-[1400px] px-6 md:px-10 py-16 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-[2fr_1fr_1fr_1fr_2fr]">
         <div>
           <div className="flex items-center gap-2">
             <div className="h-10 w-10 rounded-lg bg-wine shadow-glow grid place-items-center">
@@ -185,7 +185,7 @@ function FooterNewsletterForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="your@email.com"
-        className="flex-1 bg-input rounded-full px-5 py-3 text-sm outline-none focus:ring-2 ring-primary"
+        className="flex-1 min-w-0 bg-input rounded-full px-5 py-3 text-sm outline-none focus:ring-2 ring-primary"
       />
       <button
         disabled={subscribe.isPending}

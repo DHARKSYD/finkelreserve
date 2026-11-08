@@ -90,7 +90,7 @@ export function AddressFormDialog({
         </DialogHeader>
 
         <div className="space-y-4">
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field
               label="Recipient name"
               value={form.recipientName}
@@ -109,7 +109,7 @@ export function AddressFormDialog({
             onChange={(v) => setForm((f) => ({ ...f, addressLine: v }))}
           />
 
-          <div className="grid sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field
               label="City"
               value={form.city}

@@ -15,7 +15,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Toaster } from "@/components/ui/sonner";
 import { useAuth } from "@/hooks/use-auth";
 import { ADMIN_NAV } from "./nav-config";
 
@@ -96,7 +95,6 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           {children}
         </div>
       </SidebarInset>
-      <Toaster />
     </SidebarProvider>
   );
 }

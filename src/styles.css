@@ -55,14 +55,14 @@
 }
 
 /*
- * Palette: deep wine/burgundy + warm cream/ivory + charcoal + restrained
- * gold, per the brand brief. Light theme throughout — this app never had
- * a light/dark toggle (grep confirms .dark is never applied at runtime),
- * so :root is the only theme in effect; the .dark scaffolding below is
- * kept only because shadcn-derived components under src/components/ui
- * may reference the `dark:` variant internally.
+ * Palette: deep wine/burgundy + warm cream/ivory + charcoal + restrained gold, per the brand
+ * brief. Two themes: :root is the light (ivory) theme; `.dark` below is the dark theme, applied by
+ * src/lib/theme.tsx (a class on <html>, set before first paint by an inline script in the root
+ * route so there is no flash). Everything reads these semantic tokens, so a component that only
+ * uses bg-background / text-foreground / bg-primary… themes itself; avoid hard-coded colours.
  */
 :root {
+  color-scheme: light;
   --background: oklch(0.97 0.014 75); /* warm ivory */
   --foreground: oklch(0.23 0.02 40); /* charcoal, warm undertone */
   --surface: oklch(0.99 0.008 75); /* near-white cream, for cards */
@@ -93,6 +93,10 @@
   --border: oklch(0.5 0.03 50 / 18%);
   --input: oklch(0.95 0.015 70);
   --ring: var(--primary);
+  /* Colour for SMALL text in the brand colour (eyebrows, links). Same as --primary in light; the
+     dark theme points it at a lighter rose so it stays readable on a dark background. */
+  --primary-text: var(--primary);
+  --glass-border: oklch(0.3 0.05 30 / 0.08);
 
   --gradient-hero: radial-gradient(
       ellipse at top,
@@ -102,6 +106,7 @@
     radial-gradient(ellipse at bottom right, oklch(0.33 0.14 18 / 0.12), transparent 60%),
     linear-gradient(180deg, oklch(0.98 0.012 75), oklch(0.95 0.014 72));
   --gradient-wine: linear-gradient(135deg, oklch(0.33 0.14 18), oklch(0.45 0.15 15));
+  --gradient-wine-text: var(--gradient-wine);
   --gradient-glass: linear-gradient(135deg, oklch(1 0 0 / 0.65), oklch(1 0 0 / 0.35));
 
   --shadow-glow: 0 0 34px oklch(0.33 0.14 18 / 0.28), 0 0 64px oklch(0.72 0.11 80 / 0.16);
@@ -117,8 +122,51 @@
   --sidebar-ring: var(--ring);
 }
 
+/* Dark theme — warm near-black with a wine undertone (never neutral grey), ivory text, a brighter
+   claret for buttons (so ivory text on them keeps ≥4.5:1 contrast) and gold kept as the accent. */
 .dark {
   color-scheme: dark;
+  --background: oklch(0.17 0.018 25);
+  --foreground: oklch(0.95 0.012 75);
+  --surface: oklch(0.21 0.02 25);
+  --surface-2: oklch(0.27 0.024 25);
+  --card: oklch(0.21 0.02 25);
+  --card-foreground: oklch(0.95 0.012 75);
+  --popover: oklch(0.22 0.02 25);
+  --popover-foreground: oklch(0.95 0.012 75);
+  --primary: oklch(0.6 0.17 18);
+  --primary-foreground: oklch(0.99 0.008 75);
+  --secondary: oklch(0.28 0.025 25);
+  --secondary-foreground: oklch(0.95 0.012 75);
+  --muted: oklch(0.27 0.02 25);
+  --muted-foreground: oklch(0.74 0.02 60);
+  --accent: oklch(0.78 0.12 82);
+  --accent-foreground: oklch(0.2 0.02 40);
+  --wine: oklch(0.45 0.15 18);
+  --destructive: oklch(0.68 0.2 25);
+  --destructive-foreground: oklch(0.15 0.02 25);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(0.25 0.022 25);
+  --primary-text: oklch(0.76 0.13 20);
+  --glass-border: oklch(1 0 0 / 0.1);
+
+  --gradient-hero: radial-gradient(ellipse at top, oklch(0.78 0.12 82 / 0.1), transparent 60%),
+    radial-gradient(ellipse at bottom right, oklch(0.55 0.17 18 / 0.2), transparent 60%),
+    linear-gradient(180deg, oklch(0.2 0.02 25), oklch(0.16 0.018 25));
+  --gradient-wine: linear-gradient(135deg, oklch(0.42 0.15 18), oklch(0.53 0.16 15));
+  --gradient-wine-text: linear-gradient(135deg, oklch(0.7 0.16 18), oklch(0.82 0.13 60));
+  --gradient-glass: linear-gradient(135deg, oklch(0.3 0.022 25 / 0.62), oklch(0.23 0.02 25 / 0.5));
+
+  --shadow-glow: 0 0 30px oklch(0.6 0.17 18 / 0.32), 0 0 60px oklch(0.78 0.12 82 / 0.1);
+  --shadow-card: 0 24px 60px -24px oklch(0 0 0 / 0.65);
+
+  --sidebar-accent: oklch(0.6 0.17 18 / 0.16);
+}
+
+/* Small text in the brand colour needs a lighter tone on a dark background. (Unlayered on
+   purpose: it must win over Tailwind's .text-primary in the utilities layer.) */
+.dark .text-primary {
+  color: var(--primary-text);
 }
 
 @layer base {
@@ -150,7 +198,7 @@
     background: var(--gradient-glass);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid oklch(0.3 0.05 30 / 0.08);
+    border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-card);
   }
   /* Navbar while a dark hero (see data-dark-hero) is still behind it. Re-points the tokens the
@@ -172,8 +220,15 @@
     --border: oklch(0.5 0.03 50 / 18%);
     color: var(--foreground);
   }
+  .dark .nav-on-dark .glass {
+    --foreground: oklch(0.95 0.012 75);
+    --muted-foreground: oklch(0.74 0.02 60);
+    --surface-2: oklch(0.27 0.024 25);
+    --border: oklch(1 0 0 / 12%);
+    color: var(--foreground);
+  }
   .text-gradient-wine {
-    background: var(--gradient-wine);
+    background: var(--gradient-wine-text);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

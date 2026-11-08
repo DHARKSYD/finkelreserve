@@ -10,6 +10,7 @@ import {
   useRemoveAvatar,
 } from "@/lib/queries/profile";
 import { supabase } from "@/integrations/supabase/client";
+import { isPlausiblePhone, storablePhone } from "@/lib/phone";
 
 export const Route = createFileRoute("/account/profile")({
   head: () => ({ meta: [{ title: "Profile — My Account" }] }),
@@ -24,7 +25,8 @@ function ProfilePage() {
   const removeAvatar = useRemoveAvatar();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [displayName, setDisplayName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [emailForm, setEmailForm] = useState(false);
   const [newEmail, setNewEmail] = useState("");
@@ -32,7 +34,11 @@ function ProfilePage() {
 
   useEffect(() => {
     if (profile) {
-      setDisplayName(profile.displayName ?? "");
+      // Accounts made before separate name fields only have one display name — split it so
+      // the form isn't empty (first word → first name, the rest → last name).
+      const [first = "", ...rest] = (profile.displayName ?? "").trim().split(/\s+/);
+      setFirstName(profile.firstName ?? first);
+      setLastName(profile.lastName ?? rest.join(" "));
       setPhone(profile.phone ?? "");
     }
   }, [profile]);
@@ -46,9 +52,18 @@ function ProfilePage() {
   }
 
   const handleSave = () => {
-    if (!displayName.trim()) return toast.error("Name is required.");
+    if (!firstName.trim()) return toast.error("First name is required.");
+    if (!lastName.trim()) return toast.error("Last name is required.");
+    if (phone.trim() && !isPlausiblePhone(phone)) {
+      return toast.error("Please enter a valid phone number, e.g. 0803 123 4567.");
+    }
     updateProfile.mutate(
-      { userId: user.id, displayName: displayName.trim(), phone: phone.trim() },
+      {
+        userId: user.id,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        phone: storablePhone(phone) ?? "",
+      },
       {
         onSuccess: () => toast.success("Profile updated."),
         onError: (e) => toast.error(e instanceof Error ? e.message : "Could not save changes."),
@@ -97,7 +112,7 @@ function ProfilePage() {
               <img src={profile.avatarUrl} alt="" className="h-16 w-16 rounded-full object-cover" />
             ) : (
               <div className="h-16 w-16 rounded-full bg-primary/10 grid place-items-center text-primary font-bold text-xl">
-                {(displayName || "C").charAt(0).toUpperCase()}
+                {(firstName || "C").charAt(0).toUpperCase()}
               </div>
             )}
             <button
@@ -137,18 +152,43 @@ function ProfilePage() {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-muted-foreground">Full name</label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="min-w-0 space-y-1.5">
+            <label htmlFor="first-name" className="text-xs font-semibold text-muted-foreground">
+              First name
+            </label>
             <input
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
+              id="first-name"
+              autoComplete="given-name"
+              maxLength={60}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               className="w-full bg-input rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 ring-primary"
             />
           </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-muted-foreground">Phone</label>
+          <div className="min-w-0 space-y-1.5">
+            <label htmlFor="last-name" className="text-xs font-semibold text-muted-foreground">
+              Last name
+            </label>
             <input
+              id="last-name"
+              autoComplete="family-name"
+              maxLength={60}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="w-full bg-input rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 ring-primary"
+            />
+          </div>
+          <div className="min-w-0 space-y-1.5 sm:col-span-2">
+            <label htmlFor="phone" className="text-xs font-semibold text-muted-foreground">
+              Phone
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              maxLength={20}
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="Not set"
@@ -156,6 +196,9 @@ function ProfilePage() {
             />
           </div>
         </div>
+        <p className="mt-3 text-[11px] text-muted-foreground">
+          Your name appears on reviews as “{`${firstName} ${lastName}`.trim() || "—"}”.
+        </p>
 
         <button
           onClick={handleSave}
@@ -186,7 +229,7 @@ function ProfilePage() {
               type="email"
               value={newEmail}
               onChange={(e) => setNewEmail(e.target.value)}
-              className="bg-input rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 ring-primary flex-1 w-full sm:w-auto"
+              className="bg-input rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 ring-primary flex-1 min-w-0 w-full sm:w-auto"
             />
             <div className="flex gap-2 shrink-0">
               <button

@@ -11,6 +11,9 @@ import {
 import appCss from "../styles.css?url";
 import { supabase } from "@/integrations/supabase/client";
 import { SITE_URL } from "@/lib/config";
+import { ThemeProvider } from "@/lib/theme";
+import { THEME_INIT_SCRIPT } from "@/lib/theme-context";
+import { ThemedToaster } from "@/components/ThemedToaster";
 
 // Used only if the settings fetch below fails or the seed row somehow
 // doesn't exist — not the source of truth. src/lib/queries/settings.ts /
@@ -165,8 +168,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    // suppressHydrationWarning: the inline script below adds the `dark` class to <html> before React
+    // hydrates, so the server's markup legitimately differs from the client's on that one element.
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
       <body>
@@ -182,7 +188,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <ThemeProvider>
+        <Outlet />
+        <ThemedToaster />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

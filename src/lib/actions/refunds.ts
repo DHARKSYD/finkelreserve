@@ -149,6 +149,8 @@ export const requestRefund = createServerFn({ method: "POST" })
             amount: Math.round(amount * 100), // kobo — see paystack.ts for the same conversion on the charge side
             currency: "NGN",
             merchant_note: data.reason || `Refund for order ${order.id}`,
+            // Shown to the customer by Paystack in their refund notification.
+            customer_note: `Finkel Reserve refund — order ${order.id.slice(0, 8).toUpperCase()}`,
           }),
         });
       } catch {
@@ -209,4 +211,179 @@ export const requestRefund = createServerFn({ method: "POST" })
       status,
       fullyRefunded: result.order_fully_refunded,
     };
+  });
+
+// ─── Refunds that Paystack can't finish on its own ─────────────────────────
+//
+// When a refund can't be sent back to wherever the money came from (typically a customer who
+// paid by bank transfer or USSD, where Paystack was never given a bank account to return it to),
+// Paystack parks it as "needs-attention" and sends a refund.needs-attention webhook. To finish it
+// the merchant supplies ANY valid bank account belonging to the customer — via the "retry with
+// customer details" endpoint, which only accepts this for a needs-attention refund. These two
+// functions power that: a bank list to choose from, and the retry itself.
+
+export type PaystackBank = { id: number; name: string };
+
+type PaystackBankListResponse = {
+  status: boolean;
+  data?: {
+    id: number;
+    name: string;
+    active?: boolean;
+    is_deleted?: boolean;
+    currency?: string;
+    type?: string;
+  }[];
+  meta?: { next?: string | null };
+};
+
+// The bank list changes rarely; keep it for a few hours per server instance rather than asking
+// Paystack every time an admin opens the form.
+const BANK_CACHE_MS = 6 * 60 * 60 * 1000;
+let bankCache: { banks: PaystackBank[]; at: number } | null = null;
+
+export const listPaystackBanks = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => z.object({}).parse(data ?? {}))
+  .handler(
+    async (): Promise<{ ok: true; banks: PaystackBank[] } | { ok: false; error: string }> => {
+      try {
+        await requireAdmin();
+      } catch (e) {
+        return { ok: false, error: e instanceof Error ? e.message : "Unauthorized." };
+      }
+      if (bankCache && Date.now() - bankCache.at < BANK_CACHE_MS) {
+        return { ok: true, banks: bankCache.banks };
+      }
+
+      // Cursor pagination, 100 per page (Paystack's maximum); a hard page cap guards against a loop.
+      const banks: PaystackBank[] = [];
+      let next: string | null = null;
+      for (let page = 0; page < 10; page++) {
+        const url = new URL(`${PAYSTACK_BASE}/bank`);
+        url.searchParams.set("country", "nigeria");
+        url.searchParams.set("currency", "NGN");
+        url.searchParams.set("perPage", "100");
+        url.searchParams.set("use_cursor", "true");
+        if (next) url.searchParams.set("next", next);
+
+        let res: Response;
+        try {
+          res = await fetch(url, { headers: { Authorization: `Bearer ${paystackSecretKey()}` } });
+        } catch {
+          return { ok: false, error: "Could not reach Paystack. Please try again shortly." };
+        }
+        const json = (await res.json().catch(() => null)) as PaystackBankListResponse | null;
+        if (!res.ok || !json?.status || !json.data) {
+          return { ok: false, error: "Paystack could not return its list of banks." };
+        }
+        for (const b of json.data) {
+          const usable =
+            b.active !== false &&
+            !b.is_deleted &&
+            (!b.currency || b.currency === "NGN") &&
+            (!b.type || b.type === "nuban");
+          if (usable) banks.push({ id: b.id, name: b.name });
+        }
+        next = json.meta?.next ?? null;
+        if (!next) break;
+      }
+
+      banks.sort((a, b) => a.name.localeCompare(b.name));
+      bankCache = { banks, at: Date.now() };
+      return { ok: true, banks };
+    },
+  );
+
+const retrySchema = z.object({
+  refundId: z.string().uuid(), // OUR refunds.id (not Paystack's)
+  bankId: z.number().int().positive(), // Paystack's bank id, from listPaystackBanks
+  accountNumber: z
+    .string()
+    .trim()
+    .regex(/^\d{10}$/, "A Nigerian account number is exactly 10 digits."),
+});
+
+export type RetryRefundResult = { ok: true } | { ok: false; error: string };
+
+export const retryRefundWithBankDetails = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => retrySchema.parse(data))
+  .handler(async ({ data }): Promise<RetryRefundResult> => {
+    let actorId: string;
+    try {
+      actorId = await requireAdmin();
+    } catch (e) {
+      return { ok: false, error: e instanceof Error ? e.message : "Unauthorized." };
+    }
+
+    const rate = await checkRateLimit("admin-refund-retry", 10, 60_000);
+    if (!rate.ok) return { ok: false, error: "Too many attempts — please wait a minute." };
+
+    const { data: refund, error } = await supabaseAdmin
+      .from("refunds")
+      .select("id, order_id, method, status, gateway_reference, gateway_status")
+      .eq("id", data.refundId)
+      .maybeSingle();
+    if (error || !refund) return { ok: false, error: "Refund not found." };
+
+    // Paystack answers 422 for anything but a needs-attention refund; check first so the admin
+    // gets a clear message instead of a gateway error.
+    if (
+      refund.method !== "paystack" ||
+      refund.status !== "pending" ||
+      refund.gateway_status !== "needs-attention" ||
+      !refund.gateway_reference
+    ) {
+      return { ok: false, error: "This refund isn't waiting for the customer's bank details." };
+    }
+
+    let res: Response;
+    try {
+      res = await fetch(
+        `${PAYSTACK_BASE}/refund/retry_with_customer_details/${encodeURIComponent(refund.gateway_reference)}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${paystackSecretKey()}`,
+            "Content-Type": "application/json",
+          },
+          // The account number goes straight to Paystack. We don't store it or write it to any log.
+          body: JSON.stringify({
+            refund_account_details: {
+              currency: "NGN",
+              account_number: data.accountNumber,
+              bank_id: String(data.bankId),
+            },
+          }),
+        },
+      );
+    } catch {
+      return { ok: false, error: "Could not reach Paystack. Please try again shortly." };
+    }
+
+    const json = (await res.json().catch(() => null)) as {
+      status?: boolean;
+      message?: string;
+      data?: { status?: string };
+    } | null;
+    if (!res.ok || !json?.status) {
+      return { ok: false, error: json?.message || "Paystack could not retry this refund." };
+    }
+
+    // Paystack reports the new state (usually "processing"). It stays open here until the
+    // refund.processed / refund.failed webhook settles it.
+    await supabaseAdmin.rpc("update_refund_status", {
+      p_gateway_reference: refund.gateway_reference,
+      p_status: "pending",
+      p_gateway_status: json.data?.status ?? "processing",
+    });
+    await supabaseAdmin.rpc("log_admin_activity", {
+      p_type: "refund_retried",
+      p_message: `Retried refund ${refund.id.slice(0, 8)} with the customer's bank details`,
+      p_entity_type: "refund",
+      p_entity_id: refund.id,
+      p_metadata: { order_id: refund.order_id },
+      p_actor_id: actorId,
+    });
+
+    return { ok: true };
   });

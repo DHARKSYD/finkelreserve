@@ -69,7 +69,7 @@ function AddressesPage() {
       )}
 
       {!isLoading && addresses.length > 0 && (
-        <div className="grid sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {addresses.map((address) => (
             <div key={address.id} className="glass rounded-2xl p-4 space-y-2">
               <div className="flex items-start justify-between gap-2">

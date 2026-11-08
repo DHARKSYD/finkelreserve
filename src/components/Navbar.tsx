@@ -1,19 +1,10 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
-import {
-  Heart,
-  Search,
-  ShoppingBag,
-  User,
-  Menu,
-  X,
-  LayoutDashboard,
-  ChevronDown,
-  LogOut,
-} from "lucide-react";
+import { Heart, Search, ShoppingBag, User, ChevronDown, LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart, useWishlist } from "@/lib/store";
 import { useAuth } from "@/hooks/use-auth";
 import { SearchModal } from "./SearchModal";
+import { ThemeToggle } from "./ThemeToggle";
 import type { ProductType } from "@/lib/products";
 
 const QUICK: { type: ProductType; label: string }[] = [
@@ -35,12 +26,11 @@ export function Navbar() {
   // only after mount so both renders agree.
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menu, setMenu] = useState<MenuKey>(null);
   const cart = useCart();
   const wish = useWishlist();
-  const { user, isAdmin, signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const loc = useRouterState({ select: (s) => s.location });
   const path = loc.pathname;
@@ -67,7 +57,6 @@ export function Navbar() {
   }, [path]);
 
   useEffect(() => {
-    setOpen(false);
     setMenu(null);
   }, [path, currentType]);
 
@@ -148,10 +137,13 @@ export function Navbar() {
               <NavItem to="/contact" label="Contact" />
             </nav>
 
+            {/* Below `lg` the bottom tab bar (MobileTabBar) carries Home / Shop / You / Cart /
+                Contact, so the header only keeps what the bar doesn't: search, wishlist and the
+                theme switch. The account, sign-out and cart icons are for the desktop header. */}
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setSearchOpen(true)}
-                className="hidden sm:flex items-center gap-2 px-3 h-10 rounded-full hover:bg-surface-2 transition text-muted-foreground"
+                className="flex h-10 items-center gap-2 rounded-full px-3 text-muted-foreground transition hover:bg-surface-2"
                 aria-label="Search"
               >
                 <Search className="h-[18px] w-[18px]" />
@@ -160,21 +152,11 @@ export function Navbar() {
                   ⌘K
                 </kbd>
               </button>
-              {isAdmin && (
-                <Link
-                  to="/admin"
-                  className="hidden sm:grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
-                  aria-label="Admin"
-                >
-                  <LayoutDashboard className="h-[18px] w-[18px]" />
-                </Link>
-              )}
               {user ? (
                 <>
-                  {/* Account icon — links to /account when signed in */}
                   <a
                     href="/account"
-                    className="hidden sm:grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
+                    className="hidden lg:grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
                     aria-label="My account"
                   >
                     <User className="h-[18px] w-[18px]" />
@@ -184,7 +166,7 @@ export function Navbar() {
                       await signOut();
                       navigate({ to: "/" });
                     }}
-                    className="hidden sm:grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
+                    className="hidden lg:grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
                     aria-label="Sign out"
                     title={user.email ?? "Sign out"}
                   >
@@ -194,7 +176,7 @@ export function Navbar() {
               ) : (
                 <Link
                   to="/auth"
-                  className="hidden sm:grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
+                  className="hidden lg:grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
                   aria-label="Sign in"
                 >
                   <User className="h-[18px] w-[18px]" />
@@ -214,7 +196,7 @@ export function Navbar() {
               </Link>
               <button
                 onClick={cart.open}
-                className="relative grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
+                className="relative hidden lg:grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
                 aria-label="Cart"
               >
                 <ShoppingBag className="h-[18px] w-[18px]" />
@@ -224,106 +206,11 @@ export function Navbar() {
                   </span>
                 )}
               </button>
-              <button
-                onClick={() => setOpen((v) => !v)}
-                className="lg:hidden grid h-10 w-10 place-items-center rounded-full hover:bg-surface-2 transition"
-                aria-label="Menu"
-              >
-                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </button>
+              <ThemeToggle />
             </div>
           </div>
         </div>
       </header>
-
-      {/* Mobile drawer */}
-      <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all ${open ? "pointer-events-auto" : "pointer-events-none"}`}
-      >
-        <div
-          onClick={() => setOpen(false)}
-          className={`absolute inset-0 bg-background/80 backdrop-blur-sm transition-opacity ${open ? "opacity-100" : "opacity-0"}`}
-        />
-        <div
-          className={`absolute right-0 top-0 h-full w-[82%] max-w-sm bg-surface border-l border-border p-6 pt-24 overflow-y-auto transition-transform ${
-            open ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <button
-            onClick={() => {
-              setOpen(false);
-              setSearchOpen(true);
-            }}
-            className="w-full flex items-center gap-2 mb-4 px-4 py-3 rounded-full bg-surface-2"
-          >
-            <Search className="h-4 w-4" /> <span className="text-sm">Search…</span>
-          </button>
-          <nav className="flex flex-col gap-1">
-            <Link
-              to="/"
-              className="px-4 py-3 text-xl font-display font-bold border-b border-border/40"
-            >
-              Home
-            </Link>
-            <Link
-              to="/shop"
-              className="px-4 py-3 text-xl font-display font-bold border-b border-border/40"
-            >
-              Shop
-            </Link>
-            <Link
-              to="/about"
-              className="px-4 py-3 text-xl font-display font-bold border-b border-border/40"
-            >
-              Our Story
-            </Link>
-            <Link
-              to="/blog"
-              className="px-4 py-3 text-xl font-display font-bold border-b border-border/40"
-            >
-              Wine Guide
-            </Link>
-            <Link
-              to="/contact"
-              className="px-4 py-3 text-xl font-display font-bold border-b border-border/40"
-            >
-              Contact
-            </Link>
-            <Link to="/admin" className="px-4 py-3 text-base text-muted-foreground">
-              Admin
-            </Link>
-            {user ? (
-              <a href="/account" className="px-4 py-3 text-base text-muted-foreground">
-                My account
-              </a>
-            ) : (
-              <Link to="/auth" className="px-4 py-3 text-base text-muted-foreground">
-                Sign in
-              </Link>
-            )}
-            <Link to="/wishlist" className="px-4 py-3 text-base text-muted-foreground">
-              Wishlist
-            </Link>
-            <div className="mt-3 pt-3 border-t border-border/40">
-              <p className="px-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-2">
-                Shop by type
-              </p>
-              <div className="grid grid-cols-2 gap-1 px-2">
-                {QUICK.map((q) => (
-                  <Link
-                    key={q.type}
-                    to="/shop"
-                    search={{ type: q.type }}
-                    className="px-2 py-1.5 text-xs truncate hover:text-primary"
-                  >
-                    {q.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </nav>
-        </div>
-      </div>
 
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>

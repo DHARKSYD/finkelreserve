@@ -7,6 +7,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useMyOrders } from "@/lib/queries/orders";
 import { useMyReturns } from "@/lib/queries/returns";
 import { DeleteAccountDialog } from "@/components/account/DeleteAccountDialog";
+import { PasswordField } from "@/components/auth/PasswordField";
+import { MIN_PASSWORD_LENGTH, validateNewPassword } from "@/lib/password";
 
 export const Route = createFileRoute("/account/security")({
   head: () => ({ meta: [{ title: "Security — My Account" }] }),
@@ -35,12 +37,9 @@ function SecurityPage() {
   const hasPassword = (user.identities ?? []).some((i) => i.provider === "email");
 
   const handlePasswordChange = async () => {
-    if (newPassword.length < 8) {
-      toast.error("Password must be at least 8 characters.");
-      return;
-    }
-    if (newPassword !== confirmPassword) {
-      toast.error("Passwords don't match.");
+    const problem = validateNewPassword(newPassword, confirmPassword);
+    if (problem) {
+      toast.error(problem);
       return;
     }
     setSubmitting(true);
@@ -74,27 +73,36 @@ function SecurityPage() {
 
       <div className="glass rounded-2xl p-6">
         <p className="font-semibold text-sm mb-4">Change password</p>
-        <div className="grid sm:grid-cols-2 gap-3">
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-muted-foreground">New password</label>
-            <input
-              type="password"
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="min-w-0 space-y-1.5">
+            <label htmlFor="new-password" className="text-xs font-semibold text-muted-foreground">
+              New password
+            </label>
+            <PasswordField
+              id="new-password"
+              shape="field"
+              autoComplete="new-password"
+              showStrength
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              minLength={8}
-              className="w-full bg-input rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 ring-primary"
+              minLength={MIN_PASSWORD_LENGTH}
             />
           </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-muted-foreground">
+          <div className="min-w-0 space-y-1.5">
+            <label
+              htmlFor="confirm-password"
+              className="text-xs font-semibold text-muted-foreground"
+            >
               Confirm new password
             </label>
-            <input
-              type="password"
+            <PasswordField
+              id="confirm-password"
+              shape="field"
+              autoComplete="new-password"
+              invalid={confirmPassword.length > 0 && newPassword !== confirmPassword}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              minLength={8}
-              className="w-full bg-input rounded-lg px-4 py-2.5 text-sm outline-none focus:ring-2 ring-primary"
+              minLength={MIN_PASSWORD_LENGTH}
             />
           </div>
         </div>

@@ -163,16 +163,52 @@ else in the app functions normally without Paystack configured.
    customer closes the tab before returning — the order-confirmation page also double-checks
    directly with Paystack when they do return, so payments still confirm even before the webhook
    is set up.
-3. Test with [Paystack's test cards](https://paystack.com/docs/payments/test-payments/) before
+3. **Refunds** use the same webhook URL. Paystack sends `refund.pending`, `refund.processing`,
+   `refund.needs-attention`, `refund.processed` and `refund.failed` to it automatically — there is
+   nothing extra to subscribe to. A refund the customer paid for by bank transfer or USSD can come
+   back as *needs attention* (Paystack has no card to return the money to); the admin then enters
+   a bank account for the customer on the return in Admin → Returns. Once Paystack marks a refund
+   *processed* the return completes by itself; the money can still take up to 10 business days to
+   reach the customer.
+4. Test with [Paystack's test cards](https://paystack.com/docs/payments/test-payments/) before
    going live. Swap in the live secret key only once you've verified the full flow — see the
    checklist below.
 
 ---
 
-## 8. (Optional) Google sign-in
+## 8. (Optional) Google and Apple sign-in
 
-Supabase Dashboard → Authentication → Providers → Google. Without this, email/password auth
-(including forgot/reset password) works fine on its own.
+The sign-in and sign-up pages show **Continue with Google** and **Continue with Apple** buttons.
+They only work once the provider is switched on in Supabase; until then, tapping one shows
+"… sign-in isn't available yet. Please use your email for now." Email/password (including
+forgot/reset password) works on its own either way.
+
+**Always (both providers):** Supabase Dashboard → Authentication → URL Configuration →
+**Redirect URLs** → add `https://your-domain.com/**` (and `http://localhost:3000/**` for local
+work). People return to `/auth` after the provider, and it sends them home.
+
+**Google** — Supabase → Authentication → Providers → Google, which shows the callback URL to
+copy (`https://<project-ref>.supabase.co/auth/v1/callback`). In
+[Google Cloud Console](https://console.cloud.google.com/apis/credentials) create an *OAuth client
+ID* (type **Web application**), add that callback under *Authorized redirect URIs*, then paste the
+client ID and secret back into Supabase.
+
+**Apple** — needs a paid Apple Developer Program membership. In the Apple Developer portal create
+an *App ID*, a *Services ID* (this is the "client ID"; enable Sign in with Apple and add your
+domain plus the same Supabase callback URL), and a *Key* (download the `.p8` once). Supabase →
+Providers → Apple asks for the Services ID and a client secret generated from the key; Supabase's
+docs have the generator. **Apple client secrets expire after 6 months** — put a reminder in your
+calendar to regenerate it, or Apple sign-in will silently stop working.
+
+**Hide a button you haven't set up:** set `VITE_AUTH_PROVIDERS` at build time to the ones you want
+(`google`, `apple`, `google,apple`, or empty for neither). Unset = both.
+
+Customers who sign in with a provider are 18+-confirmed by the notice under the buttons; their
+name and photo come from the provider when it shares them (Apple often shares the name only once).
+
+Other build-time variable added with the mobile bottom bar: `VITE_WHATSAPP_NUMBER` (digits only,
+e.g. `2348012345678`) powers the WhatsApp card on the Contact page and the desktop chat button.
+Without it the site simply shows email instead — it never links to a made-up number.
 
 ---
 
@@ -350,3 +386,22 @@ grep -rl "SUPABASE_SERVICE_ROLE_KEY\|supabaseAdmin\|service_role" .output/public
 ```
 
 Clean means nothing found.
+
+---
+
+## Updating an existing install (migrations)
+
+New migrations in this update, applied in order by `supabase db push`:
+
+| Migration | What it does | Touches data? |
+| --- | --- | --- |
+| `20261030100000_fix_anon_catalog_reads` | Logged-out visitors (and a page refresh) could not read products — see the file's header. | No — replaces one function, adds a grant. |
+| `20261030110000_profile_names_and_social_signup` | First/last name columns, social-sign-up aware new-user trigger. | Adds columns; fills first/last name only where an existing display name has two or more words. |
+| `20261030120000_paystack_refund_sync` | Refund webhook matching by transaction, auto-complete returns, customer refund status. | No — replaces/adds functions only. |
+
+All three are safe to run more than once and none deletes data. Take a database backup first
+(Supabase → Database → Backups) as you would for any production change.
+
+**Admin access:** the public site no longer links to the admin area, and `/admin` is not listed in
+`robots.txt`. Go to `/admin` directly (bookmark it); it is still protected by sign-in and the admin
+role, and tells search engines not to index it.

@@ -113,7 +113,7 @@ function BlogPostPage() {
           </p>
         </header>
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,44rem)_1fr]">
+        <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,44rem)_1fr]">
           <div>
             {headings.length > 1 && (
               <nav aria-label="In this article" className="glass mb-8 rounded-2xl p-5 lg:hidden">
@@ -143,7 +143,7 @@ function BlogPostPage() {
 
       <section className="mx-auto mt-24 max-w-[1400px] px-6 md:px-10">
         <h2 className="font-display font-black text-3xl tracking-tight">Keep reading</h2>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
           {related.map((p) => (
             <PostCard key={p.slug} post={p} />
           ))}

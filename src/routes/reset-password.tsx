@@ -1,8 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Lock, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { supabase } from "@/integrations/supabase/client";
+import { PasswordField } from "@/components/auth/PasswordField";
+import { MIN_PASSWORD_LENGTH, validateNewPassword } from "@/lib/password";
 
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
@@ -51,12 +53,9 @@ function ResetPasswordPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
-    if (password !== confirmPassword) {
-      setError("Passwords don't match.");
+    const problem = validateNewPassword(password, confirmPassword);
+    if (problem) {
+      setError(problem);
       return;
     }
     setBusy(true);
@@ -96,30 +95,25 @@ function ResetPasswordPage() {
 
             {ready && !done && (
               <form onSubmit={handleSubmit} className="space-y-4 mt-6">
-                <div className="flex items-center gap-3 bg-input rounded-full px-5">
-                  <Lock className="h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="password"
-                    placeholder="New password (min 8 chars)"
-                    required
-                    minLength={8}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="flex-1 bg-transparent py-4 text-sm outline-none"
-                  />
-                </div>
-                <div className="flex items-center gap-3 bg-input rounded-full px-5">
-                  <Lock className="h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="password"
-                    placeholder="Confirm new password"
-                    required
-                    minLength={8}
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="flex-1 bg-transparent py-4 text-sm outline-none"
-                  />
-                </div>
+                <PasswordField
+                  placeholder={`New password (min ${MIN_PASSWORD_LENGTH} chars)`}
+                  aria-label="New password"
+                  autoComplete="new-password"
+                  required
+                  minLength={MIN_PASSWORD_LENGTH}
+                  showStrength
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <PasswordField
+                  placeholder="Confirm new password"
+                  aria-label="Confirm new password"
+                  autoComplete="new-password"
+                  required
+                  invalid={confirmPassword.length > 0 && password !== confirmPassword}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
                 {error && <p className="text-xs text-destructive">{error}</p>}
                 <button
                   type="submit"

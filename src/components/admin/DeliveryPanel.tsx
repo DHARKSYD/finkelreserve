@@ -131,7 +131,7 @@ export function DeliveryPanel({ order }: { order: Order }) {
       </div>
 
       {canHandOff && (
-        <div className="grid lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {/* 1) the sheet to take to the courier app */}
           <div>
             <p className={LABEL}>1 · Dispatch details</p>
@@ -176,7 +176,7 @@ export function DeliveryPanel({ order }: { order: Order }) {
           {/* 2) record who has it */}
           <div>
             <p className={LABEL}>2 · Who has it</p>
-            <div className="grid sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className={LABEL} htmlFor={`courier-${order.id}`}>
                   Courier
