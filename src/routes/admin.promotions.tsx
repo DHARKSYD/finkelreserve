@@ -16,7 +16,7 @@ import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { CouponFormDialog } from "@/components/admin/CouponFormDialog";
 
 export const Route = createFileRoute("/admin/promotions")({
-  head: () => ({ meta: [{ title: "Promotions — Admin" }] }),
+  head: () => ({ meta: [{ title: "Promotions | Admin" }] }),
   component: PromotionsPage,
 });
 
@@ -71,7 +71,7 @@ function PromotionsPage() {
             Promotions
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Coupon codes customers can apply at checkout — validated server-side, every time.
+            Coupon codes customers can apply at checkout. Validated server-side, every time.
           </p>
         </div>
         <button
@@ -197,7 +197,7 @@ function PromotionsPage() {
         open={!!deleteTarget}
         onOpenChange={(open) => !open && setDeleteTarget(null)}
         title={`Delete coupon ${deleteTarget?.code ?? ""}?`}
-        description="Past orders that used this code keep their discount — this only stops it from being used again."
+        description="Past orders that used this code keep their discount. This only stops it from being used again."
         confirmLabel="Delete"
         destructive
         onConfirm={() => {

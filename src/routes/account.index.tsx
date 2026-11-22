@@ -154,7 +154,7 @@ function OverviewPage() {
 
         {recentOrders.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No orders yet —{" "}
+            No orders yet:{" "}
             <Link to="/shop" className="text-primary hover:underline">
               start shopping
             </Link>

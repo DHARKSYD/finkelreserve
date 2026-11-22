@@ -6,7 +6,7 @@ import { useAdminReviews, useAdminDeleteReview } from "@/lib/queries/reviews";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export const Route = createFileRoute("/admin/reviews")({
-  head: () => ({ meta: [{ title: "Reviews — Admin" }] }),
+  head: () => ({ meta: [{ title: "Reviews | Admin" }] }),
   component: ReviewsPage,
 });
 

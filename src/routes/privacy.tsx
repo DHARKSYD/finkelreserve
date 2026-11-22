@@ -5,7 +5,7 @@ import { useSettings } from "@/lib/queries/settings";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy — Finkel Reserve" },
+      { title: "Privacy Policy | Finkel Reserve" },
       {
         name: "description",
         content: "How Finkel Reserve collects, uses, and protects your personal information.",
@@ -70,7 +70,7 @@ function PrivacyPage() {
                   <p className="font-semibold text-foreground mb-1">Account information</p>
                   <p>
                     When you register, we collect your email address and a display name. Your
-                    password is never stored by us — authentication is managed by Supabase, which
+                    password is never stored by us. Authentication is managed by Supabase, which
                     stores only a secure hash.
                   </p>
                 </div>
@@ -140,7 +140,7 @@ function PrivacyPage() {
                 <li>To detect and prevent fraud and abuse</li>
                 <li>To improve our product catalogue and store experience</li>
                 <li>
-                  To send marketing communications, if you have subscribed to our newsletter — you
+                  To send marketing communications, if you have subscribed to our newsletter. You
                   can unsubscribe at any time by contacting us
                 </li>
                 <li>To comply with applicable legal obligations</li>
@@ -165,7 +165,7 @@ function PrivacyPage() {
                   <p className="font-semibold text-foreground">Paystack</p>
                   <p>
                     Payment processing for online orders. Your billing and card details are entered
-                    directly on Paystack's secure checkout — we never see or store them. Paystack is
+                    directly on Paystack's secure checkout. We never see or store them. Paystack is
                     registered and regulated in Nigeria and the US.
                   </p>
                 </div>

@@ -14,7 +14,7 @@ function createSupabaseAdminClient() {
       ...(!SUPABASE_URL ? ["SUPABASE_URL"] : []),
       ...(!SUPABASE_SERVICE_ROLE_KEY ? ["SUPABASE_SERVICE_ROLE_KEY"] : []),
     ];
-    const message = `Missing Supabase environment variable(s): ${missing.join(", ")}. Copy .env.example to .env and fill in your Supabase project's values (see README.md) — the service role key is in Project Settings → API.`;
+    const message = `Missing Supabase environment variable(s): ${missing.join(", ")}. Copy .env.example to .env and fill in your Supabase project's values (see README.md). The service role key is in Project Settings → API.`;
     console.error(`[Supabase] ${message}`);
     throw new Error(message);
   }

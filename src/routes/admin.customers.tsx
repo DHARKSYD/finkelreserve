@@ -5,7 +5,7 @@ import { EmptyState } from "@/components/admin/EmptyState";
 import { Users } from "lucide-react";
 
 export const Route = createFileRoute("/admin/customers")({
-  head: () => ({ meta: [{ title: "Customers — Admin" }] }),
+  head: () => ({ meta: [{ title: "Customers | Admin" }] }),
   component: CustomersPage,
 });
 
@@ -49,7 +49,7 @@ function CustomersPage() {
                     <p className="font-semibold">{c.name}</p>
                     <p className="text-xs text-muted-foreground">{c.email}</p>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground">{c.phone || "—"}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{c.phone || "n/a"}</td>
                   <td className="px-4 py-3">{c.orderCount}</td>
                   <td className="px-4 py-3 font-semibold">{formatNGN(c.totalSpent)}</td>
                   <td className="px-4 py-3 text-muted-foreground">

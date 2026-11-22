@@ -101,7 +101,7 @@ export async function handlePaystackWebhook(request: Request): Promise<Response>
     }
     if (outcome === "ambiguous") {
       console.warn(
-        `[paystack-webhook] ${event.event} for ${event.data.transaction_reference}: several open refunds, none matched by amount — left unchanged`,
+        `[paystack-webhook] ${event.event} for ${event.data.transaction_reference}: several open refunds, none matched by amount, left unchanged`,
       );
     }
   }

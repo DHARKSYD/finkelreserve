@@ -28,7 +28,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useMyAddresses, useCreateAddress } from "@/lib/queries/addresses";
 
 export const Route = createFileRoute("/cart")({
-  head: () => ({ meta: [{ title: "Cart — Finkel Reserve" }] }),
+  head: () => ({ meta: [{ title: "Cart | Finkel Reserve" }] }),
   component: CartPage,
 });
 
@@ -159,7 +159,7 @@ function CartPage() {
         },
         onError: () => {
           setAppliedCoupon(null);
-          setCouponError("Could not check that code — please try again.");
+          setCouponError("Could not check that code. Please try again.");
         },
       },
     );
@@ -238,7 +238,7 @@ function CartPage() {
     <Layout>
       <div className="pt-32" />
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— Checkout</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">Checkout</p>
         <h1 className="mt-2 font-display font-black text-5xl md:text-6xl tracking-tighter">
           Your Bag
         </h1>
@@ -454,7 +454,7 @@ function CartPage() {
                     ))}
                   </select>
                   <Field
-                    placeholder="Delivery instructions (optional) — gate code, landmark, etc."
+                    placeholder="Delivery instructions (optional): gate code, landmark, etc."
                     value={form.deliveryInstructions}
                     onChange={(v) => setForm({ ...form, deliveryInstructions: v })}
                   />
@@ -485,7 +485,7 @@ function CartPage() {
                     <span>
                       Email me about this order
                       <span className="block text-xs text-muted-foreground">
-                        Confirmation, when it's on its way, and when it's delivered — sent to{" "}
+                        Confirmation, when it's on its way, and when it's delivered, sent to{" "}
                         {form.email || "your email"}. Order updates only, never marketing.
                       </span>
                     </span>

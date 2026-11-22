@@ -73,7 +73,7 @@ export const placeOrder = createServerFn({ method: "POST" })
     if (!rate.ok)
       return {
         ok: false,
-        error: "Too many checkout attempts — please wait a minute and try again.",
+        error: "Too many checkout attempts. Please wait a minute and try again.",
       };
 
     const items = data.items.filter((i) => i.qty > 0);

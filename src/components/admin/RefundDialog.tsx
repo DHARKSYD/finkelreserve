@@ -53,7 +53,7 @@ export function RefundDialog({
           }
           toast.success(
             result.status === "pending"
-              ? "Refund submitted — Paystack is processing it."
+              ? "Refund submitted. Paystack is processing it."
               : result.status === "failed"
                 ? "Paystack could not process this refund."
                 : "Refund recorded.",
@@ -83,8 +83,8 @@ export function RefundDialog({
             </p>
             <p className="text-muted-foreground">
               {payment.paymentMethod === "paystack"
-                ? "Paid online — refund goes through Paystack automatically."
-                : "Paid on delivery — this only records that a cash refund was given; nothing is charged or transferred automatically."}
+                ? "Paid online: refund goes through Paystack automatically."
+                : "Paid on delivery: this only records that a cash refund was given; nothing is charged or transferred automatically."}
             </p>
           </div>
 

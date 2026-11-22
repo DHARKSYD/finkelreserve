@@ -49,7 +49,7 @@ export function buildDispatchMessage(d: DispatchInput): string {
     .filter(Boolean)
     .join(", ");
   const lines = [
-    `DELIVERY REQUEST — ${d.storeName}`,
+    `DELIVERY REQUEST: ${d.storeName}`,
     `Order #${d.orderRef}`,
     "",
     "PICK UP",
@@ -57,20 +57,20 @@ export function buildDispatchMessage(d: DispatchInput): string {
     ...(d.pickupPhone ? [`Contact: ${d.pickupPhone}`] : []),
     "",
     "DROP OFF",
-    `${d.customer.name}${d.customer.phone ? ` — ${d.customer.phone}` : ""}`,
+    `${d.customer.name}${d.customer.phone ? `, ${d.customer.phone}` : ""}`,
     dropOff,
     ...(d.customer.landmark.trim()
       ? [`Landmark / instructions: ${d.customer.landmark.trim()}`]
       : []),
     "",
     "PARCEL",
-    `${d.bottleCount} bottle${d.bottleCount === 1 ? "" : "s"} of wine/spirits — glass, fragile. Keep upright. Alcohol: 18+ only, ID on delivery.`,
+    `${d.bottleCount} bottle${d.bottleCount === 1 ? "" : "s"} of wine/spirits: glass, fragile. Keep upright. Alcohol: 18+ only, ID on delivery.`,
     "Contains alcohol: hand over to an adult (18+) only, and ask for ID if unsure.",
     "",
     "PAYMENT",
     d.collectOnDelivery
       ? `COLLECT ${formatNGN(d.total)} from the customer on delivery.`
-      : "Already paid — nothing to collect.",
+      : "Already paid. Nothing to collect.",
   ];
   return lines.join("\n");
 }

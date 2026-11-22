@@ -78,7 +78,7 @@ export function sizeWithUnit(
   unit?: PurchaseUnit | null,
   bottlesPerUnit?: number | null,
 ): string {
-  const base = size || "—";
+  const base = size || "n/a";
   return unit === "box" ? `${base} · box of ${bottlesPerUnit ?? 1}` : base;
 }
 

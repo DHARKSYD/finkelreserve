@@ -106,7 +106,7 @@ export function PostBody({ blocks }: { blocks: Block[] }) {
               <div key={i} className="my-8 glass rounded-2xl p-6">
                 {b.title && (
                   <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-primary">
-                    — {b.title}
+                    {b.title}
                   </p>
                 )}
                 <dl className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">

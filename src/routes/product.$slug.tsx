@@ -93,7 +93,7 @@ export const Route = createFileRoute("/product/$slug")({
   },
 
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Product — Finkel Reserve" }] };
+    if (!loaderData) return { meta: [{ title: "Product | Finkel Reserve" }] };
 
     const p = loaderData;
     const title = p.seoTitle ?? `${p.name} | ${p.storeName}`;
@@ -101,7 +101,7 @@ export const Route = createFileRoute("/product/$slug")({
       p.seoDescription ??
       (p.description
         ? p.description.slice(0, 160)
-        : `Shop the ${p.name} at ${p.storeName} — fine drinks delivered across Nigeria.`);
+        : `Shop the ${p.name} at ${p.storeName}. Fine drinks delivered across Nigeria.`);
     const canonicalUrl = `${SITE_URL}/product/${p.slug}`;
     const image = p.images?.[0];
     const inStock = (p.stock ?? 1) > 0;
@@ -438,7 +438,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
             {product.highlights && product.highlights.length > 0 && (
               <div className="mt-6 glass rounded-2xl p-5">
                 <p className="text-xs uppercase tracking-[0.2em] text-primary mb-3 font-mono">
-                  — Highlights
+                  Highlights
                 </p>
                 <ul className="space-y-2">
                   {product.highlights.map((h) => (
@@ -459,7 +459,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
               product.abv != null) && (
               <div className="mt-6 glass rounded-2xl p-5">
                 <p className="text-xs uppercase tracking-[0.2em] text-primary mb-3 font-mono">
-                  — Details
+                  Details
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <DetailField label="Type" value={productTypeLabel(product.productType)} />
@@ -481,7 +481,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
                 {product.tastingNotes && (
                   <div className="glass rounded-2xl p-5">
                     <p className="text-xs uppercase tracking-[0.2em] text-primary mb-2 font-mono">
-                      — Tasting Notes
+                      Tasting Notes
                     </p>
                     <p className="text-sm text-foreground/85 leading-relaxed">
                       {product.tastingNotes}
@@ -491,7 +491,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
                 {product.foodPairing && (
                   <div className="glass rounded-2xl p-5">
                     <p className="text-xs uppercase tracking-[0.2em] text-primary mb-2 font-mono">
-                      — Food Pairing
+                      Food Pairing
                     </p>
                     <p className="text-sm text-foreground/85 leading-relaxed">
                       {product.foodPairing}
@@ -623,7 +623,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
                 </div>
                 {boxesInStock < 1 && sizeStock > 0 && (
                   <p className="mt-2 text-xs text-muted-foreground">
-                    Only {sizeStock} bottle{sizeStock === 1 ? "" : "s"} of this size left — not
+                    Only {sizeStock} bottle{sizeStock === 1 ? "" : "s"} of this size left. Not
                     enough for a full box.
                   </p>
                 )}
@@ -772,7 +772,7 @@ function ProductDetail({ slug, productId }: { slug: string; productId: string })
                 <form onSubmit={handleReviewSubmit} className="glass rounded-2xl p-5 mb-6">
                   <div className="flex items-center justify-between mb-3">
                     <p className="text-xs uppercase tracking-[0.2em] text-primary font-mono">
-                      — {editingId ? "Edit your review" : "Leave a review"}
+                      {editingId ? "Edit your review" : "Leave a review"}
                     </p>
                     <div className="flex gap-1">
                       {[1, 2, 3, 4, 5].map((n) => (

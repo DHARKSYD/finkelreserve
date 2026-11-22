@@ -9,7 +9,7 @@ import { formatNGN } from "@/lib/currency";
 export const Route = createFileRoute("/shipping-policy")({
   head: () => ({
     meta: [
-      { title: "Shipping Policy — Finkel Reserve" },
+      { title: "Shipping Policy | Finkel Reserve" },
       {
         name: "description",
         content: "Shipping rates, delivery areas, and timelines for Finkel Reserve orders.",
@@ -80,7 +80,7 @@ function ShippingPolicyPage() {
 
               {!isLoading && error && (
                 <div className="rounded-xl border border-border/60 px-5 py-6 text-sm text-muted-foreground">
-                  Rates couldn't be loaded right now — they're always shown accurately at checkout,
+                  Rates couldn't be loaded right now. They're always shown accurately at checkout,
                   or contact us at{" "}
                   <a href={`mailto:${supportEmail}`} className="text-primary hover:underline">
                     {supportEmail}

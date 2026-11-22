@@ -13,7 +13,7 @@ import { MIN_PASSWORD_LENGTH } from "@/lib/password";
 import { isPlausiblePhone, storablePhone } from "@/lib/phone";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Sign in — Finkel Reserve" }] }),
+  head: () => ({ meta: [{ title: "Sign in | Finkel Reserve" }] }),
   component: AuthPage,
 });
 
@@ -210,9 +210,7 @@ function AuthPage() {
             aria-hidden="true"
             className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/20 blur-3xl"
           />
-          <p className="relative text-xs uppercase tracking-[0.3em] text-accent">
-            — Finkel Reserve
-          </p>
+          <p className="relative text-xs uppercase tracking-[0.3em] text-accent">Finkel Reserve</p>
           <div className="relative">
             <h2 className="font-display text-4xl font-black leading-tight">
               Fine wines, whiskeys &amp; beverages, delivered.
@@ -270,7 +268,7 @@ function AuthPage() {
                   <p className="text-sm text-muted-foreground">
                     We sent a confirmation link to{" "}
                     <strong className="break-all text-foreground">{pendingEmail}</strong>. Open it
-                    to activate your account, then sign in. It can take a minute — check your spam
+                    to activate your account, then sign in. It can take a minute. Check your spam
                     folder too.
                   </p>
                   {error && <p className="text-xs text-destructive">{error}</p>}
@@ -392,7 +390,7 @@ function AuthPage() {
                     {isSignup && (
                       <AuthField
                         icon={Phone}
-                        placeholder="Phone (optional) — for delivery updates"
+                        placeholder="Phone (optional): for delivery updates"
                         type="tel"
                         inputMode="tel"
                         autoComplete="tel"

@@ -8,7 +8,7 @@ import { StatCard } from "@/components/admin/StatCard";
 import { formatNGN } from "@/lib/currency";
 
 export const Route = createFileRoute("/admin/")({
-  head: () => ({ meta: [{ title: "Overview — Admin" }] }),
+  head: () => ({ meta: [{ title: "Overview | Admin" }] }),
   component: OverviewPage,
 });
 
@@ -37,7 +37,7 @@ function OverviewPage() {
   return (
     <div>
       <div className="mb-8">
-        <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— Control room</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">Control room</p>
         <h1 className="mt-2 font-display font-black text-4xl md:text-5xl tracking-tighter">
           Overview
         </h1>

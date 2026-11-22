@@ -4,13 +4,13 @@ export const post: BlogPost = {
   slug: "wine-and-nigerian-food",
   title: "Pairing wine with Nigerian food",
   excerpt:
-    "Jollof, suya, pepper soup, grilled fish — a practical guide to what to pour with the dishes you actually eat.",
+    "Jollof, suya, pepper soup, grilled fish: a practical guide to what to pour with the dishes you actually eat.",
   category: "Food & wine",
   publishedAt: "2026-10-09",
   blocks: [
     {
       type: "p",
-      text: "Classic pairing rules were written for European dinner tables. Nigerian food is bolder, spicier and more varied — but the underlying principles still work, and a few small tweaks make for brilliant matches.",
+      text: "Classic pairing rules were written for European dinner tables. Nigerian food is bolder, spicier and more varied, but the underlying principles still work, and a few small tweaks make for brilliant matches.",
     },
     { type: "h2", text: "Four principles that work for almost everything" },
     {
@@ -52,7 +52,7 @@ export const post: BlogPost = {
         },
         {
           label: "Fried rice and chicken",
-          value: "Chardonnay or a light red — or sparkling wine, for a festive table.",
+          value: "Chardonnay or a light red, or sparkling wine, for a festive table.",
         },
         { label: "Moi moi and akara", value: "Sparkling wine or a crisp white." },
         {
@@ -73,7 +73,7 @@ export const post: BlogPost = {
     {
       type: "callout",
       title: "Taste, then adjust",
-      text: "These are starting points, not rules. Spice levels, sauces and cooking styles vary from kitchen to kitchen — and the best pairing is the one you enjoy. If a match isn't working, change the temperature or the glass before you give up on it.",
+      text: "These are starting points, not rules. Spice levels, sauces and cooking styles vary from kitchen to kitchen, and the best pairing is the one you enjoy. If a match isn't working, change the temperature or the glass before you give up on it.",
     },
     { type: "shop", productType: "rose", label: "Shop rosé" },
     { type: "shop", productType: "sparkling", label: "Shop sparkling wine" },

@@ -25,7 +25,7 @@ const formatDay = (date: Date): string =>
   date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
 export const Route = createFileRoute("/admin/analytics")({
-  head: () => ({ meta: [{ title: "Analytics — Admin" }] }),
+  head: () => ({ meta: [{ title: "Analytics | Admin" }] }),
   component: AnalyticsPage,
 });
 
@@ -145,7 +145,7 @@ function AnalyticsPage() {
     <div>
       <div className="mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— Insights</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">Insights</p>
           <h1 className="mt-2 font-display font-black text-4xl md:text-5xl tracking-tighter">
             Analytics
           </h1>
@@ -174,34 +174,34 @@ function AnalyticsPage() {
         <StatCard
           icon={<DollarSign className="h-4 w-4" />}
           label="Net Revenue"
-          value={isLoading ? "—" : formatNGN(metrics.netRevenue)}
+          value={isLoading ? "-" : formatNGN(metrics.netRevenue)}
         />
         <StatCard
           icon={<RotateCcw className="h-4 w-4" />}
           label="Refunded"
-          value={isLoading ? "—" : formatNGN(metrics.refundedAmount)}
+          value={isLoading ? "-" : formatNGN(metrics.refundedAmount)}
           accent={metrics.refundedAmount > 0}
         />
         <StatCard
           icon={<ShoppingBag className="h-4 w-4" />}
           label="Total Orders"
-          value={isLoading ? "—" : String(metrics.totalOrders)}
+          value={isLoading ? "-" : String(metrics.totalOrders)}
         />
         <StatCard
           icon={<TrendingUp className="h-4 w-4" />}
           label="Avg Order Value"
-          value={isLoading ? "—" : formatNGN(metrics.avgOrderValue)}
+          value={isLoading ? "-" : formatNGN(metrics.avgOrderValue)}
         />
         <StatCard
           icon={<Percent className="h-4 w-4" />}
           label="Completion Rate"
-          value={isLoading ? "—" : `${metrics.completionRate}%`}
+          value={isLoading ? "-" : `${metrics.completionRate}%`}
         />
       </div>
 
       <div className="glass rounded-2xl p-5 mb-5">
         <h3 className="font-display font-bold text-lg mb-1">
-          Revenue — last {Math.min(rangeDays, 30)} days
+          Revenue, last {Math.min(rangeDays, 30)} days
         </h3>
         <p className="text-xs text-muted-foreground mb-5">
           {rangeDays > 30

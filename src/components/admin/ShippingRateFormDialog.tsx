@@ -124,7 +124,7 @@ export function ShippingRateFormDialog({
             {editing ? "Edit Rate" : "New Shipping Rate"}
           </DialogTitle>
           <DialogDescription>
-            Checkout re-derives this price from the database by rate ID — nothing here is ever
+            Checkout re-derives this price from the database by rate ID. Nothing here is ever
             trusted from the browser.
           </DialogDescription>
         </DialogHeader>

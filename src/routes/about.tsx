@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Finkel Reserve — Fine Wines, Whiskeys & Beverages for Nigeria" },
+      { title: "About Finkel Reserve | Fine Wines, Whiskeys & Beverages for Nigeria" },
       {
         name: "description",
         content:
-          "The story behind Finkel Reserve — curated bottles, trusted provenance, and drinking culture for Nigeria.",
+          "The story behind Finkel Reserve: curated bottles, trusted provenance, and drinking culture for Nigeria.",
       },
     ],
   }),
@@ -21,13 +21,13 @@ function AboutPage() {
     <Layout>
       <div className="pt-32" />
       <section className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— The Brand</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">The Brand</p>
         <h1 className="mt-3 font-display font-black text-6xl md:text-[10vw] leading-[0.85] tracking-tighter">
           Taste is <span className="text-gradient-wine">culture</span>.
         </h1>
         <p className="mt-8 max-w-2xl text-lg text-muted-foreground leading-relaxed">
           Finkel Reserve exists for one reason: to make exceptional wines, whiskeys and fine
-          beverages genuinely accessible in Nigeria — properly sourced, honestly described, and
+          beverages genuinely accessible in Nigeria: properly sourced, honestly described, and
           delivered with the care a good bottle deserves.
         </p>
       </section>
@@ -53,13 +53,13 @@ function AboutPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— Manifesto</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">Manifesto</p>
             <h2 className="mt-3 font-display font-black text-4xl md:text-5xl tracking-tighter leading-[0.95]">
               A good bottle shouldn't require guesswork.
             </h2>
             <p className="mt-5 text-muted-foreground leading-relaxed">
-              Every bottle in our catalogue is chosen for what's actually in the glass — origin,
-              age, and craft you can trust — so choosing a bottle feels confident, not intimidating.
+              Every bottle in our catalogue is chosen for what's actually in the glass (origin, age,
+              and craft you can trust), so choosing a bottle feels confident, not intimidating.
             </p>
             <div className="mt-8 grid grid-cols-3 gap-4">
               {[
@@ -87,13 +87,13 @@ function AboutPage() {
           {[
             {
               t: "Honest sourcing",
-              d: "Every bottle is listed with real producer, region, and age or vintage detail — no vague labels.",
+              d: "Every bottle is listed with real producer, region, and age or vintage detail. No vague labels.",
             },
             {
               t: "Fair pricing",
               d: "Considered pricing on every bottle, from everyday drinking to special occasions.",
             },
-            { t: "Real support", d: "DM us on socials or WhatsApp — a person replies, not a bot." },
+            { t: "Real support", d: "DM us on socials or WhatsApp. A person replies, not a bot." },
           ].map((v) => (
             <div key={v.t} className="glass rounded-2xl p-7">
               <h3 className="font-display font-bold text-2xl">{v.t}</h3>

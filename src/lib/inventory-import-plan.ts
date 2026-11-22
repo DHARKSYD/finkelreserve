@@ -197,12 +197,12 @@ export function planInventoryImport(args: {
 
     if (p.boxSize !== null && (sizesByProduct.get(v.productId)?.size ?? 0) > 1) {
       return fail(
-        "Rows for this product disagree on Bottles per Box — use the same value on every row.",
+        "Rows for this product disagree on Bottles per Box. Use the same value on every row.",
       );
     }
     if (p.boxDiscount !== null && (discountsByProduct.get(v.productId)?.size ?? 0) > 1) {
       return fail(
-        "Rows for this product disagree on Box Discount % — use the same value on every row.",
+        "Rows for this product disagree on Box Discount %. Use the same value on every row.",
       );
     }
 
@@ -217,7 +217,7 @@ export function planInventoryImport(args: {
 
     if (newBoxSize === null && p.boxDiscount !== null && p.boxDiscount > 0) {
       return fail(
-        "Set Bottles per Box too — this product isn't sold by the box, so a discount has no effect.",
+        "Set Bottles per Box too. This product isn't sold by the box, so a discount has no effect.",
       );
     }
 
@@ -272,7 +272,7 @@ export function planInventoryImport(args: {
           ...withBox,
           status: "error",
           message:
-            "This product isn't sold by the box — add a Bottles per Box value on this row, or count this file in bottles.",
+            "This product isn't sold by the box. Add a Bottles per Box value on this row, or count this file in bottles.",
         };
       }
       bottles = stock.n * newBoxSize;

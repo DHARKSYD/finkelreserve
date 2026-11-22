@@ -59,7 +59,7 @@ export const initializePaystackPayment = createServerFn({ method: "POST" })
     if (!rate.ok)
       return {
         ok: false,
-        error: "Too many payment attempts — please wait a minute and try again.",
+        error: "Too many payment attempts. Please wait a minute and try again.",
       };
 
     if (!isSameOriginCallback(data.callbackUrl)) {
@@ -148,7 +148,7 @@ export const verifyPaystackPayment = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => verifySchema.parse(data))
   .handler(async ({ data }): Promise<VerifyPaymentResult> => {
     const rate = await checkRateLimit("paystack-verify", 20, 60_000);
-    if (!rate.ok) return { ok: false, error: "Too many requests — please wait a moment." };
+    if (!rate.ok) return { ok: false, error: "Too many requests. Please wait a moment." };
 
     let res: Response;
     try {

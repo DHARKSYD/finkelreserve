@@ -25,7 +25,7 @@ export const sendContactMessage = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<ContactResult> => {
     const rate = await checkRateLimit("contact", 3, 10 * 60_000);
     if (!rate.ok) {
-      return { ok: false, error: "Too many messages sent — please try again in a few minutes." };
+      return { ok: false, error: "Too many messages sent. Please try again in a few minutes." };
     }
 
     const { error } = await supabaseAdmin.from("contact_messages").insert({
@@ -49,7 +49,7 @@ export const subscribeNewsletter = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<NewsletterResult> => {
     const rate = await checkRateLimit("newsletter", 3, 10 * 60_000);
     if (!rate.ok) {
-      return { ok: false, error: "Too many attempts — please try again in a few minutes." };
+      return { ok: false, error: "Too many attempts. Please try again in a few minutes." };
     }
 
     const { error } = await supabaseAdmin

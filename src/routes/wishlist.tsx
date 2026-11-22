@@ -6,7 +6,7 @@ import { useProducts } from "@/lib/queries/products";
 import { Heart } from "lucide-react";
 
 export const Route = createFileRoute("/wishlist")({
-  head: () => ({ meta: [{ title: "Wishlist — Finkel Reserve" }] }),
+  head: () => ({ meta: [{ title: "Wishlist | Finkel Reserve" }] }),
   component: WishlistPage,
 });
 
@@ -19,7 +19,7 @@ function WishlistPage() {
     <Layout>
       <div className="pt-32" />
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— Saved</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">Saved</p>
         <h1 className="mt-2 font-display font-black text-5xl md:text-6xl tracking-tighter">
           Your Wishlist
         </h1>
