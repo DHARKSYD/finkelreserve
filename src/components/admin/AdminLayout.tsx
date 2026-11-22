@@ -88,12 +88,12 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         </SidebarFooter>
       </Sidebar>
 
-      <SidebarInset className="bg-background">
+      <SidebarInset className="min-w-0 bg-background">
         <header className="flex md:hidden items-center gap-3 border-b border-border px-4 py-3 sticky top-0 z-10 bg-background/95 backdrop-blur">
           <SidebarTrigger />
           <p className="font-display font-black text-sm">Admin</p>
         </header>
-        <div className="flex-1 w-full max-w-[1400px] mx-auto px-4 py-6 md:px-8 md:py-10">
+        <div className="min-w-0 w-full max-w-[1400px] flex-1 mx-auto px-4 py-6 md:px-8 md:py-10">
           {children}
         </div>
       </SidebarInset>

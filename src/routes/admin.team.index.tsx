@@ -64,7 +64,7 @@ function TeamOverview() {
     .slice(0, 12);
 
   return (
-    <div>
+    <div className="min-w-0">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">Team</p>
@@ -248,8 +248,8 @@ function TeamOverview() {
           </div>
 
           {/* Tablets and up: a table. */}
-          <div className="hidden md:block overflow-x-auto glass rounded-2xl">
-            <table className="w-full text-sm">
+          <div className="hidden md:block max-w-full overflow-x-auto glass rounded-2xl">
+            <table className="w-full min-w-[960px] text-sm">
               <caption className="sr-only">
                 Admin team members and their numbers for the selected period
               </caption>
@@ -294,7 +294,7 @@ function TeamOverview() {
                     >
                       <td className="px-4 py-3">
                         <p className="font-semibold">{m.name}</p>
-                        <p className="text-xs text-muted-foreground">{m.email}</p>
+                        <p className="break-all text-xs text-muted-foreground">{m.email}</p>
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex flex-wrap gap-1.5">

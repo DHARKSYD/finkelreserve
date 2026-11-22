@@ -258,7 +258,7 @@ function CartPage() {
             </Link>
           </div>
         ) : (
-          <div className="mt-10 grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10">
+          <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_420px]">
             <div className="space-y-3">
               {items.map((i) => {
                 const k = cartKey(i);
@@ -306,7 +306,7 @@ function CartPage() {
               })}
             </div>
 
-            <aside className="lg:sticky lg:top-28 lg:self-start">
+            <aside className="min-w-0 lg:sticky lg:top-28 lg:self-start">
               <div className="glass rounded-2xl p-6 space-y-5">
                 <h3 className="font-display font-black text-xl">Order summary</h3>
 
@@ -326,8 +326,8 @@ function CartPage() {
                     </button>
                   </div>
                 ) : (
-                  <div className="flex gap-2">
-                    <div className="flex-1 flex items-center gap-2 bg-surface-2 rounded-full px-4">
+                  <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] gap-2">
+                    <div className="flex min-w-0 items-center gap-2 rounded-full bg-surface-2 px-4">
                       <Tag className="h-4 w-4 text-muted-foreground" />
                       <input
                         value={code}
@@ -337,13 +337,13 @@ function CartPage() {
                         }}
                         onKeyDown={(e) => e.key === "Enter" && applyCoupon()}
                         placeholder="Promo code"
-                        className="min-w-0 flex-1 bg-transparent py-3 text-sm outline-none"
+                        className="w-full min-w-0 flex-1 bg-transparent py-3 text-sm outline-none"
                       />
                     </div>
                     <button
                       onClick={applyCoupon}
                       disabled={!code.trim() || validateCoupon.isPending}
-                      className="rounded-full bg-secondary px-4 text-sm font-bold disabled:opacity-50"
+                      className="shrink-0 whitespace-nowrap rounded-full bg-secondary px-3 text-sm font-bold disabled:opacity-50 sm:px-4"
                     >
                       {validateCoupon.isPending ? "Checking…" : "Apply"}
                     </button>
