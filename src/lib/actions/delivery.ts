@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { COURIER_IDS } from "@/lib/courier";
+import { supabaseAdminAs } from "./actor-client.server";
 import { requireAdmin } from "./auth";
 import { notificationCapabilities, notifyOrder } from "./notify-server";
 
@@ -10,6 +11,10 @@ export type DeliveryActionResult = { ok: true } | { ok: false; error: string };
 // types.ts doesn't know the courier columns yet (documented gap).
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- documented types.ts gap above
 const db = supabaseAdmin as unknown as { from: (table: string) => any };
+
+// The same client, but the request tells the database which admin is acting, so the audit entry
+// for the change carries their name (see actor-client.server.ts).
+const dbAs = (adminId: string): typeof db => supabaseAdminAs(adminId) as unknown as typeof db;
 
 const fail = (e: unknown): DeliveryActionResult => ({
   ok: false,
@@ -37,8 +42,9 @@ const statusSchema = z.object({
 export const updateOrderStatus = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => statusSchema.parse(data))
   .handler(async ({ data }): Promise<DeliveryActionResult> => {
+    let adminId: string;
     try {
-      await requireAdmin();
+      adminId = await requireAdmin();
     } catch (e) {
       return fail(e);
     }
@@ -52,7 +58,7 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
     if (before.status === "cancelled")
       return { ok: false, error: "A cancelled order can't change status." };
 
-    const { error } = await supabaseAdmin
+    const { error } = await supabaseAdminAs(adminId)
       .from("orders")
       .update({ status: data.status })
       .eq("id", data.orderId);
@@ -92,8 +98,9 @@ export type HandOffInput = z.output<typeof handOffSchema>;
 export const handOffOrder = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => handOffSchema.parse(data))
   .handler(async ({ data }): Promise<DeliveryActionResult> => {
+    let adminId: string;
     try {
-      await requireAdmin();
+      adminId = await requireAdmin();
     } catch (e) {
       return fail(e);
     }
@@ -119,7 +126,7 @@ export const handOffOrder = createServerFn({ method: "POST" })
     const markShipped = data.markOutForDelivery && before.status !== "shipped";
     if (markShipped) patch.status = "shipped";
 
-    const { error } = await db.from("orders").update(patch).eq("id", data.orderId);
+    const { error } = await dbAs(adminId).from("orders").update(patch).eq("id", data.orderId);
     if (error) return { ok: false, error: "Could not save the hand-off." };
 
     if (markShipped) await notifyOrder(data.orderId, "out_for_delivery");

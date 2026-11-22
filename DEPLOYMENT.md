@@ -181,6 +181,12 @@ Good to know:
   be removed at all. To hand over ownership, add the new super admin first, then remove the old one.
 - The Team numbers come from the audit trail plus the refund and stock records. Price edits are not
   in the audit trail today, so they are not flagged.
+- Run the two audit trail migrations as well (`20261116120000_attribute_server_order_changes`, then
+  `20261116130000_lock_down_audit_log_writes`). The first makes order status changes made from the
+  Orders screen count towards the admin who made them (without it, "Orders handled" stays close to
+  zero). The second stops anyone forging audit entries. It does not affect the server or the
+  database triggers. A script of your own that writes to `activity_log` with a user key, rather
+  than the service key, would stop working.
 
 ---
 
@@ -433,8 +439,10 @@ New migrations in this update, applied in order by `supabase db push`:
 | `20261030120000_paystack_refund_sync` | Refund webhook matching by transaction, auto-complete returns, customer refund status. | No — replaces/adds functions only. |
 | `20261116100000_super_admin_role` | Adds the `super_admin` role value. | No. |
 | `20261116110000_super_admin_team_management` | Team register, guard rails and the Team screens' functions. Removes the API's ability to write roles (only super admin functions can). See section 6a. | Adds a table and fills it from the current admins. |
+| `20261116120000_attribute_server_order_changes` | Records which admin changed an order when a server function made the change, so the Team screens can credit it. Replaces one trigger function. | No. |
+| `20261116130000_lock_down_audit_log_writes` | Signed-in users can no longer write audit entries through the API (they could forge them). The server and the database triggers are unaffected. | No. |
 
-All of these are safe to run more than once and none deletes data. Run the two super admin
+All of these are safe to run more than once and none deletes data. Run the super admin
 migrations one at a time, in order. Take a database backup first
 (Supabase → Database → Backups) as you would for any production change.
 
