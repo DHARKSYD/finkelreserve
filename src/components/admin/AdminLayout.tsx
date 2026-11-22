@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LogOut, ShieldCheck } from "lucide-react";
+import { LogOut } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -27,9 +27,11 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       <Sidebar>
         <SidebarHeader className="p-4">
           <Link to="/admin" className="flex items-center gap-2.5">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground shadow-glow">
-              <ShieldCheck className="h-4.5 w-4.5" />
-            </span>
+            <img
+              src="/finkel-reserve-logo.jpeg"
+              alt=""
+              className="h-9 w-9 shrink-0 rounded-xl object-cover shadow-glow"
+            />
             <div className="min-w-0">
               <p className="font-display font-black text-sm leading-none truncate">
                 Finkel Reserve

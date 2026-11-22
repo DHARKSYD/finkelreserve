@@ -89,9 +89,11 @@ export function Navbar() {
         >
           <div className="flex items-center justify-between gap-4">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="relative h-9 w-9 rounded-lg bg-wine shadow-glow grid place-items-center">
-                <span className="font-display font-black text-primary-foreground text-lg">F</span>
-              </div>
+              <img
+                src="/finkel-reserve-logo.jpeg"
+                alt=""
+                className="h-9 w-9 rounded-lg object-cover shadow-glow"
+              />
               <span className="font-display font-black tracking-tight text-lg md:text-xl">
                 FINKEL<span className="text-gradient-wine">·</span>RESERVE
               </span>

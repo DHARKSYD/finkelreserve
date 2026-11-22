@@ -23,9 +23,11 @@ export function Footer() {
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 py-16 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-[2fr_1fr_1fr_1fr_2fr]">
         <div>
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-lg bg-wine shadow-glow grid place-items-center">
-              <span className="font-display font-black text-primary-foreground">F</span>
-            </div>
+            <img
+              src="/finkel-reserve-logo.jpeg"
+              alt=""
+              className="h-10 w-10 rounded-lg object-cover shadow-glow"
+            />
             <span className="font-display font-black tracking-tight text-xl">
               FINKEL<span className="text-gradient-wine">·</span>RESERVE
             </span>

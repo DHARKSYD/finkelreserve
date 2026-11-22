@@ -4,4 +4,14 @@
   "compatibility_date": "2025-09-24",
   "compatibility_flags": ["nodejs_compat"],
   "main": "src/server.ts",
+  "vars": {
+    "NOTIFY_SMS_ENABLED": "false",
+    "SITE_URL": "https://finkel-reserve.davidbenjaminorendu.workers.dev",
+    "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_pUTPV83xEQ0i63yoEq8sQQ_KikwpyAG",
+    "SUPABASE_URL": "https://lqbotnayunagyyffutbu.supabase.co",
+    "VITE_SITE_URL": "https://finkel-reserve.davidbenjaminorendu.workers.dev",
+    "VITE_SUPABASE_PUBLISHABLE_KEY": "sb_publishable_pUTPV83xEQ0i63yoEq8sQQ_KikwpyAG",
+    "VITE_SUPABASE_URL": "https://lqbotnayunagyyffutbu.supabase.co",
+    "VITE_WHATSAPP_NUMBER": "2349069792022"
+  }
 }
