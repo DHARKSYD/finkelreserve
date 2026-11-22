@@ -689,6 +689,33 @@ export type Database = {
         };
         Relationships: [];
       };
+      admin_members: {
+        Row: {
+          added_at: string;
+          added_by: string | null;
+          note: string | null;
+          status: string;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          added_at?: string;
+          added_by?: string | null;
+          note?: string | null;
+          status?: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          added_at?: string;
+          added_by?: string | null;
+          note?: string | null;
+          status?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -817,9 +844,89 @@ export type Database = {
           updated_at: string;
         }[];
       };
+      // Super admin only (checked inside each function). See migration 20261116110000.
+      admin_team: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          user_id: string;
+          email: string;
+          full_name: string;
+          is_super_admin: boolean;
+          has_admin_role: boolean;
+          status: string;
+          added_at: string;
+          added_by: string | null;
+          added_by_name: string | null;
+          note: string | null;
+          last_sign_in_at: string | null;
+          last_action_at: string | null;
+        }[];
+      };
+      admin_performance: {
+        Args: { p_from: string; p_to: string };
+        Returns: {
+          user_id: string;
+          total_actions: number;
+          orders_handled: number;
+          returns_approved: number;
+          returns_rejected: number;
+          returns_completed: number;
+          returns_actions: number;
+          payment_actions: number;
+          product_actions: number;
+          inventory_actions: number;
+          promotion_actions: number;
+          review_actions: number;
+          team_actions: number;
+          refunds_count: number;
+          refunds_value: number;
+          inventory_changes: number;
+          inventory_units_adjusted: number;
+          returns_first_actions: number;
+          avg_return_response_hours: number | null;
+          sensitive_actions: number;
+        }[];
+      };
+      admin_activity_feed: {
+        Args: {
+          p_user?: string | null;
+          p_type?: string | null;
+          p_before?: string | null;
+          p_limit?: number;
+        };
+        Returns: {
+          id: string;
+          user_id: string;
+          actor_name: string | null;
+          category: string;
+          type: string;
+          message: string;
+          entity_type: string | null;
+          entity_id: string | null;
+          metadata: Json | null;
+          created_at: string;
+          sensitive: boolean;
+        }[];
+      };
+      admin_daily_activity: {
+        Args: { p_user: string | null; p_from: string; p_to: string };
+        Returns: { day: string; actions: number }[];
+      };
+      admin_grant: {
+        Args: { p_email: string };
+        Returns: string;
+      };
+      admin_set_status: {
+        Args: { p_user: string; p_status: string };
+        Returns: undefined;
+      };
+      admin_set_note: {
+        Args: { p_user: string; p_note: string | null };
+        Returns: undefined;
+      };
     };
     Enums: {
-      app_role: "admin" | "moderator" | "user";
+      app_role: "admin" | "moderator" | "user" | "super_admin";
       order_status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
       payment_method: "delivery" | "paystack";
       payment_status: "pending" | "paid" | "failed" | "refunded";
@@ -944,7 +1051,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user"],
+      app_role: ["admin", "moderator", "user", "super_admin"],
       order_status: ["pending", "processing", "shipped", "delivered", "cancelled"],
       payment_method: ["delivery", "paystack"],
       payment_status: ["pending", "paid", "failed", "refunded"],

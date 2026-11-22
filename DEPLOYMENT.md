@@ -151,6 +151,39 @@ grant the role, so the very first one has to be set directly in the database:
 
 ---
 
+## 6a. Create the super admin (the owner account)
+
+A super admin can see how every other admin is doing and can add, suspend or remove admins from
+**Admin, Team**. Nobody can become a super admin through the app. It is set once, directly in the
+database, for the owner account:
+
+1. Run both super admin migrations first (`20261116100000_super_admin_role`, then
+   `20261116110000_super_admin_team_management`). If you paste them into the SQL Editor, run them
+   one at a time: a new role value cannot be used in the same transaction that adds it.
+2. In the Supabase SQL Editor, run (change the email):
+   ```sql
+   insert into public.user_roles (user_id, role)
+   select id, 'admin' from auth.users where email = 'owner@example.com'
+   on conflict (user_id, role) do nothing;
+   insert into public.user_roles (user_id, role)
+   select id, 'super_admin' from auth.users where email = 'owner@example.com'
+   on conflict (user_id, role) do nothing;
+   ```
+   A super admin must also hold the `admin` role, which is why there are two rows.
+3. Sign out and back in. **Team** now appears in the admin menu.
+
+Good to know:
+
+- After the second migration nobody can change roles through the API, not even other admins.
+  Admins are added, suspended and removed only from the Team page (super admins only) or in the
+  SQL Editor.
+- Super admins cannot be suspended or removed from the Team page, and the last super admin cannot
+  be removed at all. To hand over ownership, add the new super admin first, then remove the old one.
+- The Team numbers come from the audit trail plus the refund and stock records. Price edits are not
+  in the audit trail today, so they are not flagged.
+
+---
+
 ## 7. (Optional) Paystack
 
 Skip this if pay-on-delivery is enough for now — it works with zero extra setup, and everything
@@ -398,8 +431,11 @@ New migrations in this update, applied in order by `supabase db push`:
 | `20261030100000_fix_anon_catalog_reads` | Logged-out visitors (and a page refresh) could not read products — see the file's header. | No — replaces one function, adds a grant. |
 | `20261030110000_profile_names_and_social_signup` | First/last name columns, social-sign-up aware new-user trigger. | Adds columns; fills first/last name only where an existing display name has two or more words. |
 | `20261030120000_paystack_refund_sync` | Refund webhook matching by transaction, auto-complete returns, customer refund status. | No — replaces/adds functions only. |
+| `20261116100000_super_admin_role` | Adds the `super_admin` role value. | No. |
+| `20261116110000_super_admin_team_management` | Team register, guard rails and the Team screens' functions. Removes the API's ability to write roles (only super admin functions can). See section 6a. | Adds a table and fills it from the current admins. |
 
-All three are safe to run more than once and none deletes data. Take a database backup first
+All of these are safe to run more than once and none deletes data. Run the two super admin
+migrations one at a time, in order. Take a database backup first
 (Supabase → Database → Backups) as you would for any production change.
 
 **Admin access:** the public site no longer links to the admin area, and `/admin` is not listed in

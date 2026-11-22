@@ -12,6 +12,7 @@ import {
   Truck,
   RotateCcw,
   Activity,
+  UserCog,
   Settings,
 } from "lucide-react";
 
@@ -21,6 +22,8 @@ export type AdminNavItem = {
   icon: LucideIcon;
   /** Nav items without this render fully; "soon" ones route to a shared placeholder. */
   status?: "soon";
+  /** Only shown to super admins. The pages and the database functions enforce it again. */
+  superAdminOnly?: boolean;
 };
 
 export const ADMIN_NAV: AdminNavItem[] = [
@@ -36,5 +39,6 @@ export const ADMIN_NAV: AdminNavItem[] = [
   { label: "Shipping", to: "/admin/shipping", icon: Truck },
   { label: "Returns", to: "/admin/returns", icon: RotateCcw },
   { label: "Activity", to: "/admin/activity", icon: Activity },
+  { label: "Team", to: "/admin/team", icon: UserCog, superAdminOnly: true },
   { label: "Settings", to: "/admin/settings", icon: Settings },
 ];

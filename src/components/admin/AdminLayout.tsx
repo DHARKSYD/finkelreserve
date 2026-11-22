@@ -19,7 +19,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { ADMIN_NAV } from "./nav-config";
 
 export function AdminLayout({ children }: { children: ReactNode }) {
-  const { user, signOut } = useAuth();
+  const { user, signOut, isSuperAdmin } = useAuth();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
@@ -45,7 +45,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
-                {ADMIN_NAV.map((item) => {
+                {ADMIN_NAV.filter((item) => !item.superAdminOnly || isSuperAdmin).map((item) => {
                   const isActive =
                     item.to === "/admin" ? pathname === "/admin" : pathname.startsWith(item.to);
                   return (
