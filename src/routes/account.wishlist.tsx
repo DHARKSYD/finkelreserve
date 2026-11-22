@@ -5,7 +5,7 @@ import { useProducts } from "@/lib/queries/products";
 import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/account/wishlist")({
-  head: () => ({ meta: [{ title: "Wishlist — My Account" }] }),
+  head: () => ({ meta: [{ title: "Wishlist | My Account" }] }),
   component: WishlistPage,
 });
 

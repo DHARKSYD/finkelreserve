@@ -13,7 +13,7 @@ import { EmptyState } from "@/components/admin/EmptyState";
 import { RefundDialog } from "@/components/admin/RefundDialog";
 
 export const Route = createFileRoute("/admin/payments")({
-  head: () => ({ meta: [{ title: "Payments — Admin" }] }),
+  head: () => ({ meta: [{ title: "Payments | Admin" }] }),
   component: PaymentsPage,
 });
 
@@ -177,7 +177,7 @@ function PaymentsPage() {
                     {p.paymentMethod === "paystack" ? "Online" : "On delivery"}
                   </td>
                   <td className="px-4 py-3 font-mono text-xs text-muted-foreground truncate max-w-[140px]">
-                    {p.paymentReference ?? "—"}
+                    {p.paymentReference ?? "n/a"}
                   </td>
                   <td className="px-4 py-3">
                     <PaymentStatusBadge status={p.displayStatus} />

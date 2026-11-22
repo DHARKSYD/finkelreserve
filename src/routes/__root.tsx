@@ -19,9 +19,9 @@ import { ThemedToaster } from "@/components/ThemedToaster";
 // doesn't exist — not the source of truth. src/lib/queries/settings.ts /
 // the store_settings table is that. See src/lib/config.ts for why these
 // specific fallback strings exist at all.
-const FALLBACK_TITLE = "Finkel Reserve — Fine Wines, Whiskeys & Beverages, Curated for Nigeria";
+const FALLBACK_TITLE = "Finkel Reserve | Fine Wines, Whiskeys & Beverages, Curated for Nigeria";
 const FALLBACK_DESCRIPTION =
-  "Fine wines, whiskeys and premium beverages for Nigeria — curated bottles, trusted provenance, and unforgettable moments, delivered nationwide.";
+  "Fine wines, whiskeys and premium beverages for Nigeria: curated bottles, trusted provenance, and unforgettable moments, delivered nationwide.";
 
 function NotFoundComponent() {
   return (
@@ -151,7 +151,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "Finkel Reserve — fine wines, whiskey and beverages" },
+      { property: "og:image:alt", content: "Finkel Reserve: fine wines, whiskey and beverages" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@finkelreserve" },
       {

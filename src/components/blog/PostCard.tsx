@@ -11,7 +11,7 @@ export function PostCard({ post, large = false }: { post: BlogPost; large?: bool
         large ? "md:p-10" : ""
       }`}
     >
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">— {post.category}</p>
+      <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">{post.category}</p>
       <h3
         className={`mt-3 font-display font-black tracking-tight leading-[1.1] ${
           large ? "text-3xl md:text-5xl" : "text-2xl"

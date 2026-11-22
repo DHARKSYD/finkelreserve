@@ -99,7 +99,7 @@ function BlogPostPage() {
 
         <header className="mt-6 max-w-3xl">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary">
-            — {post.category}
+            {post.category}
           </p>
           <h1 className="mt-3 font-display font-black text-4xl md:text-6xl leading-[1.05] tracking-tight">
             {post.title}
@@ -118,7 +118,7 @@ function BlogPostPage() {
             {headings.length > 1 && (
               <nav aria-label="In this article" className="glass mb-8 rounded-2xl p-5 lg:hidden">
                 <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-primary">
-                  — In this article
+                  In this article
                 </p>
                 {toc}
               </nav>
@@ -132,7 +132,7 @@ function BlogPostPage() {
             <aside className="hidden lg:block">
               <nav aria-label="In this article" className="sticky top-28">
                 <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-primary">
-                  — In this article
+                  In this article
                 </p>
                 {toc}
               </nav>
@@ -153,7 +153,7 @@ function BlogPostPage() {
       <section className="mx-auto mt-20 max-w-[1400px] px-6 pb-24 md:px-10">
         <div className="rounded-3xl bg-wine p-8 text-primary-foreground md:p-12">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">
-            — Ready to taste?
+            Ready to taste?
           </p>
           <h2 className="mt-3 max-w-2xl font-display font-black text-3xl leading-tight md:text-5xl">
             Put what you've learned in a glass.

@@ -154,7 +154,7 @@ export function AddressFormDialog({
             />
             Set as default address
             {!hasAnyAddress && (
-              <span className="text-xs text-muted-foreground">(automatic — first address)</span>
+              <span className="text-xs text-muted-foreground">(automatic: first address)</span>
             )}
           </label>
         </div>

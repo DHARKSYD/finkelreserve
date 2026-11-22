@@ -23,7 +23,7 @@ export const Route = createFileRoute("/shop")({
   },
   head: () => ({
     meta: [
-      { title: "Shop — Finkel Reserve" },
+      { title: "Shop | Finkel Reserve" },
       {
         name: "description",
         content: "Browse fine wines, whiskeys, spirits and premium beverages.",
@@ -105,7 +105,7 @@ function ShopPage() {
       <section className="mx-auto max-w-[1400px] px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— The shop</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">The shop</p>
             <h1 className="mt-3 font-display font-black text-5xl md:text-7xl tracking-tighter leading-[0.9]">
               The shop.
             </h1>

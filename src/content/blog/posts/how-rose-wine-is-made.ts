@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: "how-rose-wine-is-made",
   title: "How rosé wine is made",
   excerpt:
-    "Rosé isn't a mix of red and white. It's dark grapes with only a brief spell on their skins — and the length of that spell decides the colour.",
+    "Rosé isn't a mix of red and white. It's dark grapes with only a brief spell on their skins, and the length of that spell decides the colour.",
   category: "How it's made",
   publishedAt: "2026-10-09",
   blocks: [
@@ -18,7 +18,7 @@ export const post: BlogPost = {
       items: [
         {
           label: "Colour comes from",
-          value: "Brief contact with dark grape skins — hours, not days",
+          value: "Brief contact with dark grape skins (hours, not days)",
         },
         {
           label: "Grapes",
@@ -58,7 +58,7 @@ export const post: BlogPost = {
     },
     {
       type: "p",
-      text: "Serve rosé well chilled — around 8–10°C — and don't wait for a special occasion; it's one of the most versatile wines at the table.",
+      text: "Serve rosé well chilled (around 8–10°C) and don't wait for a special occasion; it's one of the most versatile wines at the table.",
     },
     { type: "shop", productType: "rose", label: "Shop rosé" },
   ],

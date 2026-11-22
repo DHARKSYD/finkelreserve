@@ -58,9 +58,7 @@ export function ProductVariantsEditor({
   return (
     <div className="space-y-3">
       {variants.length === 0 ? (
-        <p className="text-xs text-muted-foreground">
-          No bottle sizes tracked yet — add one below.
-        </p>
+        <p className="text-xs text-muted-foreground">No bottle sizes tracked yet. Add one below.</p>
       ) : (
         <div className="grid gap-1.5">
           <div className="grid grid-cols-[4.5rem_1fr_2rem] gap-2 text-[10px] uppercase tracking-[0.15em] text-muted-foreground px-0.5">
@@ -96,7 +94,7 @@ export function ProductVariantsEditor({
         <p className="text-[11px] text-muted-foreground leading-relaxed">
           Stock is always counted in bottles.
           {bottlesPerBox
-            ? ` This product is sold by the box of ${bottlesPerBox} — whole boxes in stock: ` +
+            ? ` This product is sold by the box of ${bottlesPerBox}. Whole boxes in stock: ` +
               variants.map((v) => `${v.size} → ${Math.floor(v.stock / bottlesPerBox)}`).join(", ") +
               ". Change the box size or discount in the product details above."
             : " Turn on “Also sell by the box” in the product details above to let customers buy a box."}

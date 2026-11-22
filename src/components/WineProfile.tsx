@@ -55,7 +55,7 @@ export function WineProfile({ product }: Props) {
 
   return (
     <section className="mt-20" aria-labelledby="wine-profile-heading">
-      <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— The details</p>
+      <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">The details</p>
       <h2
         id="wine-profile-heading"
         className="mt-2 font-display font-black text-3xl md:text-4xl tracking-tight"
@@ -68,7 +68,7 @@ export function WineProfile({ product }: Props) {
           <div className={`space-y-5 ${hasRight ? "lg:col-span-7" : "lg:col-span-12"}`}>
             {tasting.length > 0 && (
               <div className="glass rounded-2xl p-6">
-                <p className={EYEBROW}>— Tasting profile</p>
+                <p className={EYEBROW}>Tasting profile</p>
                 <dl className="divide-y divide-border/50">
                   {tasting.map((r) => (
                     <div
@@ -88,13 +88,13 @@ export function WineProfile({ product }: Props) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {product.servingNotes && (
                   <div className="glass rounded-2xl p-6">
-                    <p className={EYEBROW}>— Serving</p>
+                    <p className={EYEBROW}>Serving</p>
                     <Prose text={product.servingNotes} />
                   </div>
                 )}
                 {product.cellaringNotes && (
                   <div className="glass rounded-2xl p-6">
-                    <p className={EYEBROW}>— Cellaring</p>
+                    <p className={EYEBROW}>Cellaring</p>
                     <Prose text={product.cellaringNotes} />
                   </div>
                 )}
@@ -107,13 +107,13 @@ export function WineProfile({ product }: Props) {
           <div className={`space-y-5 ${hasLeft ? "lg:col-span-5" : "lg:col-span-12"}`}>
             {product.producerNotes && (
               <div className="glass rounded-2xl p-6">
-                <p className={EYEBROW}>— About {product.producer}</p>
+                <p className={EYEBROW}>About {product.producer}</p>
                 <Prose text={product.producerNotes} />
               </div>
             )}
             {product.winemakingNotes && (
               <div className="glass rounded-2xl p-6">
-                <p className={EYEBROW}>— How it's made</p>
+                <p className={EYEBROW}>How it's made</p>
                 <Prose text={product.winemakingNotes} />
               </div>
             )}

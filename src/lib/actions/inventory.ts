@@ -77,7 +77,7 @@ const validateSchema = z.object({
   rows: z
     .array(rawRowSchema)
     .min(1, "The file has no data rows.")
-    .max(2000, "That's more rows than one import should handle — split it into smaller files."),
+    .max(2000, "That's more rows than one import should handle. Split it into smaller files."),
 });
 
 export type ImportPreviewResult = {

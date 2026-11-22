@@ -8,7 +8,7 @@ import type { BlogCategory } from "@/content/blog/types";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "The Wine Guide — How Wine Is Made, Served & Paired | Finkel Reserve" },
+      { title: "The Wine Guide: How Wine Is Made, Served & Paired | Finkel Reserve" },
       {
         name: "description",
         content:
@@ -28,15 +28,13 @@ function BlogIndex() {
     <Layout>
       <div className="pt-32" />
       <section className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary">
-          — The Wine Guide
-        </p>
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary">The Wine Guide</p>
         <h1 className="mt-3 max-w-4xl font-display font-black text-5xl md:text-7xl leading-[1.02] tracking-tight">
           Know your wine, <span className="text-gradient-wine">glass by glass.</span>
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           How wine is made, how to keep and serve it in Nigeria's heat, and what to pour with the
-          food you actually eat — in plain language.
+          food you actually eat, in plain language.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-2" role="group" aria-label="Filter articles">

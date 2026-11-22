@@ -10,7 +10,7 @@ export const post: BlogPost = {
   blocks: [
     {
       type: "p",
-      text: "Red wine gets its colour — and most of its grip — from the skins of dark-skinned grapes. Unlike white wine, the juice is fermented **together with** its skins, and that single choice explains much of what makes a red taste like a red.",
+      text: "Red wine gets its colour, and most of its grip, from the skins of dark-skinned grapes. Unlike white wine, the juice is fermented **together with** its skins, and that single choice explains much of what makes a red taste like a red.",
     },
     {
       type: "facts",
@@ -20,7 +20,7 @@ export const post: BlogPost = {
           label: "Colour comes from",
           value: "The skins of dark grapes (the juice itself is almost clear)",
         },
-        { label: "Fermentation", value: "Warmer than white wine — typically around 24–32°C" },
+        { label: "Fermentation", value: "Warmer than white wine, typically around 24–32°C" },
         {
           label: "Time on the skins",
           value: "From about a week to a month or more, depending on the style",
@@ -38,7 +38,7 @@ export const post: BlogPost = {
         },
         {
           title: "Destem and crush",
-          text: "Most reds are destemmed — stems can add a bitter, green edge — and lightly crushed. Some producers keep whole bunches in the mix for lift and spice.",
+          text: "Most reds are destemmed (stems can add a bitter, green edge) and lightly crushed. Some producers keep whole bunches in the mix for lift and spice.",
         },
         {
           title: "Ferment on the skins",
@@ -50,7 +50,7 @@ export const post: BlogPost = {
         },
         {
           title: "Press",
-          text: "The free-run wine is drained off. What's left of the skins is pressed to give 'press wine' — darker and more tannic — and the winemaker decides how much to blend back in.",
+          text: "The free-run wine is drained off. What's left of the skins is pressed to give 'press wine' (darker and more tannic), and the winemaker decides how much to blend back in.",
         },
         {
           title: "Malolactic fermentation",
@@ -70,7 +70,7 @@ export const post: BlogPost = {
     {
       type: "ul",
       items: [
-        "**Tannin** comes from skins, seeds and oak. It's the drying, grippy feeling on your gums — and it's what makes a red such a good partner for rich, savoury food.",
+        "**Tannin** comes from skins, seeds and oak. It's the drying, grippy feeling on your gums, and it's what makes a red such a good partner for rich, savoury food.",
         "**Body** reflects alcohol, extraction and ageing: a light Pinot Noir feels very different from a Shiraz or a Cabernet Sauvignon.",
         "**Oak** brings vanilla, spice and toast. Unoaked reds taste purer and fruitier.",
         "**Climate** matters: warm regions ripen grapes fully, giving riper, rounder, higher-alcohol wines; cooler regions give lighter, fresher, more savoury ones.",
@@ -79,7 +79,7 @@ export const post: BlogPost = {
     {
       type: "callout",
       title: "What about sweet reds?",
-      text: "Sweet reds keep some natural grape sugar. It's done either by stopping fermentation early — by chilling and filtering the wine — or by adding grape spirit, as in port. The 'natural sweet' reds many people love start life exactly like any other red.",
+      text: "Sweet reds keep some natural grape sugar. It's done either by stopping fermentation early (by chilling and filtering the wine) or by adding grape spirit, as in port. The 'natural sweet' reds many people love start life exactly like any other red.",
     },
     { type: "shop", productType: "red", label: "Shop red wine" },
   ],

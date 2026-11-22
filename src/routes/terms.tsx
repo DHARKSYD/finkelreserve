@@ -5,11 +5,11 @@ import { useSettings } from "@/lib/queries/settings";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms & Conditions — Finkel Reserve" },
+      { title: "Terms & Conditions | Finkel Reserve" },
       {
         name: "description",
         content:
-          "Terms and conditions for shopping at Finkel Reserve — orders, payments, shipping, and returns.",
+          "Terms and conditions for shopping at Finkel Reserve: orders, payments, shipping, and returns.",
       },
       { name: "robots", content: "index, follow" },
     ],
@@ -101,17 +101,17 @@ function TermsPage() {
               <p>We accept payment by:</p>
               <ul className="list-disc list-inside space-y-1 mt-2">
                 <li>
-                  <strong className="text-foreground">Online payment</strong> — processed securely
-                  by Paystack (cards, bank transfer, USSD, and other Paystack-supported methods)
+                  <strong className="text-foreground">Online payment</strong>: processed securely by
+                  Paystack (cards, bank transfer, USSD, and other Paystack-supported methods)
                 </li>
                 <li>
-                  <strong className="text-foreground">Pay on delivery</strong> — cash on delivery at
+                  <strong className="text-foreground">Pay on delivery</strong>: cash on delivery at
                   the time your order arrives, subject to age verification (see Section 2)
                 </li>
               </ul>
               <p>
                 For online payments, your order is only confirmed after payment has been verified.
-                We do not store your card details — all payment information is handled directly by
+                We do not store your card details. All payment information is handled directly by
                 Paystack.
               </p>
             </Section>
@@ -187,7 +187,7 @@ function TermsPage() {
 
             <Section title="10. Intellectual Property">
               <p>
-                All content on this site — including product photographs, text, logos, and designs —
+                All content on this site, including product photographs, text, logos, and designs,
                 is the property of Finkel Reserve or our licensors and is protected by applicable
                 copyright and trademark law. You may not copy, reproduce, or use any content without
                 our prior written permission.

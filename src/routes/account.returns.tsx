@@ -11,7 +11,7 @@ import { formatNGN } from "@/lib/currency";
 import { ReturnStatusBadge } from "@/components/admin/StatusBadge";
 
 export const Route = createFileRoute("/account/returns")({
-  head: () => ({ meta: [{ title: "Returns — My Account" }] }),
+  head: () => ({ meta: [{ title: "Returns | My Account" }] }),
   component: ReturnsPage,
 });
 
@@ -32,7 +32,7 @@ const STATUS_TEXT: Record<ReturnStatus, string> = {
   approved: "Approved. We'll be in touch about getting the item back to us.",
   item_received: "We have the item and are getting your refund ready.",
   refund_initiated: "Your refund has been started.",
-  completed: "All done — your refund is complete.",
+  completed: "All done. Your refund is complete.",
   rejected: "We couldn't approve this request. See our note below.",
 };
 

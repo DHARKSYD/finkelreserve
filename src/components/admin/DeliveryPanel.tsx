@@ -86,7 +86,7 @@ export function DeliveryPanel({ order }: { order: Order }) {
       await navigator.clipboard.writeText(dispatchText);
       toast.success("Dispatch details copied");
     } catch {
-      toast.error("Couldn't copy — select the text below and copy it manually");
+      toast.error("Couldn't copy. Select the text below and copy it manually");
     }
   };
 
@@ -109,7 +109,7 @@ export function DeliveryPanel({ order }: { order: Order }) {
         onSuccess: () =>
           toast.success(
             markOutForDelivery && !alreadyShipped
-              ? "Marked out for delivery — the customer has been notified"
+              ? "Marked out for delivery. The customer has been notified"
               : "Delivery details saved",
           ),
         onError: (e) => toast.error(e instanceof Error ? e.message : "Could not save"),
@@ -167,7 +167,7 @@ export function DeliveryPanel({ order }: { order: Order }) {
             </div>
             {!settings?.businessAddress && (
               <p className="mt-2 text-destructive">
-                Your pickup address isn't set — add it in Admin → Settings so couriers know where to
+                Your pickup address isn't set. Add it in Admin → Settings so couriers know where to
                 collect.
               </p>
             )}
@@ -208,7 +208,7 @@ export function DeliveryPanel({ order }: { order: Order }) {
               </div>
               <div className="sm:col-span-2">
                 <label className={LABEL} htmlFor={`track-${order.id}`}>
-                  Tracking link (optional — sent to the customer)
+                  Tracking link (optional, sent to the customer)
                 </label>
                 <input
                   id={`track-${order.id}`}

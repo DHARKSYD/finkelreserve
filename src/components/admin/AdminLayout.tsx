@@ -35,7 +35,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
                 Finkel Reserve
               </p>
               <p className="text-[10px] uppercase tracking-[0.25em] text-primary font-mono mt-1">
-                — Control room
+                Control room
               </p>
             </div>
           </Link>

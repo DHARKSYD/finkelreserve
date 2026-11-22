@@ -98,9 +98,9 @@ export function DeleteAccountDialog({
           </div>
           <DialogTitle className="font-display font-bold">Delete your account</DialogTitle>
           <DialogDescription>
-            This permanently deletes your profile, saved addresses, and sign-in — it can't be
-            undone. Your past orders stay in our records (they're kept for business and legal
-            reasons), but they're no longer linked to your account.
+            This permanently deletes your profile, saved addresses, and sign-in. It can't be undone.
+            Your past orders stay in our records (they're kept for business and legal reasons), but
+            they're no longer linked to your account.
           </DialogDescription>
         </DialogHeader>
 

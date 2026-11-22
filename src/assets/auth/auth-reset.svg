@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000" preserveAspectRatio="xMidYMid slice">
+<defs>
+
+<linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34200f"/><stop offset="1" stop-color="#150c06"/></linearGradient>
+<radialGradient id="glassG" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#31543f"/><stop offset=".5" stop-color="#16291e"/><stop offset="1" stop-color="#080f0b"/></radialGradient>
+<radialGradient id="glassB" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#4a3322"/><stop offset=".5" stop-color="#241810"/><stop offset="1" stop-color="#0c0806"/></radialGradient>
+<radialGradient id="foilR" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#b4263e"/><stop offset=".6" stop-color="#6c1224"/><stop offset="1" stop-color="#3a0912"/></radialGradient>
+<radialGradient id="foilG" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#f0d386"/><stop offset=".6" stop-color="#b98a35"/><stop offset="1" stop-color="#6d4c14"/></radialGradient>
+<radialGradient id="foilK" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#4a4a4a"/><stop offset=".6" stop-color="#1e1e1e"/><stop offset="1" stop-color="#090909"/></radialGradient>
+<radialGradient id="cork" cx="40%" cy="35%" r="75%"><stop offset="0" stop-color="#dcc79c"/><stop offset="1" stop-color="#9c8153"/></radialGradient>
+<radialGradient id="hole" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#030201"/><stop offset=".8" stop-color="#0a0604"/><stop offset="1" stop-color="#1e120a"/></radialGradient>
+<radialGradient id="lamp" cx="50%" cy="38%" r="60%"><stop offset="0" stop-color="#ffd58c" stop-opacity=".34"/><stop offset="1" stop-color="#ffd58c" stop-opacity="0"/></radialGradient>
+<radialGradient id="vignette" cx="50%" cy="42%" r="70%"><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".88"/></radialGradient>
+<filter id="b1"><feGaussianBlur stdDeviation="1.2"/></filter>
+<g id="end-glassG-foilG"><circle r="47" fill="#080503"/><circle r="43" fill="url(#glassG)"/><circle r="43" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="1.2"/><circle r="22" fill="url(#foilG)"/><circle r="22" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1"/><circle r="12.5" fill="url(#cork)"/><circle r="8" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="1"/><ellipse cx="-19" cy="-24" rx="13" ry="5" transform="rotate(-38 -19 -24)" fill="#fff" fill-opacity=".2"/></g>
+<g id="end-glassG-foilK"><circle r="47" fill="#080503"/><circle r="43" fill="url(#glassG)"/><circle r="43" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="1.2"/><circle r="22" fill="url(#foilK)"/><circle r="22" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1"/><circle r="12.5" fill="url(#cork)"/><circle r="8" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="1"/><ellipse cx="-19" cy="-24" rx="13" ry="5" transform="rotate(-38 -19 -24)" fill="#fff" fill-opacity=".2"/></g>
+<g id="end-glassB-foilG"><circle r="47" fill="#080503"/><circle r="43" fill="url(#glassB)"/><circle r="43" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="1.2"/><circle r="22" fill="url(#foilG)"/><circle r="22" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1"/><circle r="12.5" fill="url(#cork)"/><circle r="8" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="1"/><ellipse cx="-19" cy="-24" rx="13" ry="5" transform="rotate(-38 -19 -24)" fill="#fff" fill-opacity=".2"/></g>
+<g id="end-glassB-foilK"><circle r="47" fill="#080503"/><circle r="43" fill="url(#glassB)"/><circle r="43" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="1.2"/><circle r="22" fill="url(#foilK)"/><circle r="22" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1"/><circle r="12.5" fill="url(#cork)"/><circle r="8" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="1"/><ellipse cx="-19" cy="-24" rx="13" ry="5" transform="rotate(-38 -19 -24)" fill="#fff" fill-opacity=".2"/></g>
+<g id="end-glassG-foilR"><circle r="47" fill="#080503"/><circle r="43" fill="url(#glassG)"/><circle r="43" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="1.2"/><circle r="22" fill="url(#foilR)"/><circle r="22" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1"/><circle r="12.5" fill="url(#cork)"/><circle r="8" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="1"/><ellipse cx="-19" cy="-24" rx="13" ry="5" transform="rotate(-38 -19 -24)" fill="#fff" fill-opacity=".2"/></g>
+<g id="end-glassB-foilR"><circle r="47" fill="#080503"/><circle r="43" fill="url(#glassB)"/><circle r="43" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="1.2"/><circle r="22" fill="url(#foilR)"/><circle r="22" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="1"/><circle r="12.5" fill="url(#cork)"/><circle r="8" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="1"/><ellipse cx="-19" cy="-24" rx="13" ry="5" transform="rotate(-38 -19 -24)" fill="#fff" fill-opacity=".2"/></g>
+</defs>
+
+<rect width="800" height="1000" fill="url(#wood)"/>
+<use href="#end-glassG-foilG" x="-30" y="8"/>
+<use href="#end-glassG-foilK" x="70" y="8"/>
+<use href="#end-glassB-foilG" x="170" y="8"/>
+<use href="#end-glassG-foilK" x="270" y="8"/>
+<use href="#end-glassG-foilK" x="370" y="8"/>
+<use href="#end-glassB-foilK" x="470" y="8"/>
+<use href="#end-glassG-foilR" x="570" y="8"/>
+<use href="#end-glassG-foilK" x="670" y="8"/>
+<use href="#end-glassG-foilG" x="770" y="8"/>
+<use href="#end-glassG-foilK" x="870" y="8"/>
+<use href="#end-glassB-foilG" x="970" y="8"/>
+<use href="#end-glassG-foilG" x="-80" y="96"/>
+<use href="#end-glassG-foilG" x="20" y="96"/>
+<use href="#end-glassG-foilG" x="120" y="96"/>
+<use href="#end-glassB-foilR" x="220" y="96"/>
+<use href="#end-glassG-foilR" x="320" y="96"/>
+<use href="#end-glassG-foilR" x="420" y="96"/>
+<use href="#end-glassG-foilR" x="520" y="96"/>
+<use href="#end-glassG-foilK" x="620" y="96"/>
+<use href="#end-glassG-foilR" x="720" y="96"/>
+<use href="#end-glassG-foilR" x="820" y="96"/>
+<use href="#end-glassG-foilR" x="920" y="96"/>
+<use href="#end-glassG-foilG" x="-30" y="184"/>
+<use href="#end-glassG-foilR" x="70" y="184"/>
+<use href="#end-glassG-foilR" x="170" y="184"/>
+<use href="#end-glassB-foilR" x="270" y="184"/>
+<use href="#end-glassG-foilR" x="370" y="184"/>
+<use href="#end-glassG-foilK" x="470" y="184"/>
+<use href="#end-glassB-foilR" x="570" y="184"/>
+<use href="#end-glassG-foilR" x="670" y="184"/>
+<use href="#end-glassG-foilR" x="770" y="184"/>
+<use href="#end-glassB-foilR" x="870" y="184"/>
+<use href="#end-glassG-foilK" x="970" y="184"/>
+<use href="#end-glassG-foilR" x="-80" y="272"/>
+<use href="#end-glassG-foilR" x="20" y="272"/>
+<use href="#end-glassG-foilG" x="120" y="272"/>
+<use href="#end-glassG-foilG" x="220" y="272"/>
+<use href="#end-glassG-foilK" x="320" y="272"/>
+<use href="#end-glassG-foilG" x="420" y="272"/>
+<use href="#end-glassG-foilG" x="520" y="272"/>
+<use href="#end-glassG-foilR" x="620" y="272"/>
+<use href="#end-glassG-foilR" x="720" y="272"/>
+<use href="#end-glassG-foilK" x="820" y="272"/>
+<use href="#end-glassG-foilK" x="920" y="272"/>
+<use href="#end-glassG-foilR" x="-30" y="360"/>
+<use href="#end-glassG-foilR" x="70" y="360"/>
+<use href="#end-glassG-foilK" x="170" y="360"/>
+<use href="#end-glassB-foilK" x="270" y="360"/>
+<use href="#end-glassG-foilR" x="370" y="360"/>
+<use href="#end-glassG-foilR" x="470" y="360"/>
+<use href="#end-glassG-foilR" x="570" y="360"/>
+<use href="#end-glassG-foilK" x="670" y="360"/>
+<use href="#end-glassB-foilK" x="770" y="360"/>
+<use href="#end-glassG-foilG" x="870" y="360"/>
+<use href="#end-glassG-foilG" x="970" y="360"/>
+<use href="#end-glassG-foilR" x="-80" y="448"/>
+<use href="#end-glassG-foilR" x="20" y="448"/>
+<use href="#end-glassG-foilR" x="120" y="448"/>
+<use href="#end-glassB-foilR" x="220" y="448"/>
+<use href="#end-glassG-foilG" x="320" y="448"/>
+<use href="#end-glassG-foilR" x="420" y="448"/>
+<use href="#end-glassG-foilR" x="520" y="448"/>
+<use href="#end-glassG-foilK" x="620" y="448"/>
+<use href="#end-glassG-foilK" x="720" y="448"/>
+<use href="#end-glassG-foilG" x="820" y="448"/>
+<use href="#end-glassG-foilR" x="920" y="448"/>
+<use href="#end-glassG-foilR" x="-30" y="536"/>
+<use href="#end-glassB-foilR" x="70" y="536"/>
+<use href="#end-glassG-foilK" x="170" y="536"/>
+<use href="#end-glassB-foilG" x="270" y="536"/>
+<use href="#end-glassG-foilK" x="370" y="536"/>
+<circle cx="470" cy="536" r="47" fill="url(#hole)"/><circle cx="470" cy="536" r="47" fill="none" stroke="#e0a24a" stroke-opacity=".22" stroke-width="1.4"/>
+<use href="#end-glassG-foilR" x="570" y="536"/>
+<use href="#end-glassG-foilR" x="670" y="536"/>
+<use href="#end-glassG-foilR" x="770" y="536"/>
+<use href="#end-glassG-foilK" x="870" y="536"/>
+<use href="#end-glassG-foilR" x="970" y="536"/>
+<use href="#end-glassG-foilR" x="-80" y="624"/>
+<use href="#end-glassB-foilR" x="20" y="624"/>
+<use href="#end-glassG-foilR" x="120" y="624"/>
+<use href="#end-glassG-foilK" x="220" y="624"/>
+<use href="#end-glassG-foilR" x="320" y="624"/>
+<use href="#end-glassG-foilK" x="420" y="624"/>
+<use href="#end-glassG-foilG" x="520" y="624"/>
+<use href="#end-glassG-foilR" x="620" y="624"/>
+<use href="#end-glassG-foilK" x="720" y="624"/>
+<use href="#end-glassG-foilG" x="820" y="624"/>
+<use href="#end-glassG-foilK" x="920" y="624"/>
+<use href="#end-glassB-foilR" x="-30" y="712"/>
+<use href="#end-glassG-foilG" x="70" y="712"/>
+<use href="#end-glassG-foilK" x="170" y="712"/>
+<use href="#end-glassG-foilR" x="270" y="712"/>
+<use href="#end-glassG-foilR" x="370" y="712"/>
+<use href="#end-glassB-foilK" x="470" y="712"/>
+<use href="#end-glassB-foilK" x="570" y="712"/>
+<use href="#end-glassG-foilR" x="670" y="712"/>
+<use href="#end-glassG-foilR" x="770" y="712"/>
+<use href="#end-glassG-foilR" x="870" y="712"/>
+<use href="#end-glassB-foilK" x="970" y="712"/>
+<use href="#end-glassG-foilR" x="-80" y="800"/>
+<use href="#end-glassG-foilG" x="20" y="800"/>
+<use href="#end-glassB-foilR" x="120" y="800"/>
+<use href="#end-glassG-foilR" x="220" y="800"/>
+<use href="#end-glassG-foilR" x="320" y="800"/>
+<use href="#end-glassG-foilG" x="420" y="800"/>
+<use href="#end-glassG-foilR" x="520" y="800"/>
+<use href="#end-glassG-foilR" x="620" y="800"/>
+<use href="#end-glassB-foilR" x="720" y="800"/>
+<use href="#end-glassG-foilK" x="820" y="800"/>
+<use href="#end-glassB-foilG" x="920" y="800"/>
+<use href="#end-glassB-foilK" x="-30" y="888"/>
+<use href="#end-glassG-foilG" x="70" y="888"/>
+<use href="#end-glassG-foilK" x="170" y="888"/>
+<use href="#end-glassB-foilK" x="270" y="888"/>
+<use href="#end-glassG-foilG" x="370" y="888"/>
+<use href="#end-glassB-foilR" x="470" y="888"/>
+<use href="#end-glassG-foilK" x="570" y="888"/>
+<use href="#end-glassB-foilK" x="670" y="888"/>
+<use href="#end-glassG-foilR" x="770" y="888"/>
+<use href="#end-glassG-foilK" x="870" y="888"/>
+<use href="#end-glassG-foilR" x="970" y="888"/>
+<use href="#end-glassB-foilK" x="-80" y="976"/>
+<use href="#end-glassG-foilR" x="20" y="976"/>
+<use href="#end-glassG-foilK" x="120" y="976"/>
+<use href="#end-glassG-foilR" x="220" y="976"/>
+<use href="#end-glassG-foilR" x="320" y="976"/>
+<use href="#end-glassG-foilR" x="420" y="976"/>
+<use href="#end-glassG-foilG" x="520" y="976"/>
+<use href="#end-glassG-foilR" x="620" y="976"/>
+<use href="#end-glassG-foilG" x="720" y="976"/>
+<use href="#end-glassB-foilR" x="820" y="976"/>
+<use href="#end-glassB-foilK" x="920" y="976"/>
+<use href="#end-glassG-foilG" x="-30" y="1064"/>
+<use href="#end-glassG-foilR" x="70" y="1064"/>
+<use href="#end-glassB-foilR" x="170" y="1064"/>
+<use href="#end-glassG-foilK" x="270" y="1064"/>
+<use href="#end-glassG-foilK" x="370" y="1064"/>
+<use href="#end-glassB-foilK" x="470" y="1064"/>
+<use href="#end-glassG-foilR" x="570" y="1064"/>
+<use href="#end-glassB-foilK" x="670" y="1064"/>
+<use href="#end-glassG-foilG" x="770" y="1064"/>
+<use href="#end-glassG-foilR" x="870" y="1064"/>
+<use href="#end-glassG-foilK" x="970" y="1064"/>
+<rect width="800" height="1000" fill="#000" fill-opacity=".24"/>
+<rect width="800" height="1000" fill="url(#lamp)"/>
+<rect width="800" height="1000" fill="url(#vignette)"/>
+</svg>

@@ -9,7 +9,7 @@ import { ReturnStatusBadge } from "@/components/admin/StatusBadge";
 import { RequestReturnDialog } from "@/components/RequestReturnDialog";
 
 export const Route = createFileRoute("/account/orders")({
-  head: () => ({ meta: [{ title: "Orders — My Account" }] }),
+  head: () => ({ meta: [{ title: "Orders | My Account" }] }),
   component: OrdersPage,
 });
 

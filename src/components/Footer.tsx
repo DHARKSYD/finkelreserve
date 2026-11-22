@@ -31,8 +31,8 @@ export function Footer() {
             </span>
           </div>
           <p className="mt-5 text-sm text-muted-foreground max-w-sm leading-relaxed">
-            Fine wines, whiskeys and beverages for Nigeria — curated bottles, trusted provenance,
-            and unforgettable moments.
+            Fine wines, whiskeys and beverages for Nigeria: curated bottles, trusted provenance, and
+            unforgettable moments.
           </p>
           <p className="mt-3 text-xs text-muted-foreground/80">
             Please enjoy responsibly. For purchase by persons 18 and older only.
@@ -141,7 +141,7 @@ export function Footer() {
       </div>
       <div className="border-t border-border/60">
         <div className="mx-auto max-w-[1400px] px-6 md:px-10 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Finkel Reserve — All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Finkel Reserve. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-4">
             <a href="/privacy" className="hover:text-primary transition">
               Privacy

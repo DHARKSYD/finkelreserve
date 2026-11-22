@@ -22,7 +22,7 @@ import { EmptyState } from "@/components/admin/EmptyState";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export const Route = createFileRoute("/admin/returns")({
-  head: () => ({ meta: [{ title: "Returns — Admin" }] }),
+  head: () => ({ meta: [{ title: "Returns | Admin" }] }),
   component: ReturnsPage,
 });
 
@@ -258,7 +258,7 @@ function ReturnsPage() {
                       <div>
                         <p className="font-medium">{item.productName}</p>
                         <p className="text-xs text-muted-foreground">
-                          {item.size || "—"} · Qty {item.quantity}
+                          {item.size || "n/a"} · Qty {item.quantity}
                         </p>
                       </div>
                       <p className="font-semibold">{formatNGN(item.refundAmount)}</p>
@@ -291,7 +291,7 @@ function ReturnsPage() {
                   value={adminNote}
                   onChange={(e) => setAdminNote(e.target.value)}
                   rows={2}
-                  placeholder="Optional — visible to other admins"
+                  placeholder="Optional, visible to other admins"
                   className="w-full bg-input rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 ring-primary resize-none"
                 />
               </div>
@@ -319,7 +319,7 @@ function ReturnsPage() {
                 })}
                 {(NEXT_STATUS[selected.status] ?? []).length === 0 && (
                   <p className="text-xs text-muted-foreground">
-                    This return is in a final state — no further action available.
+                    This return is in a final state. No further action available.
                   </p>
                 )}
               </div>
@@ -441,7 +441,7 @@ function BankDetailsForm({ refundId }: { refundId: string }) {
     >
       <p className="text-[11px] leading-relaxed text-muted-foreground">
         Paystack couldn't send this back to where the customer paid from. Ask them for a bank
-        account in their name and enter it here — it goes straight to Paystack and is not stored.
+        account in their name and enter it here. It goes straight to Paystack and is not stored.
       </p>
       <select
         aria-label="Customer's bank"

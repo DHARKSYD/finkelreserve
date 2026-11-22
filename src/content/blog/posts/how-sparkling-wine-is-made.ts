@@ -10,7 +10,7 @@ export const post: BlogPost = {
   blocks: [
     {
       type: "p",
-      text: "Sparkling wine starts like any other: grapes are pressed and fermented into a still wine. The magic comes next — a **second fermentation** in a sealed container. The carbon dioxide yeast produces can't escape, so it dissolves into the wine and waits for you to open the bottle.",
+      text: "Sparkling wine starts like any other: grapes are pressed and fermented into a still wine. The magic comes next: a **second fermentation** in a sealed container. The carbon dioxide yeast produces can't escape, so it dissolves into the wine and waits for you to open the bottle.",
     },
     {
       type: "facts",
@@ -22,7 +22,7 @@ export const post: BlogPost = {
         },
         {
           label: "Pressure in a Champagne bottle",
-          value: "Roughly 5–6 atmospheres — more than double the pressure in a car tyre",
+          value: "Roughly 5–6 atmospheres (more than double the pressure in a car tyre)",
         },
         { label: "Main methods", value: "Traditional (in the bottle), tank, transfer, ancestral" },
         {
@@ -34,7 +34,7 @@ export const post: BlogPost = {
     { type: "h2", text: "The traditional method" },
     {
       type: "p",
-      text: "Used for Champagne, Cava, Franciacorta and many of the world's best sparkling wines, this is the slow, hands-on route — and the one that gives fine bubbles and toasty, bready flavours.",
+      text: "Used for Champagne, Cava, Franciacorta and many of the world's best sparkling wines, this is the slow, hands-on route, and the one that gives fine bubbles and toasty, bready flavours.",
     },
     {
       type: "steps",
@@ -57,7 +57,7 @@ export const post: BlogPost = {
         },
         {
           title: "Riddling",
-          text: "Bottles are tilted and turned a little at a time — traditionally by hand, now often by machine — until the sediment slides into the neck.",
+          text: "Bottles are tilted and turned a little at a time (traditionally by hand, now often by machine) until the sediment slides into the neck.",
         },
         {
           title: "Disgorgement",
@@ -76,15 +76,15 @@ export const post: BlogPost = {
     },
     {
       type: "p",
-      text: "**Asti** and **Moscato d'Asti** take this further: the single fermentation in the tank is stopped early by chilling, leaving natural sweetness and low alcohol — typically around 5–7%.",
+      text: "**Asti** and **Moscato d'Asti** take this further: the single fermentation in the tank is stopped early by chilling, leaving natural sweetness and low alcohol, typically around 5–7%.",
     },
     { type: "h2", text: "Other routes to bubbles" },
     {
       type: "ul",
       items: [
-        "**Transfer method** — the second fermentation happens in the bottle, then the wine is emptied into a tank to be filtered and re-bottled.",
-        "**Ancestral method (pét-nat)** — the wine is bottled before its first fermentation has finished, so the fizz forms in the bottle. Often cloudy, rustic and lightly sparkling.",
-        "**Carbonation** — carbon dioxide is injected into still wine, as in soft drinks. It's the cheapest route; the bubbles are larger and fade faster.",
+        "**Transfer method**: the second fermentation happens in the bottle, then the wine is emptied into a tank to be filtered and re-bottled.",
+        "**Ancestral method (pét-nat)**: the wine is bottled before its first fermentation has finished, so the fizz forms in the bottle. Often cloudy, rustic and lightly sparkling.",
+        "**Carbonation**: carbon dioxide is injected into still wine, as in soft drinks. It's the cheapest route; the bubbles are larger and fade faster.",
       ],
     },
     { type: "h2", text: "How sweet is it?" },
@@ -92,19 +92,19 @@ export const post: BlogPost = {
       type: "facts",
       title: "Sweetness on the label (sugar per litre)",
       items: [
-        { label: "Brut Nature", value: "0–3 g — bone dry" },
-        { label: "Extra Brut", value: "Up to 6 g — very dry" },
-        { label: "Brut", value: "Up to 12 g — dry, the most common style" },
-        { label: "Extra Dry", value: "12–17 g — off-dry (sweeter than Brut, despite the name)" },
-        { label: "Dry / Sec", value: "17–32 g — medium sweet" },
-        { label: "Demi-Sec", value: "32–50 g — sweet" },
-        { label: "Doux", value: "50 g+ — very sweet" },
+        { label: "Brut Nature", value: "0–3 g, bone dry" },
+        { label: "Extra Brut", value: "Up to 6 g, very dry" },
+        { label: "Brut", value: "Up to 12 g, dry, the most common style" },
+        { label: "Extra Dry", value: "12–17 g, off-dry (sweeter than Brut, despite the name)" },
+        { label: "Dry / Sec", value: "17–32 g, medium sweet" },
+        { label: "Demi-Sec", value: "32–50 g, sweet" },
+        { label: "Doux", value: "50 g+, very sweet" },
       ],
     },
     {
       type: "callout",
       title: "Champagne is a place, not a style",
-      text: "Only sparkling wine from the Champagne region of France, made under its rules, can be called Champagne. Everything else — Cava, Prosecco, Franciacorta, Cap Classique — is sparkling wine in its own right.",
+      text: "Only sparkling wine from the Champagne region of France, made under its rules, can be called Champagne. Everything else (Cava, Prosecco, Franciacorta, Cap Classique) is sparkling wine in its own right.",
     },
     { type: "shop", productType: "sparkling", label: "Shop sparkling wine" },
   ],

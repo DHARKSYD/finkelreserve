@@ -11,7 +11,7 @@ import { PasswordField } from "@/components/auth/PasswordField";
 import { MIN_PASSWORD_LENGTH, validateNewPassword } from "@/lib/password";
 
 export const Route = createFileRoute("/account/security")({
-  head: () => ({ meta: [{ title: "Security — My Account" }] }),
+  head: () => ({ meta: [{ title: "Security | My Account" }] }),
   component: SecurityPage,
 });
 

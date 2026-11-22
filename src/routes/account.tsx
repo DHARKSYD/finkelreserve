@@ -9,7 +9,7 @@ import { ACCOUNT_NAV } from "@/components/account/AccountNav";
 export const Route = createFileRoute("/account")({
   head: () => ({
     meta: [
-      { title: "My Account — Finkel Reserve" },
+      { title: "My Account | Finkel Reserve" },
       // Private page — never index
       { name: "robots", content: "noindex, nofollow" },
     ],

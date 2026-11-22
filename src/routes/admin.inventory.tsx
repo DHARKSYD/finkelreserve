@@ -24,7 +24,7 @@ import { EmptyState } from "@/components/admin/EmptyState";
 import { InventoryImportDialog } from "@/components/admin/InventoryImportDialog";
 
 export const Route = createFileRoute("/admin/inventory")({
-  head: () => ({ meta: [{ title: "Inventory — Admin" }] }),
+  head: () => ({ meta: [{ title: "Inventory | Admin" }] }),
   component: InventoryPage,
 });
 
@@ -217,7 +217,7 @@ function InventoryPage() {
                       <p className="font-semibold truncate max-w-[180px]">{v.productName}</p>
                     </td>
                     <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
-                      {v.sku ?? "—"}
+                      {v.sku ?? "n/a"}
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">{v.size}</td>
                     <td className="px-4 py-3">
@@ -236,7 +236,7 @@ function InventoryPage() {
                     <td className="px-4 py-3 text-xs text-muted-foreground whitespace-nowrap">
                       {v.productBottlesPerBox
                         ? boxesAndLoose(v.stock, v.productBottlesPerBox)
-                        : "—"}
+                        : "n/a"}
                     </td>
                     <td className="px-4 py-3">
                       <StatusBadge label={STATUS_LABEL[v.status]} tone={STATUS_TONE[v.status]} />

@@ -7,7 +7,7 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin — Finkel Reserve" },
+      { title: "Admin | Finkel Reserve" },
       // Keeps the admin pages out of search results without naming them in the public
       // robots.txt (which would advertise that the area exists).
       { name: "robots", content: "noindex, nofollow, noarchive" },

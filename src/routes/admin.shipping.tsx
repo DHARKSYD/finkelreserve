@@ -21,7 +21,7 @@ import { ShippingZoneFormDialog } from "@/components/admin/ShippingZoneFormDialo
 import { ShippingRateFormDialog } from "@/components/admin/ShippingRateFormDialog";
 
 export const Route = createFileRoute("/admin/shipping")({
-  head: () => ({ meta: [{ title: "Shipping — Admin" }] }),
+  head: () => ({ meta: [{ title: "Shipping | Admin" }] }),
   component: ShippingPage,
 });
 
@@ -104,7 +104,7 @@ function ShippingPage() {
             Shipping
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Zones and rates checkout reads directly — nothing here is duplicated in code.
+            Zones and rates checkout reads directly. Nothing here is duplicated in code.
           </p>
         </div>
         <div className="flex gap-2 shrink-0">
@@ -149,7 +149,7 @@ function ShippingPage() {
         <EmptyState
           icon={Truck}
           title="No shipping zones yet"
-          description="Create a zone (a group of states) and give it at least one rate — checkout won't show a delivery option until then."
+          description="Create a zone (a group of states) and give it at least one rate. Checkout won't show a delivery option until then."
           action={
             <button
               onClick={openCreateZone}
@@ -219,7 +219,7 @@ function ShippingPage() {
 
                 {zoneRates.length === 0 ? (
                   <p className="px-5 py-6 text-sm text-muted-foreground">
-                    No rates yet — this zone won't show a delivery option at checkout until one is
+                    No rates yet. This zone won't show a delivery option at checkout until one is
                     added.
                   </p>
                 ) : (
@@ -320,7 +320,7 @@ function ShippingPage() {
         open={!!deleteRateTarget}
         onOpenChange={(open) => !open && setDeleteRateTarget(null)}
         title="Delete this rate?"
-        description={`This removes "${deleteRateTarget?.name}" as a delivery option. Orders that already used it keep their history — this only stops it being offered going forward.`}
+        description={`This removes "${deleteRateTarget?.name}" as a delivery option. Orders that already used it keep their history. This only stops it being offered going forward.`}
         confirmLabel="Delete Rate"
         loading={deleteRate.isPending}
         onConfirm={() => {

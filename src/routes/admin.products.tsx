@@ -30,7 +30,7 @@ import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 import { ProductVariantsEditor } from "@/components/admin/ProductVariantsEditor";
 
 export const Route = createFileRoute("/admin/products")({
-  head: () => ({ meta: [{ title: "Products — Admin" }] }),
+  head: () => ({ meta: [{ title: "Products | Admin" }] }),
   component: ProductsPage,
 });
 
@@ -305,7 +305,7 @@ function ProductsPage() {
       {open && (
         <form onSubmit={submit} className="glass rounded-2xl p-5 mb-6 space-y-5">
           <p className="text-xs uppercase tracking-[0.2em] text-primary font-mono">
-            — {editingId ? "Edit product" : "New product"}
+            {editingId ? "Edit product" : "New product"}
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -316,7 +316,7 @@ function ProductsPage() {
               onChange={(v) => setForm({ ...form, name: v })}
             />
             <LabeledInput
-              label="Slug (optional — auto from name)"
+              label="Slug (optional, auto from name)"
               value={form.slug}
               onChange={(v) => setForm({ ...form, slug: v })}
             />
@@ -351,7 +351,7 @@ function ProductsPage() {
               onChange={(v) => setForm({ ...form, country: v })}
             />
             <LabeledInput
-              label="Vintage / year (optional — blank = non-vintage)"
+              label="Vintage / year (optional, blank = non-vintage)"
               type="number"
               value={form.vintage}
               onChange={(v) => setForm({ ...form, vintage: v })}
@@ -399,12 +399,12 @@ function ProductsPage() {
           <BoxPackagingSection form={form} setForm={setForm} />
 
           <LabeledInput
-            label="Grape variety or key ingredients (comma-separated — e.g. Merlot, or Malted barley)"
+            label="Grape variety or key ingredients (comma-separated, e.g. Merlot, or Malted barley)"
             value={form.grapeVariety}
             onChange={(v) => setForm({ ...form, grapeVariety: v })}
           />
           <LabeledInput
-            label="Bottle sizes (comma-separated — e.g. 750ml, 1.5L, 700ml)"
+            label="Bottle sizes (comma-separated, e.g. 750ml, 1.5L, 700ml)"
             value={form.bottleSizes}
             onChange={(v) => setForm({ ...form, bottleSizes: v })}
           />
@@ -430,10 +430,10 @@ function ProductsPage() {
           </div>
           <div className="pt-1 border-t border-border/40">
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-mono mb-1 mt-4">
-              — Tasting profile (shown on the product page)
+              Tasting profile (shown on the product page)
             </p>
             <p className="text-xs text-muted-foreground mb-3">
-              All optional — the page shows only what you fill in. Write from the producer's own
+              All optional. The page shows only what you fill in. Write from the producer's own
               information or your own tasting; don't paste another retailer's copy.
             </p>
             <div className="space-y-3">
@@ -509,7 +509,7 @@ function ProductsPage() {
 
           <div className="pt-1 border-t border-border/40">
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-mono mb-3 mt-4">
-              — Inventory & merchandising
+              Inventory & merchandising
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <LabeledInput
@@ -548,7 +548,7 @@ function ProductsPage() {
 
           <div className="pt-1 border-t border-border/40">
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-mono mb-3 mt-4">
-              — SEO
+              SEO
             </p>
             <LabeledInput
               label="SEO title (optional)"
@@ -606,7 +606,7 @@ function ProductsPage() {
             ) : products.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
-                  No products yet — add your first one above.
+                  No products yet. Add your first one above.
                 </td>
               </tr>
             ) : (
@@ -761,7 +761,7 @@ function BoxPackagingSection({
               onChange={(v) => setForm({ ...form, bottlesPerBox: v })}
             />
             <LabeledInput
-              label="Box discount (%) — off the price of those bottles"
+              label="Box discount (%): off the price of those bottles"
               type="number"
               value={form.boxDiscountPercent}
               onChange={(v) => setForm({ ...form, boxDiscountPercent: v })}
@@ -775,12 +775,11 @@ function BoxPackagingSection({
                 {formatNGN(Math.round(pricing.perBottle))} a bottle)
                 {pricing.saving > 0 ? (
                   <>
-                    {" "}
-                    — customers save {formatNGN(pricing.saving)} ({pricing.percent}%) compared with{" "}
+                    . Customers save {formatNGN(pricing.saving)} ({pricing.percent}%) compared with{" "}
                     {perBox} single bottles at {formatNGN(pricing.regular)}.
                   </>
                 ) : (
-                  <> — no discount, the same as {perBox} single bottles.</>
+                  <>. No discount, the same as {perBox} single bottles.</>
                 )}
               </>
             ) : bottlePrice > 0 ? (

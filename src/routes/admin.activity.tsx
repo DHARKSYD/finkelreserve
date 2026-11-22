@@ -3,7 +3,7 @@ import { Activity as ActivityIcon, RefreshCw } from "lucide-react";
 import { useAdminActivity } from "@/lib/queries/activity";
 
 export const Route = createFileRoute("/admin/activity")({
-  head: () => ({ meta: [{ title: "Activity — Admin" }] }),
+  head: () => ({ meta: [{ title: "Activity | Admin" }] }),
   component: ActivityPage,
 });
 
@@ -15,7 +15,7 @@ function ActivityPage() {
       <div className="mb-6">
         <h1 className="font-display font-black text-3xl md:text-4xl tracking-tighter">Activity</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          A record of admin actions and store events. Append-only — nothing here can be edited or
+          A record of admin actions and store events. Append-only. Nothing here can be edited or
           cleared.
         </p>
       </div>
@@ -37,7 +37,7 @@ function ActivityPage() {
           <p className="text-sm text-muted-foreground">Loading…</p>
         ) : activity.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            Nothing logged yet — orders and admin actions will show up here as they happen.
+            Nothing logged yet. Orders and admin actions will show up here as they happen.
           </p>
         ) : (
           <div className="space-y-3 max-h-[600px] overflow-y-auto">

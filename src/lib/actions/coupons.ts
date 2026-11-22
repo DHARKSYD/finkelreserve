@@ -43,7 +43,7 @@ export const validateCoupon = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => validateCouponSchema.parse(data))
   .handler(async ({ data }): Promise<CouponResult> => {
     const rate = await checkRateLimit("validate-coupon", 20, 60_000);
-    if (!rate.ok) return { valid: false, error: "Too many attempts — please wait a moment." };
+    if (!rate.ok) return { valid: false, error: "Too many attempts. Please wait a moment." };
     const lines = await priceCartLines(data.items);
     if (lines.length === 0) return { valid: false, error: "Your bag is empty." };
     return resolveCoupon(data.code, lines, data.customerEmail);

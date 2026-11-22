@@ -86,7 +86,7 @@ export const requestRefund = createServerFn({ method: "POST" })
     }
 
     const rate = await checkRateLimit("admin-refund", 20, 60_000);
-    if (!rate.ok) return { ok: false, error: "Too many refund attempts — please wait a minute." };
+    if (!rate.ok) return { ok: false, error: "Too many refund attempts. Please wait a minute." };
 
     const { data: order, error } = await supabaseAdmin
       .from("orders")
@@ -150,7 +150,7 @@ export const requestRefund = createServerFn({ method: "POST" })
             currency: "NGN",
             merchant_note: data.reason || `Refund for order ${order.id}`,
             // Shown to the customer by Paystack in their refund notification.
-            customer_note: `Finkel Reserve refund — order ${order.id.slice(0, 8).toUpperCase()}`,
+            customer_note: `Finkel Reserve refund: order ${order.id.slice(0, 8).toUpperCase()}`,
           }),
         });
       } catch {
@@ -199,7 +199,7 @@ export const requestRefund = createServerFn({ method: "POST" })
         });
         return {
           ok: false,
-          error: `Paystack accepted this refund (reference ${gatewayReference}), but saving it here failed. The money is moving regardless — note that reference and check Paystack's dashboard, then contact support so the record can be added manually.`,
+          error: `Paystack accepted this refund (reference ${gatewayReference}), but saving it here failed. The money is moving regardless. Note that reference and check Paystack's dashboard, then contact support so the record can be added manually.`,
         };
       }
       return { ok: false, error: "Could not record the refund. Please try again." };
@@ -316,7 +316,7 @@ export const retryRefundWithBankDetails = createServerFn({ method: "POST" })
     }
 
     const rate = await checkRateLimit("admin-refund-retry", 10, 60_000);
-    if (!rate.ok) return { ok: false, error: "Too many attempts — please wait a minute." };
+    if (!rate.ok) return { ok: false, error: "Too many attempts. Please wait a minute." };
 
     const { data: refund, error } = await supabaseAdmin
       .from("refunds")

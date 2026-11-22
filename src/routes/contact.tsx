@@ -7,7 +7,7 @@ import { useSettings } from "@/lib/queries/settings";
 import { whatsappHref } from "@/lib/contact";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({ meta: [{ title: "Contact — Finkel Reserve" }] }),
+  head: () => ({ meta: [{ title: "Contact | Finkel Reserve" }] }),
   component: ContactPage,
 });
 
@@ -44,13 +44,13 @@ function ContactPage() {
       <div className="pt-32" />
       <section className="mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-1 md:grid-cols-2 gap-12">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">— Talk to us</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">Talk to us</p>
           <h1 className="mt-3 font-display font-black text-5xl md:text-7xl tracking-tighter leading-[0.9]">
             Get in <span className="text-gradient-wine">touch</span>.
           </h1>
           <p className="mt-5 text-muted-foreground max-w-md leading-relaxed">
-            Order help, partnerships, or just want to talk wine and whiskey — drop us a line or DM
-            us on socials.
+            Order help, partnerships, or just want to talk wine and whiskey. Drop us a line or DM us
+            on socials.
           </p>
 
           <div className="mt-10 space-y-4">
@@ -69,7 +69,7 @@ function ContactPage() {
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-bold">Chat on WhatsApp</p>
                   <p className="text-xs text-muted-foreground">
-                    Fastest reply — order help and questions
+                    Fastest reply: order help and questions
                   </p>
                 </div>
                 <ArrowUpRight className="h-4 w-4 shrink-0 text-primary" />
@@ -151,7 +151,7 @@ function ContactPage() {
             className="w-full bg-input rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 ring-primary resize-none"
           />
           {send.isError && (
-            <p className="text-xs text-destructive">Couldn't send — please try again.</p>
+            <p className="text-xs text-destructive">Couldn't send. Please try again.</p>
           )}
           <button
             disabled={send.isPending}

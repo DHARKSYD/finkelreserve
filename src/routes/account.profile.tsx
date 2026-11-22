@@ -13,7 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { isPlausiblePhone, storablePhone } from "@/lib/phone";
 
 export const Route = createFileRoute("/account/profile")({
-  head: () => ({ meta: [{ title: "Profile — My Account" }] }),
+  head: () => ({ meta: [{ title: "Profile | My Account" }] }),
   component: ProfilePage,
 });
 
@@ -197,7 +197,7 @@ function ProfilePage() {
           </div>
         </div>
         <p className="mt-3 text-[11px] text-muted-foreground">
-          Your name appears on reviews as “{`${firstName} ${lastName}`.trim() || "—"}”.
+          Your name appears on reviews as “{`${firstName} ${lastName}`.trim() || "-"}”.
         </p>
 
         <button
@@ -250,7 +250,7 @@ function ProfilePage() {
         )}
         {emailForm && (
           <p className="text-[11px] text-muted-foreground mt-2">
-            We'll send a confirmation link to the new address — it only takes effect once you click
+            We'll send a confirmation link to the new address. It only takes effect once you click
             it.
           </p>
         )}

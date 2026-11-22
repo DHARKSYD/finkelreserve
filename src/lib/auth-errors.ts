@@ -11,7 +11,7 @@ export function friendlyAuthError(err: unknown, provider?: OAuthProvider): strin
     return "That email and password don't match. Check them and try again, or reset your password.";
   }
   if (/email not confirmed/i.test(message)) {
-    return "Please confirm your email first — check your inbox (and spam folder) for our message.";
+    return "Please confirm your email first. Check your inbox (and spam folder) for our message.";
   }
   if (/already (been )?registered|already exists/i.test(message)) {
     return "An account with this email already exists. Sign in instead.";

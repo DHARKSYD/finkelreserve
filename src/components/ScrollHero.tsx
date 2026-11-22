@@ -105,7 +105,7 @@ const BEATS: Beat[] = [
     anchor: "inset-x-6 top-6 md:inset-x-auto md:left-10 md:top-[17svh] md:w-[min(25rem,40vw)]",
     children: (
       <>
-        <p className={EYEBROW}>— Curated Selection</p>
+        <p className={EYEBROW}>Curated Selection</p>
         <h1
           className={cn(
             HEADLINE,
@@ -136,10 +136,10 @@ const BEATS: Beat[] = [
     anchor: "inset-x-6 top-6 md:inset-x-auto md:left-10 md:top-[17svh] md:w-[min(25rem,40vw)]",
     children: (
       <>
-        <p className={EYEBROW}>— Sourced honestly</p>
+        <p className={EYEBROW}>Sourced honestly</p>
         <p className={cn(HEADLINE, SUBHEAD, LEADING)}>Chosen by hand.</p>
         <p className="mt-3 max-w-[22rem] text-sm leading-relaxed text-primary-foreground/80 md:text-base">
-          Red, white, rosé and sparkling — delivered across Nigeria.
+          Red, white, rosé and sparkling, delivered across Nigeria.
         </p>
       </>
     ),
@@ -153,7 +153,7 @@ const BEATS: Beat[] = [
       "inset-x-6 top-6 md:inset-x-auto md:top-auto md:bottom-[7svh] md:left-10 md:w-[min(34rem,40vw)]",
     children: (
       <>
-        <p className={EYEBROW}>— Same-day–next-day delivery</p>
+        <p className={EYEBROW}>Same-day–next-day delivery</p>
         <p className={cn(HEADLINE, SUBHEAD, LEADING)}>Ready to pour.</p>
         <div className="mt-5 md:mt-6">
           <Link to="/shop" className={CTA_PRIMARY}>

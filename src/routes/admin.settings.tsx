@@ -5,7 +5,7 @@ import { Store, Mail, ShoppingBag, Search, Save, RotateCcw } from "lucide-react"
 import { useSettings, useUpdateSettings, type StoreSettingsInput } from "@/lib/queries/settings";
 
 export const Route = createFileRoute("/admin/settings")({
-  head: () => ({ meta: [{ title: "Settings — Admin" }] }),
+  head: () => ({ meta: [{ title: "Settings | Admin" }] }),
   component: SettingsPage,
 });
 
@@ -96,7 +96,7 @@ function SettingsPage() {
             Settings
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
-            The footer, legal pages, and page metadata all read from here — nothing about your store
+            The footer, legal pages, and page metadata all read from here. Nothing about your store
             info is hardcoded anymore.
           </p>
         </div>
@@ -176,7 +176,7 @@ function SettingsPage() {
       <SettingsSection
         icon={ShoppingBag}
         title="Commerce"
-        description="Currency isn't listed here — the app is NGN throughout and isn't actually switchable, so a toggle for it wouldn't do anything."
+        description="Currency isn't listed here. The app is NGN throughout and isn't actually switchable, so a toggle for it wouldn't do anything."
       >
         <Field
           label="Default low-stock threshold"
@@ -190,7 +190,7 @@ function SettingsPage() {
       <SettingsSection
         icon={RotateCcw}
         title="Returns"
-        description="The window customers can request a return in, counted from when an order is marked delivered. Shown live on the Returns Policy page and enforced server-side — not just display text."
+        description="The window customers can request a return in, counted from when an order is marked delivered. Shown live on the Returns Policy page and enforced server-side, not just display text."
       >
         <Field
           label="Return window (days)"
@@ -217,7 +217,7 @@ function SettingsPage() {
           label="Social share image URL"
           value={form.ogImageUrl ?? ""}
           onChange={(v) => set("ogImageUrl", v)}
-          placeholder="Not set — falls back to no og:image tag"
+          placeholder="Not set: falls back to no og:image tag"
           full
         />
       </SettingsSection>

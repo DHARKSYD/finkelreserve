@@ -6,11 +6,11 @@ import { formatReturnWindow } from "@/lib/queries/returns";
 export const Route = createFileRoute("/returns-policy")({
   head: () => ({
     meta: [
-      { title: "Returns & Refunds — Finkel Reserve" },
+      { title: "Returns & Refunds | Finkel Reserve" },
       {
         name: "description",
         content:
-          "Finkel Reserve returns and refund policy — eligibility, how to request a return, and refund timelines.",
+          "Finkel Reserve returns and refund policy: eligibility, how to request a return, and refund timelines.",
       },
       { name: "robots", content: "index, follow" },
     ],
@@ -73,7 +73,7 @@ function ReturnsPolicyPage() {
               </ul>
               <p className="mt-3">
                 A photo or short video of the damage isn't required, but it helps us process your
-                request faster — you can attach one directly when requesting a return, or describe
+                request faster. You can attach one directly when requesting a return, or describe
                 what happened in writing.
               </p>
 
@@ -93,22 +93,22 @@ function ReturnsPolicyPage() {
                 <a href="/account" className="text-primary hover:underline">
                   account page
                 </a>{" "}
-                and find the order — eligible orders show a{" "}
+                and find the order. Eligible orders show a{" "}
                 <strong className="text-foreground">Request Return</strong> button once they're
                 marked delivered.
               </p>
               <ol className="list-decimal list-inside space-y-2 mt-2">
                 <li>
                   Select the item(s), choose a reason, and optionally attach a photo or video and a
-                  written explanation — this is available for{" "}
+                  written explanation. This is available for{" "}
                   <strong className="text-foreground">
                     {formatReturnWindow(settings?.returnWindowDays ?? 1)}
                   </strong>{" "}
                   after delivery
                 </li>
                 <li>
-                  We'll review your request in the app — you can check its status from the same
-                  order at any time
+                  We'll review your request in the app. You can check its status from the same order
+                  at any time
                 </li>
                 <li>
                   Once approved, we'll confirm how to send the item back; refunds are issued after

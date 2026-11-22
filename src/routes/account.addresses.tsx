@@ -13,7 +13,7 @@ import { AddressFormDialog } from "@/components/account/AddressFormDialog";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
 
 export const Route = createFileRoute("/account/addresses")({
-  head: () => ({ meta: [{ title: "Addresses — My Account" }] }),
+  head: () => ({ meta: [{ title: "Addresses | My Account" }] }),
   component: AddressesPage,
 });
 

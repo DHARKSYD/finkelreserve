@@ -16,8 +16,8 @@ export const post: BlogPost = {
       type: "facts",
       title: "White wine at a glance",
       items: [
-        { label: "Colour", value: "Pale straw to deep gold — none from the skins" },
-        { label: "Fermentation", value: "Cooler than red — typically around 12–18°C" },
+        { label: "Colour", value: "Pale straw to deep gold, none from the skins" },
+        { label: "Fermentation", value: "Cooler than red, typically around 12–18°C" },
         { label: "Usual vessel", value: "Stainless steel; oak for richer styles" },
         {
           label: "Time to bottle",
@@ -31,7 +31,7 @@ export const post: BlogPost = {
       items: [
         {
           title: "Pick fresh",
-          text: "Grapes are harvested for their acidity and aroma — often in the cool of the morning — and handled gently, because white wine has nothing to hide behind.",
+          text: "Grapes are harvested for their acidity and aroma (often in the cool of the morning) and handled gently, because white wine has nothing to hide behind.",
         },
         {
           title: "Press first",
@@ -47,7 +47,7 @@ export const post: BlogPost = {
         },
         {
           title: "Lees and malolactic (optional)",
-          text: "Chardonnay often rests on its lees — spent yeast cells — and may go through malolactic fermentation for a creamy texture. Sauvignon Blanc usually skips it to stay zesty.",
+          text: "Chardonnay often rests on its lees (spent yeast cells) and may go through malolactic fermentation for a creamy texture. Sauvignon Blanc usually skips it to stay zesty.",
         },
         {
           title: "Clarify and bottle",
@@ -59,10 +59,10 @@ export const post: BlogPost = {
     {
       type: "ul",
       items: [
-        "**Crisp and zesty** — Sauvignon Blanc, Pinot Grigio: stainless steel, no oak, bottled young.",
-        "**Rich and creamy** — oaked Chardonnay: fermented in barrel, stirred on its lees and put through malolactic fermentation.",
-        "**Aromatic and off-dry** — Riesling, Moscato, Gewürztraminer: fermentation is stopped early, or the grapes are so ripe some sugar is left, balancing the acidity.",
-        "**Sweet dessert wines** — made from very ripe, dried or noble-rot-affected grapes whose sugar is so concentrated the yeast can't finish it.",
+        "**Crisp and zesty** (Sauvignon Blanc, Pinot Grigio): stainless steel, no oak, bottled young.",
+        "**Rich and creamy** (oaked Chardonnay): fermented in barrel, stirred on its lees and put through malolactic fermentation.",
+        "**Aromatic and off-dry** (Riesling, Moscato, Gewürztraminer): fermentation is stopped early, or the grapes are so ripe some sugar is left, balancing the acidity.",
+        "**Sweet dessert wines**: made from very ripe, dried or noble-rot-affected grapes whose sugar is so concentrated the yeast can't finish it.",
       ],
     },
     {

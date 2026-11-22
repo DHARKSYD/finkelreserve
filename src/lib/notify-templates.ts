@@ -76,9 +76,9 @@ function copy(event: NotifyEvent, order: NotifyOrder, payOnDelivery: boolean) {
       };
     case "payment_received":
       return {
-        subject: `Payment received — order #${ref} confirmed`,
+        subject: `Payment received: order #${ref} confirmed`,
         headline: "Payment received.",
-        intro: `Thank you, ${firstName(order.customerName)} — your payment of ${formatNGN(order.total)} went through and your order is confirmed. We'll let you know as soon as it's on its way.`,
+        intro: `Thank you, ${firstName(order.customerName)}. Your payment of ${formatNGN(order.total)} went through and your order is confirmed. We'll let you know as soon as it's on its way.`,
         details: [] as Detail[],
       };
     case "out_for_delivery": {
@@ -93,15 +93,15 @@ function copy(event: NotifyEvent, order: NotifyOrder, payOnDelivery: boolean) {
       return {
         subject: `Your order #${ref} is on its way`,
         headline: "It's on its way.",
-        intro: `Good news, ${firstName(order.customerName)} — your order has left us and is heading to you.${payOnDelivery ? ` Please have ${formatNGN(order.total)} ready for the rider.` : ""}`,
+        intro: `Good news, ${firstName(order.customerName)}. Your order has left us and is heading to you.${payOnDelivery ? ` Please have ${formatNGN(order.total)} ready for the rider.` : ""}`,
         details,
       };
     }
     case "delivered":
       return {
-        subject: `Delivered — order #${ref}`,
+        subject: `Delivered: order #${ref}`,
         headline: "Delivered.",
-        intro: `Your order has been delivered, ${firstName(order.customerName)}. We hope you enjoy every glass. If anything arrived damaged, report it from your order page as soon as you can — see our returns policy.`,
+        intro: `Your order has been delivered, ${firstName(order.customerName)}. We hope you enjoy every glass. If anything arrived damaged, report it from your order page as soon as you can. See our returns policy.`,
         details: [] as Detail[],
       };
     case "cancelled":
@@ -131,7 +131,7 @@ export function renderEmail(
     }`;
   const support = [brand.supportEmail, brand.supportPhone].filter(Boolean).join(" · ");
   const ageLine =
-    "Alcohol is for adults aged 18 and over — please have a valid ID ready when your order arrives.";
+    "Alcohol is for adults aged 18 and over. Please have a valid ID ready when your order arrives.";
   const whyLine = `You're getting this email because you placed an order with ${brand.name} and chose to receive order updates by email.`;
 
   const text = [
@@ -142,7 +142,7 @@ export function renderEmail(
     ...c.details.map((d) => `${d.label}: ${d.value}`),
     ...(c.details.length ? [""] : []),
     "Order summary",
-    ...order.items.map((i) => `- ${itemLabel(i)} — ${lineTotal(i)}`),
+    ...order.items.map((i) => `- ${itemLabel(i)}: ${lineTotal(i)}`),
     `Subtotal: ${formatNGN(order.subtotal)}`,
     ...(order.discount > 0 ? [`Discount: -${formatNGN(order.discount)}`] : []),
     `Delivery: ${order.shipping > 0 ? formatNGN(order.shipping) : "Free"}`,

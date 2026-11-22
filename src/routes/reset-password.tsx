@@ -9,7 +9,7 @@ import { MIN_PASSWORD_LENGTH, validateNewPassword } from "@/lib/password";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Reset Password — Finkel Reserve" },
+      { title: "Reset Password | Finkel Reserve" },
       // Private, single-use flow — never index.
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -128,7 +128,7 @@ function ResetPasswordPage() {
 
             {done && (
               <p className="text-sm text-primary mt-4">
-                Password updated — taking you to your account…
+                Password updated. Taking you to your account…
               </p>
             )}
           </div>

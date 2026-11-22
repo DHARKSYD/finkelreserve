@@ -17,7 +17,7 @@ import { OrderStatusBadge } from "@/components/admin/StatusBadge";
 import { DeliveryPanel } from "@/components/admin/DeliveryPanel";
 
 export const Route = createFileRoute("/admin/orders")({
-  head: () => ({ meta: [{ title: "Orders — Admin" }] }),
+  head: () => ({ meta: [{ title: "Orders | Admin" }] }),
   component: OrdersPage,
 });
 
@@ -126,7 +126,7 @@ function OrdersPage() {
                                 onSuccess: () =>
                                   e.target.value === "shipped" || e.target.value === "delivered"
                                     ? toast.success(
-                                        "Status updated — the customer has been notified",
+                                        "Status updated. The customer has been notified",
                                       )
                                     : undefined,
                                 onError: (err) =>

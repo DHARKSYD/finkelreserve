@@ -2,10 +2,11 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Layout } from "@/components/Layout";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, Loader2, MailCheck, Wine, Package, Heart, Truck } from "lucide-react";
+import { Mail, Phone, Loader2, MailCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { AuthField } from "@/components/auth/AuthField";
+import { AuthPhotoPanel, type AuthPhotoVariant } from "@/components/auth/AuthPhotoPanel";
 import { PasswordField } from "@/components/auth/PasswordField";
 import { SocialAuthButtons } from "@/components/auth/SocialAuthButtons";
 import { friendlyAuthError } from "@/lib/auth-errors";
@@ -13,7 +14,7 @@ import { MIN_PASSWORD_LENGTH } from "@/lib/password";
 import { isPlausiblePhone, storablePhone } from "@/lib/phone";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Sign in — Finkel Reserve" }] }),
+  head: () => ({ meta: [{ title: "Sign in | Finkel Reserve" }] }),
   component: AuthPage,
 });
 
@@ -24,13 +25,6 @@ const RESEND_COOLDOWN = 30;
 
 const PRIMARY_BUTTON =
   "w-full py-4 rounded-full bg-primary text-primary-foreground font-bold hover:shadow-glow transition disabled:opacity-50 inline-flex items-center justify-center gap-2";
-
-const BENEFITS = [
-  { icon: Package, text: "Track every order from cellar to doorstep" },
-  { icon: Truck, text: "Faster checkout with saved addresses" },
-  { icon: Heart, text: "Save your favourites and reorder in a tap" },
-  { icon: Wine, text: "Buy by the box and save" },
-];
 
 function AuthPage() {
   const [mode, setMode] = useState<Mode>("signin");
@@ -199,39 +193,15 @@ function AuthPage() {
   };
 
   const isSignup = mode === "signup";
+  const photoVariant: AuthPhotoVariant =
+    mode === "forgot" ? "reset" : mode === "signin" ? "signin" : "signup";
 
   return (
     <Layout>
       <div className="pt-28 md:pt-32" />
       <div className="mx-auto grid max-w-[1100px] grid-cols-1 items-stretch gap-8 px-4 pb-16 sm:px-6 md:grid-cols-2 md:gap-10 md:px-10">
-        {/* Brand panel — desktop only; no hotlinked photo, so it can never show the wrong thing. */}
-        <div className="relative hidden overflow-hidden rounded-3xl bg-wine p-10 text-primary-foreground md:flex md:flex-col md:justify-between">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/20 blur-3xl"
-          />
-          <p className="relative text-xs uppercase tracking-[0.3em] text-accent">
-            — Finkel Reserve
-          </p>
-          <div className="relative">
-            <h2 className="font-display text-4xl font-black leading-tight">
-              Fine wines, whiskeys &amp; beverages, delivered.
-            </h2>
-            <ul className="mt-8 space-y-4">
-              {BENEFITS.map(({ icon: Icon, text }) => (
-                <li
-                  key={text}
-                  className="flex items-center gap-3 text-sm text-primary-foreground/90"
-                >
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10">
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  {text}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        {/* Picture panel: desktop only, a different picture for sign in, sign up and reset. */}
+        <AuthPhotoPanel variant={photoVariant} />
 
         <div className="glass min-w-0 rounded-3xl p-5 sm:p-8 md:p-10">
           {(mode === "signin" || mode === "signup") && (
@@ -270,7 +240,7 @@ function AuthPage() {
                   <p className="text-sm text-muted-foreground">
                     We sent a confirmation link to{" "}
                     <strong className="break-all text-foreground">{pendingEmail}</strong>. Open it
-                    to activate your account, then sign in. It can take a minute — check your spam
+                    to activate your account, then sign in. It can take a minute. Check your spam
                     folder too.
                   </p>
                   {error && <p className="text-xs text-destructive">{error}</p>}
@@ -392,7 +362,7 @@ function AuthPage() {
                     {isSignup && (
                       <AuthField
                         icon={Phone}
-                        placeholder="Phone (optional) — for delivery updates"
+                        placeholder="Phone (optional): for delivery updates"
                         type="tel"
                         inputMode="tel"
                         autoComplete="tel"

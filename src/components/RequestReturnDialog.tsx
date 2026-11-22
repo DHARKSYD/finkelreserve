@@ -108,7 +108,7 @@ export function RequestReturnDialog({
       });
     }
     if (fileList.length > room) {
-      problem = `Only the first ${room} file${room === 1 ? "" : "s"} fit — the limit is ${MAX_FILES}.`;
+      problem = `Only the first ${room} file${room === 1 ? "" : "s"} fit. The limit is ${MAX_FILES}.`;
     }
     if (problem) setFormError(problem);
     setFiles((fs) => [...fs, ...accepted]);
@@ -210,7 +210,7 @@ export function RequestReturnDialog({
       },
       {
         onSuccess: () => {
-          toast.success("Return requested — we'll review it shortly.");
+          toast.success("Return requested. We'll review it shortly.");
           onOpenChange(false);
           reset();
         },
@@ -324,7 +324,7 @@ export function RequestReturnDialog({
             </div>
             {DAMAGE_REASONS.has(reason) && (
               <p className="text-[11px] leading-relaxed text-muted-foreground">
-                Strongly recommended — it lets us approve your claim faster. Show the broken bottle,
+                Strongly recommended. It lets us approve your claim faster. Show the broken bottle,
                 the label and the packaging.
               </p>
             )}

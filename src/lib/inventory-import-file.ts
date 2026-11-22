@@ -171,7 +171,7 @@ export async function parseImportFile(
       ? await readCsvAsRows(file)
       : await readSheetAsRows(file);
   } catch {
-    return { rows: [], error: "Could not read that file — make sure it's a valid .xlsx or .csv." };
+    return { rows: [], error: "Could not read that file. Make sure it's a valid .xlsx or .csv." };
   }
 
   if (json.length === 0) return { rows: [], error: "The file has no data rows." };
@@ -289,12 +289,12 @@ export async function downloadInventoryTemplate(
     "Edit the last three columns on the Inventory sheet, save, and upload it. Only the Inventory sheet is read.",
     `Stock column: "${valueHeader}" is counted in ${unit}${
       unit === "boxes"
-        ? " — each box is the product's Bottles per Box (you can change that in the same row)"
+        ? "; each box is the product's Bottles per Box (you can change that in the same row)"
         : ""
     }. ${mode === "replace" ? "It becomes the exact new stock." : "It is added to (or, if negative, taken from) current stock."}`,
     "Bottles per Box: how many bottles one box holds (2–48, usually 6). Enter 0 to stop selling the product by the box. It applies to the whole product, so use the same value on every size of it.",
     "Box Discount %: percent off the price of those bottles when a customer buys a box. Enter 10 for ten percent (not 0.1). 0 = no discount.",
-    "Leave a cell blank to leave that value as it is — a blank stock cell never sets stock to zero.",
+    "Leave a cell blank to leave that value as it is. A blank stock cell never sets stock to zero.",
     "Current Stock, Current Boxes, Product and Bottle Size are for reference and are ignored on upload; rows are matched by SKU.",
   ].forEach((line) => help.addRow([line]));
   help.eachRow((row) => (row.alignment = { wrapText: true, vertical: "top" }));

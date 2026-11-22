@@ -14,7 +14,7 @@ import { formatNGN } from "@/lib/currency";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Finkel Reserve — Fine Wines, Whiskeys & Beverages, Curated for Nigeria" },
+      { title: "Finkel Reserve | Fine Wines, Whiskeys & Beverages, Curated for Nigeria" },
       {
         name: "description",
         content:
@@ -74,7 +74,7 @@ function HomePage() {
       {/* FEATURED COLLECTIONS */}
       <Section
         title="Featured collections"
-        eyebrow="— Curated"
+        eyebrow="Curated"
         cta={{ label: "See all", to: "/shop" }}
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
@@ -116,7 +116,7 @@ function HomePage() {
           <div className="relative flex items-end justify-between gap-4 mb-8">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">
-                — Just landed
+                Just landed
               </p>
               <h2 className="mt-2 font-display font-black text-3xl md:text-5xl tracking-tighter">
                 New arrivals
@@ -145,7 +145,7 @@ function HomePage() {
       {/* FEATURED PRODUCTS */}
       <Section
         title="Featured bottles"
-        eyebrow="— Curated"
+        eyebrow="Curated"
         cta={{ label: "All products", to: "/shop" }}
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
@@ -164,13 +164,13 @@ function HomePage() {
           <div className="absolute -bottom-32 -left-32 h-96 w-96 rounded-full bg-accent/20 blur-[120px] pointer-events-none" />
           <div className="relative">
             <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">
-              — No guesswork
+              No guesswork
             </p>
             <h2 className="mt-4 font-display font-black text-4xl md:text-6xl tracking-tighter leading-[0.95]">
               Know what you're <span className="text-gradient-wine">drinking</span>.
             </h2>
             <p className="mt-5 text-muted-foreground max-w-md leading-relaxed">
-              Every bottle lists real region, vintage, grape variety, and tasting notes — not just a
+              Every bottle lists real region, vintage, grape variety, and tasting notes, not just a
               picture and a price.
             </p>
             <Link
@@ -207,11 +207,7 @@ function HomePage() {
       </section>
 
       {/* BEST SELLERS */}
-      <Section
-        title="Best sellers"
-        eyebrow="— Customer picks"
-        cta={{ label: "Browse", to: "/shop" }}
-      >
+      <Section title="Best sellers" eyebrow="Customer picks" cta={{ label: "Browse", to: "/shop" }}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {isLoading ? (
             <p className="col-span-full text-sm text-muted-foreground">Loading…</p>
@@ -228,13 +224,13 @@ function HomePage() {
           <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-primary-foreground/70 font-mono">
-                — Welcome offer
+                Welcome offer
               </p>
               <h2 className="mt-3 font-display font-black text-3xl md:text-5xl tracking-tighter text-primary-foreground">
                 10% off your first order
               </h2>
               <p className="mt-2 text-primary-foreground/80 text-sm">
-                Applied at checkout — no expiry games, just a genuine discount.
+                Applied at checkout. No expiry games, just a genuine discount.
               </p>
             </div>
             <div className="glass rounded-2xl px-8 py-5 text-center">
@@ -250,7 +246,7 @@ function HomePage() {
       </section>
 
       {/* TRENDING */}
-      <Section title="Trending now" eyebrow="— Hot list">
+      <Section title="Trending now" eyebrow="Hot list">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {isLoading ? (
             <p className="col-span-full text-sm text-muted-foreground">Loading…</p>
@@ -263,7 +259,7 @@ function HomePage() {
       {/* SOCIAL GALLERY */}
       <Section
         title="@finkelreserve"
-        eyebrow="— Follow along"
+        eyebrow="Follow along"
         cta={{ label: "Tag us", to: "/contact" }}
       >
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
@@ -331,7 +327,7 @@ function NewsletterSection({ promoCode }: { promoCode: string }) {
       <div className="relative overflow-hidden rounded-3xl border border-border bg-surface p-10 md:p-20 text-center">
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-72 w-72 rounded-full bg-primary/30 blur-[120px]" />
         <p className="relative text-xs uppercase tracking-[0.3em] text-primary font-mono">
-          — Join the cellar list
+          Join the cellar list
         </p>
         <h2 className="relative mt-3 font-display font-black text-4xl md:text-6xl tracking-tighter">
           Never miss a <span className="text-gradient-wine">release</span>.
@@ -368,7 +364,7 @@ function NewsletterSection({ promoCode }: { promoCode: string }) {
         )}
         {subscribe.isError && (
           <p className="relative mt-3 text-sm text-destructive">
-            Couldn't subscribe — please try again.
+            Couldn't subscribe. Please try again.
           </p>
         )}
       </div>

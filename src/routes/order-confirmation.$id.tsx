@@ -8,7 +8,7 @@ import { formatNGN } from "@/lib/currency";
 import { CheckCircle2, Package, AlertCircle, CreditCard } from "lucide-react";
 
 export const Route = createFileRoute("/order-confirmation/$id")({
-  head: () => ({ meta: [{ title: "Order confirmed — Finkel Reserve" }] }),
+  head: () => ({ meta: [{ title: "Order confirmed | Finkel Reserve" }] }),
   component: OrderConfirmationPage,
 });
 
@@ -86,9 +86,7 @@ function OrderConfirmationPage() {
           <div className="mx-auto h-16 w-16 rounded-full bg-primary/15 text-primary grid place-items-center mb-5">
             <CheckCircle2 className="h-8 w-8" />
           </div>
-          <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">
-            — Order placed
-          </p>
+          <p className="text-xs uppercase tracking-[0.3em] text-primary font-mono">Order placed</p>
           <h1 className="mt-2 font-display font-black text-4xl md:text-5xl tracking-tighter">
             Thanks, {order.customer.name.split(" ")[0]}!
           </h1>
@@ -131,7 +129,7 @@ function OrderConfirmationPage() {
               <div>
                 <p className="font-semibold text-sm">Payment not completed yet</p>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Your items are on hold — finish payment to lock in your order.
+                  Your items are on hold. Finish payment to lock in your order.
                 </p>
               </div>
             </div>
